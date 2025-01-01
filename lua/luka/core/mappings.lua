@@ -4,6 +4,8 @@ local map = vim.keymap.set
 map("n", "<Esc>", ":noh<CR><Esc>", { noremap = true, silent = true })
 map("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
 map("n", ";", ":", { desc = "Enter command mode with ;" })
+map({ "n", "x" }, "j", [[v:count == 0 ? 'gj' : 'j']], { expr = true })
+map({ "n", "x" }, "k", [[v:count == 0 ? 'gk' : 'k']], { expr = true })
 
 map("n", "<C-c>", function()
   vim.fn.setreg("+", table.concat(vim.api.nvim_buf_get_lines(0, 0, -1, false), "\n"))
@@ -65,8 +67,8 @@ map("n", "<leader>x", function()
   end
 end, { desc = "Close current buffer (file or terminal)" })
 map("n", "<leader>X", "<cmd>BufferLineCloseOthers<CR>", { desc = "Close all other buffers" })
-map("n", "<leader><tab>", "<cmd>bnext<CR>", { desc = "Go to next buffer" })
-map("n", "<leader><S-tab>", "<cmd>bprevious<CR>", { desc = "Go to previous buffer" })
+map("n", "]b", "<cmd>bnext<CR>", { desc = "Go to next buffer" })
+map("n", "[b", "<cmd>bprevious<CR>", { desc = "Go to previous buffer" })
 
 -- Search WhichKey mappings via Telescope
 map("n", "<leader>wk", function()
@@ -87,13 +89,23 @@ map("n", "<leader>dq", "<cmd>Telescope quickfix<CR>", { desc = "Telescope quickf
 map("n", "<leader>dc", "<cmd>TodoTelescope<CR>", { desc = "Telescope Todo Comments" })
 
 -- Telescope search
-map("n", "<leader>ff", "<cmd>Telescope find_files<CR>")
-map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>")
-map("n", "<leader>fb", "<cmd>Telescope buffers<CR>")
+map("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find files with Telescope" })
+map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "Search text in project with Telescope" })
+map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "List open buffers with Telescope" })
 
 -- Comments
-map("n", "<leader>/", "<Plug>(comment_toggle_linewise_current)", { silent = true })
-map("v", "<leader>/", "<Plug>(comment_toggle_linewise_visual)", { silent = true })
+map(
+  "n",
+  "<leader>/",
+  "<Plug>(comment_toggle_linewise_current)",
+  { silent = true, desc = "Toggle comment for current line" }
+)
+map(
+  "v",
+  "<leader>/",
+  "<Plug>(comment_toggle_linewise_visual)",
+  { silent = true, desc = "Toggle comment for selected lines" }
+)
 
 map({ "n", "t" }, "<A-i>", function()
   require("nvterm.terminal").toggle("float")
