@@ -96,4 +96,5 @@ Make sure you have the following installed on your system before using this conf
 
 - Customize this setup by editing files in the `lua/` directory.
 - To add or remove plugins, add or remove files from lua/luka/plugins.
+- Can't remember keymaps? `<leader> wk` will open telescope and let you search through keymaps
 
