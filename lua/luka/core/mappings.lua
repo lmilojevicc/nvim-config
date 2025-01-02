@@ -125,3 +125,21 @@ map("t", "<C-x>", [[<C-\><C-n>]], { desc = "Exit Terminal Mode" })
 -- Multiple cursors
 map({ "n", "x" }, "<leader>ce", "<Cmd>MultipleCursorsAddMatches<CR>", { desc = "Add cursor to all matches" })
 map({ "n", "x" }, "<leader>cn", "<Cmd>MultipleCursorsAddJumpNextMatch<CR>", { desc = "Add cursor to next match" })
+
+-- LSP preview mappings
+map("n", "gpd", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", { desc = "Preview definition" })
+map(
+  "n",
+  "gpt",
+  "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>",
+  { desc = "Preview type definition" }
+)
+map(
+  "n",
+  "gpi",
+  "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
+  { desc = "Preview implementation" }
+)
+map("n", "gpD", "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>", { desc = "Preview declaration" })
+map("n", "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>", { desc = "Close all preview windows" })
+map("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>", { desc = "Preview references" })
