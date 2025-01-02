@@ -107,6 +107,7 @@ map(
   { silent = true, desc = "Toggle comment for selected lines" }
 )
 
+-- Terminal
 map({ "n", "t" }, "<A-i>", function()
   require("nvterm.terminal").toggle("float")
 end, { desc = "Toggle floating terminal" })
@@ -120,3 +121,7 @@ map("n", "<leader>tv", function()
 end, { desc = "Toggle vertical terminal" })
 
 map("t", "<C-x>", [[<C-\><C-n>]], { desc = "Exit Terminal Mode" })
+
+-- Multiple cursors
+map({ "n", "x" }, "<leader>ce", "<Cmd>MultipleCursorsAddMatches<CR>", { desc = "Add cursor to all matches" })
+map({ "n", "x" }, "<leader>cn", "<Cmd>MultipleCursorsAddJumpNextMatch<CR>", { desc = "Add cursor to next match" })
