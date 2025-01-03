@@ -1,5 +1,5 @@
 return {
   "rmagatti/goto-preview",
-  event = "BufEnter",
+  event = "LspAttach",
   config = true,
 }

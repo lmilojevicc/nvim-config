@@ -4,6 +4,7 @@ return {
     "nvim-tree/nvim-web-devicons",
     "catppuccin/nvim",
   },
+  event = "VeryLazy",
   config = function()
     local nvimtree = require("nvim-tree")
     local api = require("nvim-tree.api")
