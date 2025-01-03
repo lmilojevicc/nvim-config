@@ -49,7 +49,8 @@ return {
         map("n", "<leader>rs", ":LspRestart<CR>", opts)
 
         opts = { desc = "Signature help" }
-        map({ "n", "i" }, "K", vim.lsp.buf.signature_help, opts)
+        map({ "n" }, "K", vim.lsp.buf.signature_help, opts)
+        map({ "i" }, "<C-k>", vim.lsp.buf.signature_help, opts)
 
         opts.desc = "Show document symbols"
         map("n", "<leader>ds", function()
