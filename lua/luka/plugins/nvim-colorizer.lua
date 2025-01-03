@@ -13,6 +13,7 @@ return {
       virtualtext_inline = true,
       virtualtext_mode = "foreground",
       always_update = true,
+      names = false,
     },
   },
 }
