@@ -101,6 +101,14 @@ map("n", "<leader>dw", "<cmd>Telescope diagnostics<CR>", { desc = "Telescope wor
 map("n", "<leader>dd", "<cmd>Telescope diagnostics bufnr=0<CR>", { desc = "Telescope buffer diagnostics" })
 map("n", "<leader>dq", "<cmd>Telescope quickfix<CR>", { desc = "Telescope quickfix list" })
 map("n", "<leader>dc", "<cmd>TodoTelescope<CR>", { desc = "Telescope Todo Comments" })
+map("n", "<leader>dt", function()
+  local current_virtual_text = vim.diagnostic.config().virtual_text
+  vim.diagnostic.config({
+    virtual_text = not current_virtual_text,
+    underline = not current_virtual_text,
+    signs = not current_virtual_text,
+  })
+end, { desc = "Toggle Diagnostics" })
 
 -- Telescope search
 map("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find files with Telescope" })
