@@ -5,7 +5,7 @@ return {
   config = function()
     require("bufferline").setup({
       options = {
-        separator_style = { "  ", "  " }, -- Custom separators
+        separator_style = { " | ", " | " }, -- Custom separators
         indicator = {
           style = "none",
         },
