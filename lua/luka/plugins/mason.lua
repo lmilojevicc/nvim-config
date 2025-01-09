@@ -32,7 +32,6 @@ return {
           "gopls",
           "bashls",
           "jsonls",
-          "golangci_lint_ls",
           "emmet_language_server",
           "ts_ls",
         },
