@@ -47,9 +47,11 @@ map("i", "<S-A-j>", "<Esc>Ypgi", { desc = "󰆏 Duplicate line down" })
 map("v", "<S-A-k>", "y`>PgvO", { desc = "󰆏 Duplicate selection up" })
 map("v", "<S-A-j>", "y`>p`[v`]", { desc = "󰆏 Duplicate selection down" })
 
--- Toggle NvimTree
+-- NvimTree
 map("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>", { noremap = true, silent = true, desc = "Toggle NvimTree" })
+map("n", "<leader>ex", "<cmd>NvimTreeClose<CR>", { noremap = true, silent = true, desc = "Close NvimTree" })
 map("n", "<leader>ef", "<cmd>NvimTreeFindFile<CR>", { desc = "Find current file in tree" })
+map("n", "<C-N>", "<cmd>NvimTreeToggle<CR>", { noremap = true, silent = true, desc = "Toggle NvimTree" })
 
 -- Keep selection after indent
 map("v", "<", "<gv", { desc = "Indent left and keep selection" })

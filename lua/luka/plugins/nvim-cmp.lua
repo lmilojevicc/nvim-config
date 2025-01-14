@@ -42,6 +42,16 @@ return {
           c = cmp.mapping.select_next_item(),
         }, { desc = "Select next item in completion menu" }),
 
+        ["<Up>"] = cmp.mapping({
+          i = cmp.mapping.select_prev_item(),
+          c = cmp.mapping.select_prev_item(),
+        }, { desc = "Select previous item in completion menu" }),
+
+        ["<Down>"] = cmp.mapping({
+          i = cmp.mapping.select_next_item(),
+          c = cmp.mapping.select_next_item(),
+        }, { desc = "Select next item in completion menu" }),
+
         ["<S-Tab>"] = cmp.mapping({
           i = cmp.mapping.select_prev_item(),
           c = cmp.mapping.select_prev_item(),
