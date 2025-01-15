@@ -167,3 +167,9 @@ map(
 map("n", "gpD", "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>", { desc = "Preview declaration" })
 map("n", "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>", { desc = "Close all preview windows" })
 map("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>", { desc = "Preview references" })
+
+-- Treesitter context
+map("n", "<leader>tc", "<cmd>TSContextToggle<CR>", { desc = "Toggle Treesitter Context" })
+
+-- Inlay hints
+map("n", "<leader>gl", "<cmd>InlayHintsToggle<CR>", { desc = "Toggle Inlay Hints" })
