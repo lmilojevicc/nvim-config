@@ -33,6 +33,7 @@ return {
         jsx = { "prettier" },
         tsx = { "prettier" },
         json = { "prettier" },
+        markdown = { "prettier" },
         python = function(bufnr)
           if utils.has_local_config(bufnr, { ".pycodestyle" }) then
             return { "autopep8", "isort" }
