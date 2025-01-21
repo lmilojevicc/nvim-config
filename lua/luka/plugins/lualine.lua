@@ -2,9 +2,7 @@ return {
   "nvim-lualine/lualine.nvim",
   event = "VimEnter",
   opts = {
-    options = {
-      component_separators = { left = "", right = "" },
-    },
+    options = { component_separators = "" },
     sections = {
       lualine_a = { "mode" },
       lualine_b = {
