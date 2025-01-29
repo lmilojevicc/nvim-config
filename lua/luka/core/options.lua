@@ -24,6 +24,7 @@ vim.opt.termguicolors = true
 vim.opt.background = "dark"
 vim.opt.signcolumn = "yes"
 vim.opt.confirm = true
+vim.opt.pumheight = 10
 
 -- Line Numbers (Relative and Absolute)
 vim.wo.number = true

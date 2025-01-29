@@ -26,6 +26,20 @@ return {
       completion = {
         completeopt = "menu,menuone,preview,noselect",
       },
+      window = {
+        completion = {
+          border = "rounded",
+          scrollbar = true,
+          scrolloff = 5,
+        },
+        documentation = {
+          max_height = 15,
+          max_width = 30,
+          border = "rounded",
+          scrollbar = true,
+          scrolloff = 5,
+        },
+      },
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
