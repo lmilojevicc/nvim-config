@@ -59,14 +59,23 @@ map("v", ">", ">gv", { desc = "Indent right and keep selection" })
 
 -- Notifications
 map("n", "<leader>nd", function()
-  require("noice").cmd("dismiss")
-end, { desc = "Clear Noice Messages" })
+  Snacks.notifier.hide()
+end, { desc = "Clear notifications" })
 map("n", "<leader>nt", function()
-  require("noice").cmd("telescope")
-end, { desc = "Seach messages with telescope" })
+  Snacks.picker.notifications()
+end, { desc = "Search notifications" })
 map("n", "<leader>ne", function()
-  require("noice").cmd("errors")
-end, { desc = "Show error messages" })
+  Snacks.picker.notifications({ filter = "error" })
+end, { desc = "Show error notifications" })
+
+-- Snacks Explorer
+map(
+  "n",
+  "<leader>ee",
+  "<cmd>lua Snacks.explorer.open()<CR>",
+  { noremap = true, silent = true, desc = "Open Snacks Explorer" }
+)
+map("n", "<leader>ef", "<cmd>lua Snacks.explorer.reveal()<CR>", { desc = "Find current file in Snacks" })
 
 -- Window splitting
 map("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
@@ -74,6 +83,7 @@ map("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" })
 map("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" })
 map("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" })
 
+-- Buffers
 map("n", "<leader>x", function()
   local buftype = vim.bo.buftype
   if buftype == "terminal" then
@@ -86,11 +96,10 @@ map("n", "<leader>X", "<cmd>BufferLineCloseOthers<CR>", { desc = "Close all othe
 map("n", "]b", "<cmd>bnext<CR>", { desc = "Go to next buffer" })
 map("n", "[b", "<cmd>bprevious<CR>", { desc = "Go to previous buffer" })
 
--- Search WhichKey mappings via Telescope
+-- Search mappings
 map("n", "<leader>wk", function()
-  require("telescope.builtin").keymaps({
+  Snacks.picker.keymaps({
     modes = { "n", "i", "v", "x" },
-    show_plug = false,
   })
 end, { desc = "Search keymaps" })
 
@@ -98,11 +107,17 @@ end, { desc = "Search keymaps" })
 map("n", "<leader>wr", "<cmd>SessionRestore<CR>", { desc = "Restore session for cwd" })
 map("n", "<leader>ws", "<cmd>SessionSave<CR>", { desc = "Save session for auto session root dir" })
 
--- Telescope Diagnostics
-map("n", "<leader>dw", "<cmd>Telescope diagnostics<CR>", { desc = "Telescope workspace diagnostics" })
-map("n", "<leader>dd", "<cmd>Telescope diagnostics bufnr=0<CR>", { desc = "Telescope buffer diagnostics" })
+-- Diagnostics
+map("n", "<leader>dw", function()
+  Snacks.picker.diagnostics()
+end, { desc = "Workspace diagnostics" })
+map("n", "<leader>dd", function()
+  Snacks.picker.diagnostics_buffer()
+end, { desc = "Buffer diagnostics" })
+map("n", "<leader>dc", function()
+  Snacks.picker.todo_comments()
+end, { desc = "Todo Comments" })
 map("n", "<leader>dq", "<cmd>Telescope quickfix<CR>", { desc = "Telescope quickfix list" })
-map("n", "<leader>dc", "<cmd>TodoTelescope<CR>", { desc = "Telescope Todo Comments" })
 map("n", "<leader>dt", function()
   local current_virtual_text = vim.diagnostic.config().virtual_text
   vim.diagnostic.config({
@@ -113,9 +128,15 @@ map("n", "<leader>dt", function()
 end, { desc = "Toggle Diagnostics" })
 
 -- Telescope search
-map("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find files with Telescope" })
-map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "Search text in project with Telescope" })
-map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "List open buffers with Telescope" })
+map("n", "<leader>ff", function()
+  Snacks.picker.files()
+end, { desc = "Find files" })
+map("n", "<leader>fw", function()
+  Snacks.picker.grep()
+end, { desc = "Search text in project" })
+map("n", "<leader>fb", function()
+  Snacks.picker.buffers()
+end, { desc = "List open buffers" })
 
 -- Comments
 map(
@@ -133,16 +154,12 @@ map(
 
 -- Terminal
 map({ "n", "t" }, "<A-i>", function()
-  require("nvterm.terminal").toggle("float")
+  Snacks.terminal.toggle()
 end, { desc = "Toggle floating terminal" })
 
 map("n", "<leader>th", function()
-  require("nvterm.terminal").toggle("horizontal")
+  Snacks.terminal.open()
 end, { desc = "Toggle horizontal terminal" })
-
-map("n", "<leader>tv", function()
-  require("nvterm.terminal").toggle("vertical")
-end, { desc = "Toggle vertical terminal" })
 
 map("t", "<C-x>", [[<C-\><C-n>]], { desc = "Exit Terminal Mode" })
 
@@ -173,3 +190,15 @@ map("n", "<leader>tc", "<cmd>TSContextToggle<CR>", { desc = "Toggle Treesitter C
 
 -- Inlay hints
 map("n", "<leader>gl", "<cmd>InlayHintsToggle<CR>", { desc = "Toggle Inlay Hints" })
+
+-- Lazy
+map("n", "<leader>lz", "<cmd>Lazy<CR>", { noremap = true, silent = true, desc = "Open Lazy" })
+map("n", "<leader>lu", "<cmd>Lazy update<CR>", { noremap = true, silent = true, desc = "Update Lazy" })
+
+-- Mason
+map("n", "<leader>ms", "<cmd>Mason<CR>", { noremap = true, desc = "Open Mason" })
+
+-- Colorscheme picker
+map({ "n" }, "<leader>cp", function()
+  Snacks.picker.colorschemes()
+end, { desc = "Colorscheme picker" })

@@ -18,20 +18,15 @@ return {
       callback = function(ev)
         local opts = { buffer = ev.buf, silent = true }
 
-        opts.desc = "Show LSP references"
-        map("n", "gR", "<cmd>Telescope lsp_references<CR>", opts)
+        map("n", "gR", "<cmd>lua Snacks.picker.lsp_references()<CR>", { desc = "Show LSP references" })
 
-        opts.desc = "Go to declaration"
-        map("n", "gD", vim.lsp.buf.declaration, opts)
+        map("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
 
-        opts.desc = "Show LSP definitions"
-        map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+        map("n", "gd", "<cmd>lua Snacks.picker.lsp_definitions()<CR>", { desc = "Show LSP definitions" })
 
-        opts.desc = "Show LSP implementations"
-        map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
+        map("n", "gi", "<cmd>lua Snacks.picker.lsp_implementations()<CR>", { desc = "Show LSP implementations" })
 
-        opts.desc = "Show LSP type definitions"
-        map("n", "tg", "<cmd>Telescope lsp_type_definitions<CR>", opts)
+        map("n", "tg", "<cmd>lua Snacks.picker.lsp_type_definitions()<CR>", { desc = "Show LSP type definitions" })
 
         opts.desc = "See available code actions"
         map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
@@ -52,9 +47,8 @@ return {
         map({ "n" }, "K", vim.lsp.buf.signature_help, opts)
         map({ "i" }, "<C-k>", vim.lsp.buf.signature_help, opts)
 
-        opts.desc = "Show document symbols"
         map("n", "<leader>ds", function()
-          require("telescope.builtin").lsp_document_symbols({
+          Snacks.picker.lsp_symbols({
             symbols = {
               "class",
               "function",
@@ -68,7 +62,7 @@ return {
               "enum",
             },
           })
-        end, opts)
+        end, { desc = "Show document symbols" })
       end,
     })
 

@@ -1,6 +1,7 @@
 return {
   {
     "NvChad/nvterm",
+    enabled = false,
     event = "VeryLazy",
     config = function()
       require("nvterm").setup({
@@ -25,6 +26,19 @@ return {
           auto_insert = true,
         },
       })
+
+      local map = vim.keymap.set
+      map({ "n", "t" }, "<A-i>", function()
+        require("nvterm.terminal").toggle("float")
+      end, { desc = "Toggle floating terminal" })
+
+      map("n", "<leader>th", function()
+        require("nvterm.terminal").toggle("horizontal")
+      end, { desc = "Toggle horizontal terminal" })
+
+      map("n", "<leader>tv", function()
+        require("nvterm.terminal").toggle("vertical")
+      end, { desc = "Toggle vertical terminal" })
     end,
   },
 }

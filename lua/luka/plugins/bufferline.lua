@@ -11,9 +11,7 @@ return {
         },
         offsets = {
           {
-            filetype = "NvimTree",
-            text = "File Explorer",
-            text_align = "center",
+            filetype = "snacks_layout_box",
             separator = true,
           },
         },

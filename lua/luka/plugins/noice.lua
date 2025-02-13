@@ -2,12 +2,9 @@ return {
   "folke/noice.nvim",
   event = "VeryLazy",
   opts = {
-    messages = {
-      enabled = true,
-      view = "mini",
-      view_error = "mini",
-      view_warn = "mini",
-    },
+    notify = { enabled = false },
+    messages = { enabled = false },
+    cmdline = { enabled = true, view = "cmdline_popup" },
     lsp = {
       override = {
         ["vim.lsp.util.convert_input_to_markdown_lines"] = false,

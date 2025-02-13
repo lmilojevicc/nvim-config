@@ -6,15 +6,33 @@ return {
   opts = {
     bigfile = { enabled = true },
     quickfile = { enabled = true },
-    words = { enabled = true },
+    input = {
+      enabled = true,
+      win = {
+        relative = "cursor",
+        width = 40,
+        row = -3,
+        col = 0,
+        style = "input",
+      },
+    },
+    explorer = { enabled = true, replace_netrw = true, auto_close = true },
+    notifier = { enabled = true },
+    picker = {
+      layout = "telescope",
+      sources = {
+        files = { hidden = true },
+        explorer = { auto_close = true, hidden = true },
+      },
+    },
+    terminal = { enabled = true },
+    image = { enabled = true },
     dashboard = {
       preset = {
         keys = {
           { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-          { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+          { icon = " ", key = "w", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
           { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-          { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-          { icon = " ", key = "R", desc = "Restore Session", section = "session" },
           { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
           { icon = " ", key = "G", desc = "LazyGit", action = "<leader>lg" },
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
