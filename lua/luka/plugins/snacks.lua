@@ -10,7 +10,7 @@ return {
       enabled = true,
       win = {
         relative = "cursor",
-        width = 40,
+        width = 60,
         row = -3,
         col = 0,
         style = "input",
@@ -20,8 +20,8 @@ return {
     notifier = { enabled = true },
     picker = {
       layout = "telescope",
+      files = { hidden = true },
       sources = {
-        files = { hidden = true },
         explorer = { auto_close = true, hidden = true },
       },
     },
@@ -88,6 +88,7 @@ return {
   },
 
   keys = {
+    -- Zen
     {
       "<leader>zm",
       function()
@@ -95,19 +96,21 @@ return {
       end,
       desc = "Toggle Zen Mode",
     },
+
+    -- Lazygit
     {
       "<leader>lg",
       function()
         Snacks.lazygit.open()
       end,
-      desc = "Open Lazygit",
+      desc = " Open Lazygit",
     },
     {
       "<leader>ll",
       function()
         Snacks.lazygit.log()
       end,
-      desc = "Lazygit log",
+      desc = " Lazygit log",
     },
   },
 }
