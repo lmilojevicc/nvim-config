@@ -75,4 +75,10 @@ return {
       end,
     })
   end,
+  keys = {
+    { "<leader>ee", "<cmd>NvimTreeToggle<CR>", noremap = true, silent = true, desc = "󰨚 Toggle NvimTree" },
+    { "<leader>ex", "<cmd>NvimTreeClose<CR>", desc = " Close NvimTree" },
+    { "<leader>ef", "<cmd>NvimTreeFindFile<CR>", desc = " Find current file in tree" },
+    { "<C-N>", "<cmd>NvimTreeToggle<CR>", desc = "󰨚 Toggle NvimTree" },
+  },
 }

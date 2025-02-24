@@ -1,6 +1,7 @@
 return {
   "akinsho/bufferline.nvim",
   version = "*",
+  event = "BufReadPre",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     require("bufferline").setup({
@@ -21,4 +22,7 @@ return {
       },
     })
   end,
+  keys = {
+    { "<leader>X", "<cmd>BufferLineCloseOthers<CR>", desc = " Close all other buffers" },
+  },
 }

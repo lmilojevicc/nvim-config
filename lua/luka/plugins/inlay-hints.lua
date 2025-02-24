@@ -5,4 +5,7 @@ return {
   config = function()
     require("inlay-hints").setup()
   end,
+  keys = {
+    { "<leader>gl", "<cmd>InlayHintsToggle<CR>", desc = "󰨚 Toggle Inlay Hints" },
+  },
 }

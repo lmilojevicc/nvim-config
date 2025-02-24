@@ -5,4 +5,7 @@ return {
     mode = "cursor",
     max_lines = 1,
   },
+  keys = {
+    { "<leader>tc", "<cmd>TSContextToggle<CR>", desc = "󰨚 Toggle Treesitter Context" },
+  },
 }

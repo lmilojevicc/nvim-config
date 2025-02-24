@@ -2,4 +2,18 @@ return {
   "brenton-leighton/multiple-cursors.nvim",
   event = { "InsertEnter", "BufReadPost" },
   opts = {},
+  keys = {
+    {
+      mode = { "n", "x" },
+      "<leader>ce",
+      "<Cmd>MultipleCursorsAddMatches<CR>",
+      desc = " Add cursor to all matches",
+    },
+    {
+      mode = { "n", "x" },
+      "<leader>cn",
+      "<Cmd>MultipleCursorsAddJumpNextMatch<CR>",
+      desc = " Add cursor to next match",
+    },
+  },
 }

@@ -21,9 +21,7 @@ return {
     picker = {
       layout = "telescope",
       files = { hidden = true },
-      sources = {
-        explorer = { auto_close = true, hidden = true },
-      },
+      sources = { explorer = { auto_close = true, hidden = true } },
     },
     terminal = { enabled = true },
     image = { enabled = true },
@@ -94,7 +92,7 @@ return {
       function()
         Snacks.zen()
       end,
-      desc = "Toggle Zen Mode",
+      desc = "󰾞 Toggle Zen Mode",
     },
 
     -- Lazygit
@@ -111,6 +109,147 @@ return {
         Snacks.lazygit.log()
       end,
       desc = " Lazygit log",
+    },
+
+    -- Notificiations
+    {
+      "<leader>nd",
+      function()
+        Snacks.notifier.hide()
+      end,
+      desc = "󰎟 Clear notifications",
+    },
+    {
+      "<leader>nt",
+      function()
+        Snacks.picker.notifications()
+      end,
+      desc = " Search notifications",
+    },
+    {
+      "<leader>ne",
+      function()
+        Snacks.picker.notifications({ filter = "error" })
+      end,
+      desc = "󰎟 Show error notifications",
+    },
+
+    -- Explorer
+    {
+      "<leader>ee",
+      function()
+        Snacks.explorer.open()
+      end,
+      desc = " Open Snacks Explorer",
+    },
+    {
+      "<leader>ef",
+      function()
+        Snacks.explorer.reveal()
+      end,
+      desc = " Find current file in Snacks",
+    },
+
+    -- Buffer
+    {
+      "<leader>x",
+      function()
+        local buftype = vim.bo.buftype
+        if buftype == "terminal" then
+          vim.cmd("bd!")
+        else
+          require("snacks.bufdelete").delete()
+        end
+      end,
+      desc = " Close current buffer (file or terminal)",
+    },
+
+    -- Keymaps
+    {
+      "<leader>wk",
+      function()
+        Snacks.picker.keymaps()
+      end,
+      desc = " Search keymaps",
+    },
+
+    -- Diagnostics
+    {
+      "<leader>dw",
+      function()
+        Snacks.picker.diagnostics()
+      end,
+      desc = " Workspace diagnostics",
+    },
+    {
+      "<leader>db",
+      function()
+        Snacks.picker.diagnostics_buffer()
+      end,
+      desc = " Buffer diagnostics",
+    },
+    {
+      "<leader>dc",
+      function()
+        Snacks.picker.todo_comments()
+      end,
+      desc = " Todo Comments",
+    },
+
+    -- Telescope like search
+    {
+      "<leader>ff",
+      function()
+        Snacks.picker.files()
+      end,
+      desc = " Find files",
+    },
+    {
+      "<leader>fw",
+      function()
+        Snacks.picker.grep()
+      end,
+      desc = " Grep text in workspace",
+    },
+    {
+      "<leader>fb",
+      function()
+        Snacks.picker.buffers()
+      end,
+      desc = " List open buffers",
+    },
+
+    -- Terminal
+    {
+      mode = { "n", "t" },
+      "<A-i>",
+      function()
+        Snacks.terminal.toggle()
+      end,
+      desc = "󰨚 Toggle floating terminal",
+    },
+    {
+      "<leader>th",
+      function()
+        Snacks.terminal.open()
+      end,
+      desc = "󰨚 Toggle horizontal terminal",
+    },
+
+    -- Pickers
+    {
+      "<leader>sh",
+      function()
+        Snacks.picker.help()
+      end,
+      desc = "󰘥 Help Pages",
+    },
+    {
+      "<leader>cp",
+      function()
+        Snacks.picker.colorschemes()
+      end,
+      { desc = " Colorscheme picker" },
     },
   },
 }
