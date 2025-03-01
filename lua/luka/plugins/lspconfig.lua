@@ -18,15 +18,28 @@ return {
       callback = function(ev)
         local opts = { buffer = ev.buf, silent = true }
 
-        map("n", "gR", "<cmd>lua Snacks.picker.lsp_references()<CR>", { desc = "Show LSP references" })
+        opts.desc = "Show LSP references"
+        map("n", "gR", function()
+          Snacks.picker.lsp_references()
+        end, opts)
 
-        map("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
+        opts.desc = "Go to declaration"
+        map("n", "gD", vim.lsp.buf.declaration, opts)
 
-        map("n", "gd", "<cmd>lua Snacks.picker.lsp_definitions()<CR>", { desc = "Show LSP definitions" })
+        opts.desc = "Show LSP definitions"
+        map("n", "gd", function()
+          Snacks.picker.lsp_definitions()
+        end, opts)
 
-        map("n", "gi", "<cmd>lua Snacks.picker.lsp_implementations()<CR>", { desc = "Show LSP implementations" })
+        opts.desc = "Show LSP implementations"
+        map("n", "gi", function()
+          Snacks.picker.lsp_implementations()
+        end, opts)
 
-        map("n", "tg", "<cmd>lua Snacks.picker.lsp_type_definitions()<CR>", { desc = "Show LSP type definitions" })
+        opts.desc = "Show LSP type definitions"
+        map("n", "tg", function()
+          Snacks.picker.lsp_type_definitions()
+        end, opts)
 
         opts.desc = "See available code actions"
         map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
