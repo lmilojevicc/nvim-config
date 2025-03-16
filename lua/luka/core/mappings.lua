@@ -79,3 +79,55 @@ map("n", "<leader>lu", "<cmd>Lazy update<CR>", { noremap = true, silent = true, 
 
 -- Mason
 map("n", "<leader>ms", "<cmd>Mason<CR>", { noremap = true, desc = "󰽤 Open Mason" })
+
+-- Move between editor and terminal
+map("t", "<C-h>", "<cmd>wincmd h<CR>", { desc = " Move to the left window from terminal mode" })
+map("t", "<C-j>", "<cmd>wincmd j<CR>", { desc = " Move to the window below from terminal mode" })
+map("t", "<C-k>", "<cmd>wincmd k<CR>", { desc = " Move to the window above from terminal mode" })
+map("t", "<C-l>", "<cmd>wincmd l<CR>", { desc = " Move to the right window from terminal mode" })
+
+-- Scrolling and centering
+map("n", "<C-u>", "<C-u>zz", { desc = " Scroll up half a page and center the cursor" })
+map("n", "<C-d>", "<C-d>zz", { desc = " Scroll down half a page and center the cursor" })
+
+-- Search result navigation with centering
+map("n", "n", "nzzzv", { desc = " Jump to next search result and center the cursor" })
+map("n", "N", "Nzzzv", { desc = " Jump to previous search result and center the cursor" })
+
+-- Paragraph navigation with centering
+map("n", "}", "}zz", { desc = " Jump to next paragraph and center the cursor" })
+map("n", "{", "{zz", { desc = " Jump to previous paragraph and center the cursor" })
+
+-- Toggle spell checking
+map("n", "<leader>ts", function()
+  vim.opt_local.spell = not vim.opt_local.spell:get()
+  vim.notify(
+    "Spell check " .. (vim.opt_local.spell:get() and "enabled" or "disabled"),
+    vim.log.levels.INFO,
+    { title = "Toggle Spell Check" }
+  )
+end, { desc = "󰨚 Toggle spell check" })
+
+-- Toggle wrap
+map("n", "<leader>tw", function()
+  vim.opt_local.wrap = not vim.opt_local.wrap:get()
+  vim.notify(
+    "Line wrap " .. (vim.opt_local.wrap:get() and "enabled" or "disabled"),
+    vim.log.levels.INFO,
+    { title = "Toggle Wrap" }
+  )
+end, { desc = "󰨚 Toggle line wrap" })
+
+-- Copy file path to clipboard
+map("n", "<leader>cp", function()
+  local filepath = vim.fn.expand("%:p")
+  vim.fn.setreg("+", filepath)
+  vim.notify("Copied file path to clipboard: " .. filepath, vim.log.levels.INFO, { title = "Copy File Path" })
+end, { desc = " Copy filepath to clipboard" })
+
+-- Copy filename to clipboard
+map("n", "<leader>cf", function()
+  local filename = vim.fn.expand("%:t")
+  vim.fn.setreg("+", filename)
+  vim.notify("Copied file name to clipboard: " .. filename, vim.log.levels.INFO, { title = "Copy File Name" })
+end, { desc = " Copy filename to clipboard" })
