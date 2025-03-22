@@ -3,8 +3,6 @@ local map = vim.keymap.set
 
 map("n", "<Esc>", ":noh<CR><Esc>", { noremap = true, silent = true })
 map("n", ";", ":", { desc = "Enter command mode with ;" })
-map({ "n", "x" }, "j", [[v:count == 0 ? 'gj' : 'j']], { expr = true })
-map({ "n", "x" }, "k", [[v:count == 0 ? 'gk' : 'k']], { expr = true })
 
 map("n", "<C-c>", function()
   vim.fn.setreg("+", table.concat(vim.api.nvim_buf_get_lines(0, 0, -1, false), "\n"))

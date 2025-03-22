@@ -46,16 +46,6 @@ return {
         end,
       },
       mapping = {
-        ["<C-k>"] = cmp.mapping({
-          i = cmp.mapping.select_prev_item(),
-          c = cmp.mapping.select_prev_item(),
-        }, { desc = "Select previous item in completion menu" }),
-
-        ["<C-j>"] = cmp.mapping({
-          i = cmp.mapping.select_next_item(),
-          c = cmp.mapping.select_next_item(),
-        }, { desc = "Select next item in completion menu" }),
-
         ["<Up>"] = cmp.mapping({
           i = cmp.mapping.select_prev_item(),
           c = cmp.mapping.select_prev_item(),
