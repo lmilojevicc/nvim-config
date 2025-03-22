@@ -20,8 +20,8 @@ return {
     notifier = { enabled = true },
     picker = {
       layout = "telescope",
-      files = { hidden = true },
-      sources = { explorer = { auto_close = true, hidden = true } },
+      files = { hidden = true, ignored = true },
+      sources = { explorer = { auto_close = true, hidden = true, ignored = true } },
     },
     terminal = { enabled = true },
     image = { enabled = true },
@@ -33,7 +33,7 @@ return {
             key = "f",
             desc = "Find File",
             action = function()
-              Snacks.picker.files({ hidden = true })
+              Snacks.picker.files({ hidden = true, ignored = true })
             end,
           },
           { icon = " ", key = "w", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
@@ -87,7 +87,7 @@ return {
           and vim.bo[buf].buftype == ""
       end,
     },
-    scroll = { enabled = true },
+    scroll = { enabled = false },
     zen = { enabled = true, toggles = { dim = false } },
     lazygit = { enabled = true },
   },
@@ -207,7 +207,7 @@ return {
     {
       "<leader>ff",
       function()
-        Snacks.picker.files({ hidden = true })
+        Snacks.picker.files({ hidden = true, ignored = true })
       end,
       desc = " Find files",
     },
