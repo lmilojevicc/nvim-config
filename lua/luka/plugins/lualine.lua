@@ -1,6 +1,6 @@
 return {
   "nvim-lualine/lualine.nvim",
-  event = "VimEnter",
+  event = "VeryLazy",
   opts = {
     options = { component_separators = "" },
     sections = {
@@ -18,12 +18,12 @@ return {
         {
           function()
             local reg = vim.fn.reg_recording()
-            return reg ~= "" and "Recording @" .. reg or ""
+            return reg ~= "" and " " .. reg or ""
           end,
           cond = function()
             return vim.fn.reg_recording() ~= ""
           end,
-          color = { fg = "#cba6f7" },
+          color = { fg = "#89b4fa" },
         },
       },
       lualine_x = {},
@@ -38,12 +38,10 @@ return {
             local lazy_status = require("lazy.status")
             return lazy_status.has_updates()
           end,
-          color = { fg = "#fab387" },
         },
         {
           "datetime",
           style = "%H:%M:%S",
-          color = { fg = "#96CDFB" },
         },
       },
       lualine_z = {
@@ -63,7 +61,7 @@ return {
 
             return string.format("%s %s", icon, lsp_text)
           end,
-          icon = "", -- No additional static icon
+          icon = "",
         },
       },
     },

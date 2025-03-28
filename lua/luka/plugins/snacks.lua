@@ -33,7 +33,7 @@ return {
             key = "f",
             desc = "Find File",
             action = function()
-              Snacks.picker.files({ hidden = true, ignored = true })
+              Snacks.picker.files({ hidden = true })
             end,
           },
           { icon = " ", key = "w", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
@@ -207,7 +207,7 @@ return {
     {
       "<leader>ff",
       function()
-        Snacks.picker.files({ hidden = true, ignored = true })
+        Snacks.picker.files({ hidden = true })
       end,
       desc = " Find files",
     },
