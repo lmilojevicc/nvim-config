@@ -36,7 +36,7 @@ return {
               Snacks.picker.files({ hidden = true })
             end,
           },
-          { icon = " ", key = "w", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+          { icon = " ", key = "w", desc = "Live Grep", action = ":lua Snacks.dashboard.pick('live_grep')" },
           { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
           { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
           { icon = " ", key = "G", desc = "LazyGit", action = "<leader>lg" },
@@ -203,6 +203,63 @@ return {
       desc = " Todo Comments",
     },
 
+    -- LSP
+    {
+      "gr",
+      function()
+        Snacks.picker.lsp_references()
+      end,
+      desc = " Show LSP references",
+    },
+    {
+      "gD",
+      function()
+        Snacks.picker.lsp_declarations()
+      end,
+      desc = " Go to declaration",
+    },
+    {
+      "gd",
+      function()
+        Snacks.picker.lsp_definitions()
+      end,
+      desc = " Show LSP definitions",
+    },
+    {
+      "gi",
+      function()
+        Snacks.picker.lsp_implementations()
+      end,
+      desc = " Show LSP implementations",
+    },
+    {
+      "gt",
+      function()
+        Snacks.picker.lsp_type_definitions()
+      end,
+      desc = " Show LSP type definitions",
+    },
+    {
+      "<leader>fs",
+      function()
+        Snacks.picker.lsp_symbols({
+          symbols = {
+            "class",
+            "function",
+            "method",
+            "constructor",
+            "interface",
+            "module",
+            "namespace",
+            "package",
+            "struct",
+            "enum",
+          },
+        })
+      end,
+      desc = " Show document symbols",
+    },
+
     -- Telescope like search
     {
       "<leader>ff",
@@ -212,11 +269,11 @@ return {
       desc = " Find files",
     },
     {
-      "<leader>fw",
+      "<leader>fg",
       function()
         Snacks.picker.grep()
       end,
-      desc = " Grep text in workspace",
+      desc = " Grep in workspace",
     },
     {
       "<leader>fb",
@@ -229,18 +286,11 @@ return {
     -- Terminal
     {
       mode = { "n", "t" },
-      "<C-x>",
+      "<A-t>",
       function()
         Snacks.terminal.toggle()
       end,
       desc = "󰨚 Toggle floating terminal",
-    },
-    {
-      "<leader>th",
-      function()
-        Snacks.terminal.open()
-      end,
-      desc = "󰨚 Toggle horizontal terminal",
     },
 
     -- Pickers
@@ -257,6 +307,13 @@ return {
         Snacks.picker.colorschemes()
       end,
       { desc = " Colorscheme picker" },
+    },
+    {
+      "<leader>fi",
+      function()
+        Snacks.picker.icons({ icon_sources = { "nerd_fonts" } })
+      end,
+      { desc = "  Nerd Font Icons picker" },
     },
   },
 }

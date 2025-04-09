@@ -6,7 +6,7 @@ return {
       { "n", "v" },
       "<leader>we",
       require("nvim-emmet").wrap_with_abbreviation,
-      { desc = "Emmet wrap with abbreviation" }
+      { desc = " Emmet wrap with abbreviation" }
     )
   end,
 }

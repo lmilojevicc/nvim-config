@@ -61,5 +61,12 @@ return {
       end,
       desc = " List open buffers",
     },
+    {
+      "<leader>wk",
+      function()
+        require("telescope.builtin").keymaps()
+      end,
+      desc = " List keymaps",
+    },
   },
 }

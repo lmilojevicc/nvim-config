@@ -18,64 +18,42 @@ return {
       callback = function(ev)
         local opts = { buffer = ev.buf, silent = true }
 
-        opts.desc = "Show LSP references"
-        map("n", "gR", function()
-          Snacks.picker.lsp_references()
-        end, opts)
+        opts.desc = " Show LSP references"
+        map("n", "gr", vim.lsp.buf.references, opts)
 
-        opts.desc = "Go to declaration"
+        opts.desc = " Go to declaration"
         map("n", "gD", vim.lsp.buf.declaration, opts)
 
-        opts.desc = "Show LSP definitions"
-        map("n", "gd", function()
-          Snacks.picker.lsp_definitions()
-        end, opts)
+        opts.desc = " Go to definition"
+        map("n", "gd", vim.lsp.buf.definition, opts)
 
-        opts.desc = "Show LSP implementations"
-        map("n", "gi", function()
-          Snacks.picker.lsp_implementations()
-        end, opts)
+        opts.desc = " Go to implementation"
+        map("n", "gi", vim.lsp.buf.implementation, opts)
 
-        opts.desc = "Show LSP type definitions"
-        map("n", "tg", function()
-          Snacks.picker.lsp_type_definitions()
-        end, opts)
+        opts.desc = " Go to type definition"
+        map("n", "gt", vim.lsp.buf.type_definition, opts)
 
-        opts.desc = "See available code actions"
+        opts.desc = " See available code actions"
         map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 
-        opts.desc = "Smart rename"
+        opts.desc = "󰑕 LSP rename"
         map("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
-        opts.desc = "Show line diagnostics"
+        opts.desc = " Show line diagnostics"
         map("n", "<leader>dl", vim.diagnostic.open_float, opts)
 
-        opts.desc = "Show documentation for what is under cursor"
-        map("n", "<leader>gh", vim.lsp.buf.hover, opts)
+        opts.desc = "󰈙 Show documentation under cursor"
+        map("n", "gh", vim.lsp.buf.hover, opts)
 
-        opts.desc = "Restart LSP"
+        opts.desc = "󰜉 Restart LSP"
         map("n", "<leader>rs", ":LspRestart<CR>", opts)
 
-        opts = { desc = "Signature help" }
-        map({ "n" }, "K", vim.lsp.buf.signature_help, opts)
-        map({ "i" }, "<C-k>", vim.lsp.buf.signature_help, opts)
+        opts.desc = " Signature help"
+        map("n", "K", vim.lsp.buf.signature_help, opts)
+        map("i", "<C-k>", vim.lsp.buf.signature_help, opts)
 
-        map("n", "<leader>ds", function()
-          Snacks.picker.lsp_symbols({
-            symbols = {
-              "class",
-              "function",
-              "method",
-              "constructor",
-              "interface",
-              "module",
-              "namespace",
-              "package",
-              "struct",
-              "enum",
-            },
-          })
-        end, { desc = "Show document symbols" })
+        opts.desc = " Document symbols"
+        map("n", "<leader>ds", vim.lsp.buf.document_symbol, opts)
       end,
     })
 

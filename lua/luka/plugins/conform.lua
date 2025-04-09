@@ -73,7 +73,7 @@ return {
     {
       "<leader>rt",
       toggle_format_on_save,
-      desc = "Toggle format on save",
+      desc = "󰚟 Toggle format on save",
     },
     {
       "<leader>rf",
@@ -81,7 +81,7 @@ return {
       function()
         require("conform").format({ async = true, lsp_fallback = true })
       end,
-      desc = "Format file",
+      desc = "󰚟 Format file",
     },
   },
 }
