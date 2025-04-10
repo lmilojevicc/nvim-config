@@ -52,7 +52,7 @@ return {
             local icon, _ = devicons.get_icon_by_filetype(ft)
             icon = icon or ""
 
-            local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+            local clients = vim.lsp.get_clients({ bufnr = 0 })
             local lsp_names = {}
             for _, client in ipairs(clients) do
               table.insert(lsp_names, client.name)
