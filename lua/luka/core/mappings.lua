@@ -69,7 +69,14 @@ map("n", "<leader>dt", function()
 end, { desc = "󰨚 Toggle Diagnostics" })
 
 -- Terminal
-map("t", "<C-x>", [[<C-\><C-n>]], { desc = " Exit Terminal Mode" })
+-- map("t", "<C-x>", [[<C-\><C-n>]], { desc = " Exit Terminal Mode" })
+map("t", "<C-x>", function()
+  if vim.bo.filetype == "fzf" then
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-x>", true, true, true), "n", true)
+  else
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, true, true), "n", true)
+  end
+end, { desc = " Exit Terminal Mode" })
 
 -- Lazy
 map("n", "<leader>lz", "<cmd>Lazy<CR>", { noremap = true, silent = true, desc = "󰽤 Open Lazy" })
