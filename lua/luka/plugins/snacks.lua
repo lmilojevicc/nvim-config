@@ -175,7 +175,32 @@ return {
     {
       "<leader>wk",
       function()
-        Snacks.picker.keymaps()
+        Snacks.picker.keymaps({
+          format = function(item, picker)
+            -- Extract key from item.text (everything until the first space)
+            local key = item.text and item.text:match("^[^%s]+") or ""
+
+            -- Calculate lengths for alignment
+            local mode = item.mode or ""
+            local desc = item.item.desc or ""
+            local mode_width = 5
+            local key_width = 15
+            local desc_width = 40
+
+            -- Pad strings to fit the column widths
+            local padded_mode = mode .. string.rep(" ", mode_width - #mode)
+            local padded_key = key .. string.rep(" ", key_width - #key)
+            local padded_desc = desc .. string.rep(" ", desc_width - #desc)
+
+            return {
+              { padded_mode, "String" },
+              { "|  ", "Delimiter" },
+              { padded_key, "Statement" },
+              { "|  ", "Delimiter" },
+              { padded_desc, "Function" },
+            }
+          end,
+        })
       end,
       desc = " Search keymaps",
     },
@@ -242,25 +267,12 @@ return {
     {
       "<leader>fs",
       function()
-        Snacks.picker.lsp_symbols({
-          symbols = {
-            "class",
-            "function",
-            "method",
-            "constructor",
-            "interface",
-            "module",
-            "namespace",
-            "package",
-            "struct",
-            "enum",
-          },
-        })
+        Snacks.picker.lsp_symbols()
       end,
       desc = " Show document symbols",
     },
 
-    -- Telescope like search
+    -- Search
     {
       "<leader>ff",
       function()
@@ -272,6 +284,13 @@ return {
       "<leader>fg",
       function()
         Snacks.picker.grep()
+      end,
+      desc = " Grep in workspace",
+    },
+    {
+      "<leader>fw",
+      function()
+        Snacks.picker.grep_word()
       end,
       desc = " Grep in workspace",
     },
@@ -295,25 +314,32 @@ return {
 
     -- Pickers
     {
-      "<leader>hh",
+      "<leader>fh",
       function()
         Snacks.picker.help()
       end,
       desc = "󰘥 Help Pages",
     },
     {
+      "<leader>fm",
+      function()
+        Snacks.picker.man()
+      end,
+      desc = "󰘥 Man Pages",
+    },
+    {
       "<leader>cp",
       function()
         Snacks.picker.colorschemes()
       end,
-      { desc = " Colorscheme picker" },
+      desc = " Colorscheme picker",
     },
     {
       "<leader>fi",
       function()
         Snacks.picker.icons({ icon_sources = { "nerd_fonts" } })
       end,
-      { desc = "  Nerd Font Icons picker" },
+      desc = "  Nerd Font Icons picker",
     },
   },
 }
