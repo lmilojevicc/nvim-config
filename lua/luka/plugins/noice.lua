@@ -7,16 +7,21 @@ return {
     cmdline = { enabled = true, view = "cmdline_popup" },
     lsp = {
       override = {
-        ["vim.lsp.util.convert_input_to_markdown_lines"] = false,
-        ["vim.lsp.util.stylize_markdown"] = false,
-        ["cmp.entry.get_documentation"] = false,
+        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+        ["vim.lsp.util.stylize_markdown"] = true,
+        ["cmp.entry.get_documentation"] = true,
       },
       hover = {
-        enabled = false,
+        enabled = true,
+        opts = { border = "rounded" },
       },
       signature = {
-        enabled = false,
+        enabled = true,
+        opts = { border = "rounded" },
       },
+    },
+    presets = {
+      lsp_doc_border = true,
     },
 
     routes = {
