@@ -12,22 +12,28 @@ local utils = {
   end,
 }
 
-vim.g.format_on_save = true
+local is_active = true
 
-local function toggle_format_on_save()
-  vim.g.format_on_save = not vim.g.format_on_save
-  local status = vim.g.format_on_save and "enabled" or "disabled"
-  local message = string.format("Format on save %s", status)
-  local level = vim.g.format_on_save and vim.log.levels.INFO or vim.log.levels.WARN
+local function toggle_format_after_save()
+  is_active = not is_active
+
+  local conform = require("conform")
+  conform.setup({
+    format_after_save = is_active and { lsp_fallback = true } or false,
+  })
+
+  local status = is_active and "enabled" or "disabled"
+  local message = string.format("Format after save %s", status)
+  local level = is_active and vim.log.levels.INFO or vim.log.levels.WARN
   vim.notify(message, level, {
-    title = "Format on Save",
-    icon = vim.g.format_on_save and "󰄳" or "󰅖",
+    title = "Format After Save",
+    icon = is_active and "󰄳" or "󰅖",
   })
 end
 
 return {
   "stevearc/conform.nvim",
-  event = { "BufEnter", "BufWritePre" },
+  event = { "BufWritePost" },
   config = function()
     local conform = require("conform")
 
@@ -58,12 +64,9 @@ return {
         end,
       },
 
-      format_on_save = function()
-        return vim.g.format_on_save and {
-          timeout_ms = 500,
-          lsp_fallback = true,
-        }
-      end,
+      format_after_save = {
+        lsp_fallback = true,
+      },
     }
 
     conform.setup(options)
@@ -72,8 +75,8 @@ return {
   keys = {
     {
       "<leader>rt",
-      toggle_format_on_save,
-      desc = "󰚟 Toggle format on save",
+      toggle_format_after_save,
+      desc = "󰚟 Toggle format after save",
     },
     {
       "<leader>rf",
