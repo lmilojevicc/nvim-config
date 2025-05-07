@@ -1,6 +1,9 @@
 return {
   "nvim-java/nvim-java",
-  dependencies = { "mfussenegger/nvim-jdtls" },
   ft = "java",
   event = "LspAttach",
+  config = function()
+    require("java").setup()
+    require("lspconfig").jdtls.setup({})
+  end,
 }
