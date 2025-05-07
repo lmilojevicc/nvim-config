@@ -2,7 +2,7 @@ return {
   "williamboman/mason.nvim",
   event = "BufReadPre",
   dependencies = {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
   },
 
@@ -18,31 +18,33 @@ return {
     })
 
     -- LSP setup
-    vim.defer_fn(function()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "lua_ls",
-          "html",
-          "cssls",
-          "clangd",
-          "pyright",
-          "rust_analyzer",
-          "cmake",
-          "jdtls",
-          "tailwindcss",
-          "gopls",
-          "bashls",
-          "jsonls",
-          "emmet_language_server",
-          "ts_ls",
-        },
-        automatic_installation = true,
-      })
-    end, 0)
+    require("mason-lspconfig").setup({
+      ensure_installed = {
+        "lua_ls",
+        "html",
+        "cssls",
+        "clangd",
+        "basedpyright",
+        "rust_analyzer",
+        "cmake",
+        "tailwindcss",
+        "gopls",
+        "bashls",
+        "jsonls",
+        "emmet_language_server",
+        "ts_ls",
+        "taplo",
+        "jdtls",
+      },
+
+      automatic_enable = true, -- This replaces the need for setup_handlers
+      automatic_installation = true,
+    })
 
     -- Tool installer setup
     require("mason-tool-installer").setup({
       ensure_installed = {
+        "prettierd",
         "prettier",
         "stylua",
         "isort",
@@ -53,9 +55,8 @@ return {
         "clang-format",
         "google-java-format",
       },
-      auto_update = true,
-      run_on_start = true,
     })
   end,
+
   build = ":MasonUpdate",
 }
