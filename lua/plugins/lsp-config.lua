@@ -114,9 +114,6 @@ return {
           opts.desc = "󰑕 LSP rename"
           map("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
-          opts.desc = " Show line diagnostics"
-          map("n", "<leader>dl", vim.diagnostic.open_float, opts)
-
           opts.desc = "󰈙 Show documentation under cursor"
           map("n", "gh", vim.lsp.buf.hover, opts)
 
@@ -128,13 +125,6 @@ return {
           map("i", "<C-k>", vim.lsp.buf.signature_help, opts)
         end,
       })
-
-      -- Set up diagnostics icons
-      local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-      for type, icon in pairs(signs) do
-        local hl = "DiagnosticSign" .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-      end
 
       -- Server-specific configurations
       local server_configs = {

@@ -1,45 +1,91 @@
+local opt = vim.opt
+
 vim.cmd("let g:netrw_liststyle = 3")
+vim.g.markdown_recommended_style = 0 -- Fix markdown indentation settings
 
--- Global stausline
-vim.opt.laststatus = 3
+-- UI
+opt.termguicolors = true
+opt.background = "dark"
+opt.cursorline = true
+opt.signcolumn = "yes"
+opt.showmode = false
+opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
+}
+opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,a:blinkwait700-blinkon400-blinkoff250"
+opt.pumheight = 10
+opt.cmdheight = 0
 
-vim.opt.backspace = "indent,eol,start"
-vim.opt.clipboard:append("unnamedplus")
-vim.opt.splitright = true
-vim.opt.splitbelow = true
+vim.diagnostic.config({
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "",
+      [vim.diagnostic.severity.WARN] = "",
+      [vim.diagnostic.severity.HINT] = "",
+      [vim.diagnostic.severity.INFO] = "",
+    },
+  },
+})
 
-vim.opt.scrolloff = 30
+-- Editor
+opt.mouse = "a"
+opt.clipboard = "unnamedplus"
+opt.backspace = "indent,eol,start"
+opt.confirm = true
+if vim.fn.has("nvim-0.10") == 1 then
+  opt.smoothscroll = true
+end
 
--- Indentation Settings
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
-vim.opt.autoindent = true
+-- Text Editing and Indentation
+opt.expandtab = true
+opt.tabstop = 2
+opt.shiftwidth = 2
+opt.softtabstop = 2
+opt.autoindent = true
+opt.smartindent = true
+opt.shiftround = true
+opt.breakindent = true
 
--- Appearance Settings
-vim.opt.fillchars = "eob: "
-vim.opt.cmdheight = 0
-vim.opt.cursorline = true
-vim.opt.termguicolors = true
-vim.opt.background = "dark"
-vim.opt.signcolumn = "yes"
-vim.opt.confirm = true
-vim.opt.pumheight = 10
+-- Line Wrapping and Display
+opt.wrap = true
+opt.linebreak = true
+opt.list = false
 
--- Line Numbers (Relative and Absolute)
+-- Navigation
 vim.wo.number = true
 vim.wo.relativenumber = true
+opt.scrolloff = 999
+opt.sidescrolloff = 20
 
--- Line Wrapping
-vim.opt.wrap = true
-vim.opt.linebreak = true
-vim.opt.list = false
+-- Search
+opt.ignorecase = true
+opt.smartcase = true
+opt.incsearch = true
 
--- Search Behavior
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.incsearch = true
+-- Files and buffers
+opt.hidden = true
+opt.swapfile = false
+opt.backup = false
+opt.undofile = true
+opt.undodir = vim.fn.expand("~/.local/share/nvim/undodir")
+opt.fileencoding = "utf-8"
 
--- Persistent undo
-vim.opt.undofile = true
-vim.opt.undodir = vim.fn.stdpath("cache") .. "/undo"
+-- Completion
+opt.completeopt = { "menu", "menuone", "noselect", "noinsert" }
+
+-- Window Management
+opt.splitright = true
+opt.splitbelow = true
+opt.laststatus = 3
+
+-- Performance
+opt.redrawtime = 1500
+opt.timeoutlen = 500
+opt.ttimeoutlen = 10
+opt.updatetime = 300
+opt.ttyfast = true

@@ -13,6 +13,7 @@ return {
       ["<Up>"] = { "select_prev", "fallback" },
       ["<Down>"] = { "select_next", "fallback" },
       ["<C-Enter>"] = { "show", "show_documentation", "hide_documentation" },
+      ["<CR>"] = { "accept", "fallback" },
     },
     appearance = { nerd_font_variant = "mono" },
     signature = {

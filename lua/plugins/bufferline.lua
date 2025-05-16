@@ -31,8 +31,4 @@ return {
       },
     }
   end,
-
-  keys = {
-    { "<leader>bX", "<cmd>BufferLineCloseOthers<CR>", desc = " Close all other buffers" },
-  },
 }

@@ -1,5 +1,8 @@
-vim.g.mapleader = " "
 local map = vim.keymap.set
+
+-- Leader keys
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
 map("n", "<Esc>", ":noh<CR><Esc>", { noremap = true, silent = true })
 map("n", ";", ":", { desc = "Enter command mode with ;" })
@@ -14,13 +17,31 @@ map("n", "<leader>rl", function()
   vim.wo.number = true
 end, { desc = "󰨚 Toggle relative line numbers" })
 
+-- Move to window using the <ctrl> hjkl keys
+map("n", "<C-h>", "<C-w>h", { desc = " Go to Left Window", remap = true })
+map("n", "<C-j>", "<C-w>j", { desc = " Go to Lower Window", remap = true })
+map("n", "<C-k>", "<C-w>k", { desc = " Go to Upper Window", remap = true })
+map("n", "<C-l>", "<C-w>l", { desc = " Go to Right Window", remap = true })
+
+-- Move between editor and terminal
+map("t", "<C-h>", "<cmd>wincmd h<CR>", { desc = " Move to the left window from terminal mode" })
+map("t", "<C-j>", "<cmd>wincmd j<CR>", { desc = " Move to the window below from terminal mode" })
+map("t", "<C-k>", "<cmd>wincmd k<CR>", { desc = " Move to the window above from terminal mode" })
+map("t", "<C-l>", "<cmd>wincmd l<CR>", { desc = " Move to the right window from terminal mode" })
+
+-- Resize window using <ctrl> arrow keys
+map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = " Increase Window Height" })
+map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = " Decrease Window Height" })
+map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = " Decrease Window Width" })
+map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = " Increase Window Width" })
+
 -- VSCode like move line
-map("n", "<A-j>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "󰛃 Move Down" })
-map("n", "<A-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "󰛃 Move Up" })
-map("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "󰛃 Move Down" })
-map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "󰛃 Move Up" })
-map("v", "<A-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "󰛃 Move Down" })
-map("v", "<A-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "󰛃 Move Up" })
+map("n", "<A-j>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = " Move Down" })
+map("n", "<A-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = " Move Up" })
+map("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = " Move Down" })
+map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = " Move Up" })
+map("v", "<A-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = " Move Down" })
+map("v", "<A-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = " Move Up" })
 
 -- VSCode like copy line
 map("n", "<S-A-Up>", "YP", { desc = "󰆏 Duplicate line up" })
@@ -61,6 +82,22 @@ map("n", "<leader>dt", function()
   })
 end, { desc = "󰨚 Toggle Diagnostics" })
 
+local diagnostic_goto = function(next, severity)
+  local count = next and 1 or -1
+  severity = severity and vim.diagnostic.severity[severity] or nil
+  return function()
+    vim.diagnostic.jump({ count = count, severity = severity, float = true })
+  end
+end
+
+map("n", "<leader>dl", vim.diagnostic.open_float, { desc = " Line Diagnostics" })
+map("n", "]d", diagnostic_goto(true), { desc = " Next Diagnostic" })
+map("n", "[d", diagnostic_goto(false), { desc = " Prev Diagnostic" })
+map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = " Next Error" })
+map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = " Prev Error" })
+map("n", "]w", diagnostic_goto(true, "WARN"), { desc = " Next Warning" })
+map("n", "[w", diagnostic_goto(false, "WARN"), { desc = " Prev Warning" })
+
 -- Terminal
 map("t", "<C-x>", function()
   if vim.bo.filetype == "fzf" then
@@ -74,19 +111,13 @@ end, { desc = " Exit Terminal Mode" })
 map("n", "<leader>lz", "<cmd>Lazy<CR>", { noremap = true, silent = true, desc = "󰽤 Open Lazy" })
 map("n", "<leader>lu", "<cmd>Lazy update<CR>", { noremap = true, silent = true, desc = "󰚰 Update Lazy" })
 
--- Move between editor and terminal
-map("t", "<C-h>", "<cmd>wincmd h<CR>", { desc = " Move to the left window from terminal mode" })
-map("t", "<C-j>", "<cmd>wincmd j<CR>", { desc = " Move to the window below from terminal mode" })
-map("t", "<C-k>", "<cmd>wincmd k<CR>", { desc = " Move to the window above from terminal mode" })
-map("t", "<C-l>", "<cmd>wincmd l<CR>", { desc = " Move to the right window from terminal mode" })
-
 -- Toggle spell checking
 map("n", "<leader>ts", function()
   vim.opt_local.spell = not vim.opt_local.spell:get()
   vim.notify(
     "Spell check " .. (vim.opt_local.spell:get() and "enabled" or "disabled"),
     vim.log.levels.INFO,
-    { title = "Toggle Spell Check" }
+    { title = " Toggle Spell Check" }
   )
 end, { desc = "󰨚 Toggle spell check" })
 
@@ -96,7 +127,7 @@ map("n", "<leader>tw", function()
   vim.notify(
     "Line wrap " .. (vim.opt_local.wrap:get() and "enabled" or "disabled"),
     vim.log.levels.INFO,
-    { title = "Toggle Wrap" }
+    { title = "󰖶 Toggle Wrap" }
   )
 end, { desc = "󰨚 Toggle line wrap" })
 
@@ -104,14 +135,14 @@ end, { desc = "󰨚 Toggle line wrap" })
 map("n", "<leader>cp", function()
   local filepath = vim.fn.expand("%:p")
   vim.fn.setreg("+", filepath)
-  vim.notify("Copied file path to clipboard: " .. filepath, vim.log.levels.INFO, { title = "Copy File Path" })
+  vim.notify("Copied file path to clipboard: " .. filepath, vim.log.levels.INFO, { title = " Copy File Path" })
 end, { desc = " Copy filepath to clipboard" })
 
 -- Copy filename to clipboard
 map("n", "<leader>cf", function()
   local filename = vim.fn.expand("%:t")
   vim.fn.setreg("+", filename)
-  vim.notify("Copied file name to clipboard: " .. filename, vim.log.levels.INFO, { title = "Copy File Name" })
+  vim.notify("Copied file name to clipboard: " .. filename, vim.log.levels.INFO, { title = " Copy File Name" })
 end, { desc = " Copy filename to clipboard" })
 
 -- quickfix list

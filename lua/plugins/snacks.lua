@@ -73,16 +73,7 @@ return {
         { section = "startup" },
       },
     },
-    indent = {
-      enabled = true,
-      filter = function(buf)
-        local ft = vim.bo[buf].filetype
-        return ft ~= "markdown"
-          and vim.g.snacks_indent ~= false
-          and vim.b[buf].snacks_indent ~= false
-          and vim.bo[buf].buftype == ""
-      end,
-    },
+    indent = { enabled = true },
     scroll = { enabled = false },
     zen = { enabled = true, toggles = { dim = false } },
     toggle = { enabled = true },
@@ -157,16 +148,23 @@ return {
 
     -- Buffer
     {
-      "<leader>bx",
+      "<leader>bd",
       function()
         local buftype = vim.bo.buftype
         if buftype == "terminal" then
           vim.cmd("bd!")
         else
-          require("snacks.bufdelete").delete()
+          Snacks.bufdelete()
         end
       end,
-      desc = " Close current buffer (file or terminal)",
+      desc = " Delete current buffer (file or terminal)",
+    },
+    {
+      "<leader>bo",
+      function()
+        Snacks.bufdelete.other()
+      end,
+      desc = " Delete other buffers",
     },
 
     -- Keymaps
@@ -266,6 +264,13 @@ return {
         Snacks.picker.lsp_symbols()
       end,
       desc = " Show document symbols",
+    },
+    {
+      "<leader>gih",
+      function()
+        Snacks.toggle.inlay_hints()
+      end,
+      desc = "󰨚 Toggle inlay hints",
     },
 
     -- Search
