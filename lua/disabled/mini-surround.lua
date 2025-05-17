@@ -1,6 +1,5 @@
 return {
   "echasnovski/mini.surround",
-  enabled = false,
   event = { "InsertEnter", "BufReadPost" },
   version = "*",
   opts = {

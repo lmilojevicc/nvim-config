@@ -1,7 +1,6 @@
 return {
   {
     "NvChad/nvterm",
-    enabled = false,
     event = "VeryLazy",
     config = function()
       require("nvterm").setup({

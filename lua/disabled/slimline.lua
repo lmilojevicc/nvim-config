@@ -1,6 +1,5 @@
 return {
   "sschleemilch/slimline.nvim",
-  enabled = false,
   event = "VeryLazy",
   opts = {
     hl = {
