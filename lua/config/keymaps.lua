@@ -17,17 +17,27 @@ map("n", "<leader>rl", function()
   vim.wo.number = true
 end, { desc = "󰨚 Toggle relative line numbers" })
 
--- Move to window using the <ctrl> hjkl keys
-map("n", "<C-h>", "<C-w>h", { desc = " Go to Left Window", remap = true })
-map("n", "<C-j>", "<C-w>j", { desc = " Go to Lower Window", remap = true })
-map("n", "<C-k>", "<C-w>k", { desc = " Go to Upper Window", remap = true })
-map("n", "<C-l>", "<C-w>l", { desc = " Go to Right Window", remap = true })
+local has_tmux_navigator = (function()
+  local success = pcall(vim.cmd, "silent! command TmuxNavigateLeft")
 
--- Move between editor and terminal
-map("t", "<C-h>", "<cmd>wincmd h<CR>", { desc = " Move to the left window from terminal mode" })
-map("t", "<C-j>", "<cmd>wincmd j<CR>", { desc = " Move to the window below from terminal mode" })
-map("t", "<C-k>", "<cmd>wincmd k<CR>", { desc = " Move to the window above from terminal mode" })
-map("t", "<C-l>", "<cmd>wincmd l<CR>", { desc = " Move to the right window from terminal mode" })
+  if not success and package.loaded["vim-tmux-navigator"] then
+    success = true
+  end
+
+  return success
+end)()
+
+if not has_tmux_navigator then
+  map("n", "<C-h>", "<C-w>h", { desc = " Go to Left Window", remap = true })
+  map("n", "<C-j>", "<C-w>j", { desc = " Go to Lower Window", remap = true })
+  map("n", "<C-k>", "<C-w>k", { desc = " Go to Upper Window", remap = true })
+  map("n", "<C-l>", "<C-w>l", { desc = " Go to Right Window", remap = true })
+
+  map("t", "<C-h>", "<cmd>wincmd h<CR>", { desc = " Move to the left window from terminal mode" })
+  map("t", "<C-j>", "<cmd>wincmd j<CR>", { desc = " Move to the window below from terminal mode" })
+  map("t", "<C-k>", "<cmd>wincmd k<CR>", { desc = " Move to the window above from terminal mode" })
+  map("t", "<C-l>", "<cmd>wincmd l<CR>", { desc = " Move to the right window from terminal mode" })
+end
 
 -- Resize window using <ctrl> arrow keys
 map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = " Increase Window Height" })
@@ -73,7 +83,7 @@ map("n", "]b", "<cmd>bnext<CR>", { desc = " Go to next buffer" })
 map("n", "[b", "<cmd>bprevious<CR>", { desc = " Go to previous buffer" })
 
 -- Diagnostics
-map("n", "<leader>dt", function()
+map("n", "<leader>td", function()
   local current_virtual_text = vim.diagnostic.config().virtual_text
   vim.diagnostic.config({
     virtual_text = not current_virtual_text,
@@ -146,9 +156,9 @@ map("n", "<leader>cf", function()
 end, { desc = " Copy filename to clipboard" })
 
 -- quickfix list
-map("n", "<leader>ql", function()
+map("n", "<leader>qf", function()
   local success, err = pcall(vim.fn.getqflist({ winid = 0 }).winid ~= 0 and vim.cmd.cclose or vim.cmd.copen)
   if not success and err then
     vim.notify(err, vim.log.levels.ERROR)
   end
-end, { desc = "Quickfix List" })
+end, { desc = "󰁨 Quickfix List" })

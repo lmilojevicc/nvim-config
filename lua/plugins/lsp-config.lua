@@ -56,6 +56,7 @@ return {
           "eslint_d",
           "clang-format",
           "google-java-format",
+          "shfmt",
         },
       })
     end,

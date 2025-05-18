@@ -38,34 +38,11 @@ return {
     require("telescope").load_extension("ui-select")
   end,
 
+  --stylua: ignore
   keys = {
-    {
-      "<leader>ff",
-      function()
-        require("telescope.builtin").find_files()
-      end,
-      desc = " Find files",
-    },
-    {
-      "<leader>fw",
-      function()
-        require("telescope.builtin").live_grep()
-      end,
-      desc = " Search text in project",
-    },
-    {
-      "<leader>fb",
-      function()
-        require("telescope.builtin").buffers()
-      end,
-      desc = " List open buffers",
-    },
-    {
-      "<leader>wk",
-      function()
-        require("telescope.builtin").keymaps()
-      end,
-      desc = " List keymaps",
-    },
+    { "<leader>ff", function() require("telescope.builtin").find_files() end, desc = " Find files", },
+    { "<leader>fw", function() require("telescope.builtin").live_grep() end, desc = " Search text in project", },
+    { "<leader>fb", function() require("telescope.builtin").buffers() end, desc = " List open buffers", },
+    { "<leader>wk", function() require("telescope.builtin").keymaps() end, desc = " List keymaps", },
   },
 }

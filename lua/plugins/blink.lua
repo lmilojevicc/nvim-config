@@ -15,6 +15,16 @@ return {
       ["<C-Enter>"] = { "show", "show_documentation", "hide_documentation" },
       ["<CR>"] = { "accept", "fallback" },
     },
+
+    cmdline = {
+      keymap = {
+        ["<Tab>"] = { "show", "accept" },
+        ["<Up>"] = { "select_prev", "fallback" },
+        ["<Down>"] = { "select_next", "fallback" },
+      },
+      completion = { menu = { auto_show = true } },
+    },
+
     appearance = { nerd_font_variant = "mono" },
     signature = {
       window = { border = "single" },
