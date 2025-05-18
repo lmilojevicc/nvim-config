@@ -6,42 +6,27 @@ return {
   lazy = false,
   ---@type snacks.Config
   opts = {
-    bigfile = { enabled = true },
-    quickfile = { enabled = true },
     input = {
       enabled = true,
-      win = {
-        relative = "cursor",
-        width = 60,
-        row = -3,
-        col = 0,
-        style = "input",
-      },
+      win = { relative = "cursor", width = 60, row = -3, col = 0, style = "input" },
     },
-    explorer = { enabled = true, replace_netrw = true, auto_close = true },
-    notifier = { enabled = true },
     picker = {
       layout = "default",
       files = { hidden = true },
       sources = { explorer = { auto_close = true, hidden = true, ignored = true } },
     },
-    terminal = { enabled = true },
-    image = { enabled = true },
     dashboard = {
       preset = {
+        -- stylua: ignore
         keys = {
-          {
-            icon = " ",
-            key = "f",
-            desc = "Find File",
-            action = function()
-              Snacks.picker.files({ hidden = true })
-            end,
-          },
-          { icon = " ", key = "w", desc = "Live Grep", action = ":lua Snacks.dashboard.pick('live_grep')" },
+          { icon = " ", key = "f", desc = "Find File", action = function() Snacks.picker.files({ hidden = true }) end, },
+          { icon = "󱎸 ", key = "g", desc = "RipGrep", action = ":lua Snacks.dashboard.pick('live_grep')" },
+          { icon = "󰦛 ", key = "r", desc = "Restore Last Session", action = function() require("persistence").load() end, },
+          { icon = " ", key = "R", desc = "Pick Session", action = function() require("persistence").select() end, },
           { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+          { icon = " ", key = "l", desc = "LazyGit", action = "<leader>lg" },
           { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
-          { icon = " ", key = "G", desc = "LazyGit", action = "<leader>lg" },
+          { icon = " ", key = "m", desc = "Mason", action = ":Mason" },
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
         },
       },
@@ -73,6 +58,13 @@ return {
         { section = "startup" },
       },
     },
+    explorer = { enabled = true, replace_netrw = true, auto_close = true },
+    notifier = { enabled = true },
+    bigfile = { enabled = true },
+    quickfile = { enabled = true },
+    terminal = { enabled = true },
+    image = { enabled = true },
+    words = { enabled = false },
     indent = { enabled = true },
     scroll = { enabled = false },
     zen = { enabled = true, toggles = { dim = false } },
@@ -81,91 +73,27 @@ return {
     statuscolumn = { enabled = true },
   },
 
+  -- stylua: ignore
   keys = {
     -- Zen
-    {
-      "<leader>zm",
-      function()
-        Snacks.zen()
-      end,
-      desc = "󰾞 Toggle Zen Mode",
-    },
+    { "<leader>zm", function() Snacks.zen() end, desc = "󰾞 Toggle Zen Mode", },
 
     -- Lazygit
-    {
-      "<leader>lg",
-      function()
-        Snacks.lazygit.open()
-      end,
-      desc = " Open Lazygit",
-    },
-    {
-      "<leader>ll",
-      function()
-        Snacks.lazygit.log()
-      end,
-      desc = " Lazygit log",
-    },
+    { "<leader>lg", function() Snacks.lazygit.open() end, desc = " Open Lazygit", },
+    { "<leader>ll", function() Snacks.lazygit.log() end, desc = " Lazygit log", },
 
     -- Notificiations
-    {
-      "<leader>nd",
-      function()
-        Snacks.notifier.hide()
-      end,
-      desc = "󰎟 Clear notifications",
-    },
-    {
-      "<leader>nf",
-      function()
-        Snacks.picker.notifications()
-      end,
-      desc = " Search notifications",
-    },
-    {
-      "<leader>ne",
-      function()
-        Snacks.picker.notifications({ filter = "error" })
-      end,
-      desc = "󰎟 Show error notifications",
-    },
+    { "<leader>nd", function() Snacks.notifier.hide() end, desc = "󰎟 Clear notifications", },
+    { "<leader>nf", function() Snacks.picker.notifications() end, desc = " Search notifications", },
+    { "<leader>ne", function() Snacks.picker.notifications({ filter = "error" }) end, desc = "󰎟 Show error notifications", },
 
     -- Explorer
-    {
-      "<leader>ee",
-      function()
-        Snacks.explorer.open()
-      end,
-      desc = " Open Snacks Explorer",
-    },
-    {
-      "<leader>ef",
-      function()
-        Snacks.explorer.reveal()
-      end,
-      desc = " Find current file in Snacks",
-    },
+    { "<leader>ee", function() Snacks.explorer.open() end, desc = " Open Snacks Explorer", },
+    { "<leader>ef", function() Snacks.explorer.reveal() end, desc = " Find current file in Snacks", },
 
     -- Buffer
-    {
-      "<leader>bd",
-      function()
-        local buftype = vim.bo.buftype
-        if buftype == "terminal" then
-          vim.cmd("bd!")
-        else
-          Snacks.bufdelete()
-        end
-      end,
-      desc = " Delete current buffer (file or terminal)",
-    },
-    {
-      "<leader>bo",
-      function()
-        Snacks.bufdelete.other()
-      end,
-      desc = " Delete other buffers",
-    },
+    { "<leader>bd", function() Snacks.bufdelete() end, desc = " Delete current buffer (file or terminal)", },
+    { "<leader>bo", function() Snacks.bufdelete.other() end, desc = " Delete other buffers", },
 
     -- Keymaps
     {
@@ -200,147 +128,72 @@ return {
     },
 
     -- Diagnostics
-    {
-      "<leader>dw",
-      function()
-        Snacks.picker.diagnostics()
-      end,
-      desc = " Workspace diagnostics",
-    },
-    {
-      "<leader>db",
-      function()
-        Snacks.picker.diagnostics_buffer()
-      end,
-      desc = " Buffer diagnostics",
-    },
-    {
-      "<leader>dc",
-      function()
-        Snacks.picker.todo_comments()
-      end,
-      desc = " Todo Comments",
-    },
+    { "<leader>dw", function() Snacks.picker.diagnostics() end, desc = " Workspace diagnostics", },
+    { "<leader>db", function() Snacks.picker.diagnostics_buffer() end, desc = " Buffer diagnostics", },
+    { "<leader>dc", function() Snacks.picker.todo_comments() end, desc = " Todo Comments", },
 
     -- LSP
-    {
-      "gr",
-      function()
-        Snacks.picker.lsp_references()
-      end,
-      desc = " Show LSP references",
-    },
-    {
-      "gD",
-      function()
-        Snacks.picker.lsp_declarations()
-      end,
-      desc = " Go to declaration",
-    },
-    {
-      "gd",
-      function()
-        Snacks.picker.lsp_definitions()
-      end,
-      desc = " Show LSP definitions",
-    },
-    {
-      "gi",
-      function()
-        Snacks.picker.lsp_implementations()
-      end,
-      desc = " Show LSP implementations",
-    },
-    {
-      "gt",
-      function()
-        Snacks.picker.lsp_type_definitions()
-      end,
-      desc = " Show LSP type definitions",
-    },
-    {
-      "<leader>fs",
-      function()
-        Snacks.picker.lsp_symbols()
-      end,
-      desc = " Show document symbols",
-    },
-    {
-      "<leader>gih",
-      function()
-        Snacks.toggle.inlay_hints()
-      end,
-      desc = "󰨚 Toggle inlay hints",
-    },
+    { "gr", function() Snacks.picker.lsp_references() end, desc = " Show LSP references", },
+    { "gD", function() Snacks.picker.lsp_declarations() end, desc = " Go to declaration", },
+    { "gd", function() Snacks.picker.lsp_definitions() end, desc = " Show LSP definitions", },
+    { "gi", function() Snacks.picker.lsp_implementations() end, desc = " Show LSP implementations", },
+    { "gt", function() Snacks.picker.lsp_type_definitions() end, desc = " Show LSP type definitions", },
+    { "<leader>fs", function() Snacks.picker.lsp_symbols() end, desc = " Show document symbols", },
+    { "<leader>fs", function() Snacks.picker.lsp_workspace_symbols() end, desc = " Show document symbols", },
 
     -- Search
-    {
-      "<leader>ff",
-      function()
-        Snacks.picker.files({ hidden = true })
-      end,
-      desc = " Find files",
-    },
-    {
-      "<leader>fg",
-      function()
-        Snacks.picker.grep()
-      end,
-      desc = " Grep in workspace",
-    },
-    {
-      "<leader>fw",
-      function()
-        Snacks.picker.grep_word()
-      end,
-      desc = " Grep in workspace",
-    },
-    {
-      "<leader>fb",
-      function()
-        Snacks.picker.buffers()
-      end,
-      desc = " List open buffers",
-    },
+    { "<leader>ff", function() Snacks.picker.files({ hidden = true }) end, desc = " Find files", },
+    { "<leader>fg", function() Snacks.picker.grep() end, desc = " Grep in workspace", },
+    { mode = {"n", "v"}, "<leader>fw", function() Snacks.picker.grep_word() end, desc = " Grep in workspace", },
+    { "<leader>fb", function() Snacks.picker.buffers() end, desc = " List open buffers", },
 
     -- Terminal
-    {
-      mode = { "n", "t" },
-      "<A-t>",
-      function()
-        Snacks.terminal.toggle()
-      end,
-      desc = "󰨚 Toggle floating terminal",
-    },
+    { mode = { "n", "t" }, "<A-t>", function() Snacks.terminal.toggle() end, desc = "󰨚 Toggle floating terminal", },
+
+    -- Git Pickers
+    { "<leader>gs", function() Snacks.picker.git_status() end, desc = " Git Status" },
+    { "<leader>gL", function() Snacks.picker.git_log_file() end, desc = " Git Current File History" },
+
+    -- Lists
+    { "<leader>qf", function() Snacks.picker.qflist() end, desc = "󰁨 Quickfix list" },
+    { "<leader>ql", function() Snacks.picker.loclist() end, desc = "󰁨 Loclist" },
 
     -- Pickers
-    {
-      "<leader>fh",
-      function()
-        Snacks.picker.help()
-      end,
-      desc = "󰘥 Help Pages",
-    },
-    {
-      "<leader>fm",
-      function()
-        Snacks.picker.man()
-      end,
-      desc = "󰘥 Man Pages",
-    },
-    {
-      "<leader>cp",
-      function()
-        Snacks.picker.colorschemes()
-      end,
-      desc = " Colorscheme picker",
-    },
-    {
-      "<leader>fi",
-      function()
-        Snacks.picker.icons({ icon_sources = { "nerd_fonts" } })
-      end,
-      desc = "  Nerd Font Icons picker",
-    },
+    { "<leader>fh", function() Snacks.picker.help() end, desc = "󰘥 Help Pages", },
+    { "<leader>fM", function() Snacks.picker.man() end, desc = "󰘥 Man Pages", },
+    { "<leader>fc", function() Snacks.picker.colorschemes() end, desc = " Colorscheme picker", },
+    { "<leader>fi", function() Snacks.picker.icons({ icon_sources = { "nerd_fonts" } }) end, desc = "  Nerd Font Icons picker", },
+    { "<leader>fm", function() Snacks.picker.marks() end, desc = " Marks" },
+    { "<leader>fj", function() Snacks.picker.jumps() end, desc = "󰹹 Jumps" },
+    { "<leader>fr", function() Snacks.picker.registers() end, desc = " Registers" },
+    { "<leader>fP", function() Snacks.picker.projects() end, desc = " Projects" },
   },
+
+  -- Setup toggle mappings
+  config = function(_, opts)
+    require("snacks").setup(opts)
+
+    local Snacks = require("snacks")
+
+    Snacks.toggle.inlay_hints():map("<leader>th", { desc = "󰅩 Toggle Inlay Hints" })
+    Snacks.toggle.diagnostics():map("<leader>td", { desc = " Toggle Diagnostics" })
+    Snacks.toggle.line_number():map("<leader>tL", { desc = "󰨚 Toggle Line Numbers" })
+    Snacks.toggle.treesitter():map("<leader>tT", { desc = "󱘎 Toggle Treesitter" })
+    Snacks.toggle.dim():map("<leader>tD", { desc = " Toggle Dim Mode" })
+    Snacks.toggle.animate():map("<leader>ta", { desc = "󰪐 Toggle Animations" })
+    Snacks.toggle.indent():map("<leader>ti", { desc = "󰉶 Toggle Indent Guides" })
+    Snacks.toggle.scroll():map("<leader>tS", { desc = "󰹹 Toggle Smooth Scroll" })
+
+    Snacks.toggle.option("spell"):map("<leader>ts", { desc = "󰓆 Spell Checking" })
+    Snacks.toggle.option("wrap"):map("<leader>tw", { desc = "󰖶 Word Wrap" })
+    Snacks.toggle.option("relativenumber"):map("<leader>tl", { desc = "󰉻 Relative Line Numbers" })
+
+    --stylua: ignore
+    Snacks.toggle.option("conceallevel", { name = " Conceal", off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>tc")
+    --stylua: ignore
+    Snacks.toggle.option("showtabline", { name = "󰓩 Tabline", off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2 }):map("<leader>tt")
+
+    Snacks.toggle.zoom():map("<leader>tz", { desc = " Toggle Zoom Split" })
+    Snacks.toggle.words():map("<leader>tW", { desc = "󰺯 Toggle Word Highlighting" })
+  end,
 }
