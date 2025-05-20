@@ -25,26 +25,26 @@ return {
       end
 
       -- Navigation
-      map("n", "]h", gs.next_hunk, " Next Hunk")
-      map("n", "[h", gs.prev_hunk, " Prev Hunk")
+      map("n", "]h", gs.next_hunk, " Git Next Hunk")
+      map("n", "[h", gs.prev_hunk, " Git Prev Hunk")
 
       -- Actions
-      map("n", "<leader>hs", gs.stage_hunk, " Stage hunk")
-      map("n", "<leader>hr", gs.reset_hunk, "󰜉 Reset hunk")
+      map("n", "<leader>hs", gs.stage_hunk, " Git Stage hunk")
+      map("n", "<leader>hr", gs.reset_hunk, "󰜉 Git Reset hunk")
       map("v", "<leader>hs", function()
         gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-      end, " Stage hunk")
+      end, " Git Stage hunk")
       map("v", "<leader>hr", function()
         gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-      end, "󰜉 Reset hunk")
+      end, "󰜉 Git Reset hunk")
 
-      map("n", "<leader>hS", gs.stage_buffer, " Stage buffer")
-      map("n", "<leader>hR", gs.reset_buffer, "󰜉 Reset buffer")
+      map("n", "<leader>hS", gs.stage_buffer, " Git Stage buffer")
+      map("n", "<leader>hR", gs.reset_buffer, "󰜉 Git Reset buffer")
 
-      map("n", "<leader>hu", gs.undo_stage_hunk, "󰜉 Undo stage hunk")
+      map("n", "<leader>hu", gs.undo_stage_hunk, "󰜉 Git Undo stage hunk")
 
-      map("n", "<leader>hp", gs.preview_hunk, " Preview hunk")
-      map("n", "<leader>hi", ":Gitsigns preview_hunk_inline<CR>", " Preview hunk inline")
+      map("n", "<leader>hp", gs.preview_hunk, " Git Preview hunk")
+      map("n", "<leader>hi", gs.preview_hunk_inline, " Preview hunk inline")
 
       map("n", "<leader>hb", function()
         gs.blame_line({ full = true })

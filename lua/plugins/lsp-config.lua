@@ -92,38 +92,38 @@ return {
           local has_fzf = pcall(require, "fzf-lua")
 
           if not has_snacks and not has_fzf then
-            opts.desc = " Go to definition"
+            opts.desc = " LSP Go to definition"
             map("n", "gd", vim.lsp.buf.definition, opts)
 
-            opts.desc = " Go to declaration"
+            opts.desc = " LSP Go to declaration"
             map("n", "gD", vim.lsp.buf.declaration, opts)
 
             opts.desc = " Show LSP references"
             map("n", "gr", vim.lsp.buf.references, opts)
 
-            opts.desc = " Go to implementation"
+            opts.desc = " LSP Go to implementation"
             map("n", "gi", vim.lsp.buf.implementation, opts)
 
-            opts.desc = " Go to type definition"
+            opts.desc = " LSP Go to type definition"
             map("n", "gt", vim.lsp.buf.type_definition, opts)
 
-            opts.desc = " Document symbols"
+            opts.desc = " LSP Document symbols"
             map("n", "<leader>ds", vim.lsp.buf.document_symbol, opts)
           end
 
-          opts.desc = " See available code actions"
+          opts.desc = "󰌶 LSP See available code actions"
           map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 
           opts.desc = "󰑕 LSP rename"
-          map("n", "<leader>rn", vim.lsp.buf.rename, opts)
+          map("n", "<leader>cr", vim.lsp.buf.rename, opts)
 
-          opts.desc = "󰈙 Show documentation under cursor"
+          opts.desc = "󰈙 LSP Show documentation under cursor"
           map("n", "gh", vim.lsp.buf.hover, opts)
 
           opts.desc = "󰜉 Restart LSP"
           map("n", "<leader>rs", ":LspRestart<CR>", opts)
 
-          opts.desc = " Signature help"
+          opts.desc = "󰊕 LSP Signature help"
           map("n", "K", vim.lsp.buf.signature_help, opts)
           map("i", "<C-k>", vim.lsp.buf.signature_help, opts)
         end,

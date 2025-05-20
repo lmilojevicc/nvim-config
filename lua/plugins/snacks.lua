@@ -118,7 +118,7 @@ return {
 
             return {
               { padded_mode, "String" },
-              { padded_key, "Statement" },
+              { padded_key, "ErrorMsg" },
               { padded_desc, "Function" },
             }
           end,
@@ -127,11 +127,6 @@ return {
       desc = " Search keymaps",
     },
 
-    -- Diagnostics
-    { "<leader>dw", function() Snacks.picker.diagnostics() end, desc = " Workspace diagnostics", },
-    { "<leader>db", function() Snacks.picker.diagnostics_buffer() end, desc = " Buffer diagnostics", },
-    { "<leader>dc", function() Snacks.picker.todo_comments() end, desc = " Todo Comments", },
-
     -- LSP
     { "gr", function() Snacks.picker.lsp_references() end, desc = " Show LSP references", },
     { "gD", function() Snacks.picker.lsp_declarations() end, desc = " Go to declaration", },
@@ -139,7 +134,7 @@ return {
     { "gi", function() Snacks.picker.lsp_implementations() end, desc = " Show LSP implementations", },
     { "gt", function() Snacks.picker.lsp_type_definitions() end, desc = " Show LSP type definitions", },
     { "<leader>fs", function() Snacks.picker.lsp_symbols() end, desc = " Show document symbols", },
-    { "<leader>fs", function() Snacks.picker.lsp_workspace_symbols() end, desc = " Show document symbols", },
+    { "<leader>fS", function() Snacks.picker.lsp_workspace_symbols() end, desc = " Show document symbols", },
 
     -- Search
     { "<leader>ff", function() Snacks.picker.files({ hidden = true }) end, desc = " Find files", },
@@ -155,8 +150,13 @@ return {
     { "<leader>gL", function() Snacks.picker.git_log_file() end, desc = " Git Current File History" },
 
     -- Lists
-    { "<leader>qf", function() Snacks.picker.qflist() end, desc = "󰁨 Quickfix list" },
-    { "<leader>ql", function() Snacks.picker.loclist() end, desc = "󰁨 Loclist" },
+    { "<leader>qf", function() Snacks.picker.qflist() end, desc = " Quickfix list" },
+    { "<leader>ql", function() Snacks.picker.loclist() end, desc = " Loclist" },
+
+    -- Diagnostics
+    { "<leader>fd", function() Snacks.picker.diagnostics_buffer() end, desc = " Buffer diagnostics", },
+    { "<leader>fD", function() Snacks.picker.diagnostics() end, desc = " Workspace diagnostics", },
+    { "<leader>fT", function() Snacks.picker.todo_comments() end, desc = " Todo Comments", },
 
     -- Pickers
     { "<leader>fh", function() Snacks.picker.help() end, desc = "󰘥 Help Pages", },
@@ -175,25 +175,25 @@ return {
 
     local Snacks = require("snacks")
 
-    Snacks.toggle.inlay_hints():map("<leader>th", { desc = "󰅩 Toggle Inlay Hints" })
-    Snacks.toggle.diagnostics():map("<leader>td", { desc = " Toggle Diagnostics" })
-    Snacks.toggle.line_number():map("<leader>tL", { desc = "󰨚 Toggle Line Numbers" })
-    Snacks.toggle.treesitter():map("<leader>tT", { desc = "󱘎 Toggle Treesitter" })
-    Snacks.toggle.dim():map("<leader>tD", { desc = " Toggle Dim Mode" })
-    Snacks.toggle.animate():map("<leader>ta", { desc = "󰪐 Toggle Animations" })
-    Snacks.toggle.indent():map("<leader>ti", { desc = "󰉶 Toggle Indent Guides" })
-    Snacks.toggle.scroll():map("<leader>tS", { desc = "󰹹 Toggle Smooth Scroll" })
+    Snacks.toggle.inlay_hints():map("<leader>uh", { desc = "󰅩 Toggle Inlay Hints" })
+    Snacks.toggle.diagnostics():map("<leader>ud", { desc = " Toggle Diagnostics" })
+    Snacks.toggle.line_number():map("<leader>uL", { desc = "󰨚 Toggle Line Numbers" })
+    Snacks.toggle.treesitter():map("<leader>uT", { desc = "󱘎 Toggle Treesitter" })
+    Snacks.toggle.dim():map("<leader>uD", { desc = " Toggle Dim Mode" })
+    Snacks.toggle.animate():map("<leader>ua", { desc = "󰪐 Toggle Animations" })
+    Snacks.toggle.indent():map("<leader>ui", { desc = "󰉶 Toggle Indent Guides" })
+    Snacks.toggle.scroll():map("<leader>uS", { desc = "󰹹 Toggle Smooth Scroll" })
 
-    Snacks.toggle.option("spell"):map("<leader>ts", { desc = "󰓆 Spell Checking" })
-    Snacks.toggle.option("wrap"):map("<leader>tw", { desc = "󰖶 Word Wrap" })
-    Snacks.toggle.option("relativenumber"):map("<leader>tl", { desc = "󰉻 Relative Line Numbers" })
+    Snacks.toggle.option("spell"):map("<leader>us", { desc = "󰓆 Spell Checking" })
+    Snacks.toggle.option("wrap"):map("<leader>uw", { desc = "󰖶 Word Wrap" })
+    Snacks.toggle.option("relativenumber"):map("<leader>ul", { desc = "󰉻 Relative Line Numbers" })
 
     --stylua: ignore
-    Snacks.toggle.option("conceallevel", { name = " Conceal", off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>tc")
+    Snacks.toggle.option("conceallevel", { name = " Conceal", off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>uc")
     --stylua: ignore
-    Snacks.toggle.option("showtabline", { name = "󰓩 Tabline", off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2 }):map("<leader>tt")
+    Snacks.toggle.option("showtabline", { name = "󰓩 Tabline", off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2 }):map("<leader>ut")
 
-    Snacks.toggle.zoom():map("<leader>tz", { desc = " Toggle Zoom Split" })
-    Snacks.toggle.words():map("<leader>tW", { desc = "󰺯 Toggle Word Highlighting" })
+    Snacks.toggle.zoom():map("<leader>sz", { desc = " Toggle Zoom Split" })
+    Snacks.toggle.words():map("<leader>uW", { desc = "󰺯 Toggle Word Highlighting" })
   end,
 }

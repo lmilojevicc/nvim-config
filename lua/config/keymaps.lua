@@ -77,13 +77,22 @@ map("n", "<leader>sv", "<C-w>v", { desc = " Split window vertically" })
 map("n", "<leader>sh", "<C-w>s", { desc = " Split window horizontally" })
 map("n", "<leader>se", "<C-w>=", { desc = " Make splits equal size" })
 map("n", "<leader>sx", "<cmd>close<CR>", { desc = " Close current split" })
+map("n", "<leader>so", "<C-w>o", { desc = " Close all other splits" })
+map("n", "<leader>sf", function()
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    local cfg = vim.api.nvim_win_get_config(win)
+    if cfg.relative ~= "" then
+      vim.api.nvim_win_close(win, false)
+    end
+  end
+end, { desc = " Close all floating windows" })
 
 -- Buffers
 map("n", "]b", "<cmd>bnext<CR>", { desc = " Go to next buffer" })
 map("n", "[b", "<cmd>bprevious<CR>", { desc = " Go to previous buffer" })
 
 -- Diagnostics
-map("n", "<leader>td", function()
+map("n", "<leader>ud", function()
   local current_virtual_text = vim.diagnostic.config().virtual_text
   vim.diagnostic.config({
     virtual_text = not current_virtual_text,
@@ -122,7 +131,7 @@ map("n", "<leader>lz", "<cmd>Lazy<CR>", { noremap = true, silent = true, desc = 
 map("n", "<leader>lu", "<cmd>Lazy update<CR>", { noremap = true, silent = true, desc = "󰚰 Update Lazy" })
 
 -- Toggle spell checking
-map("n", "<leader>ts", function()
+map("n", "<leader>us", function()
   vim.opt_local.spell = not vim.opt_local.spell:get()
   vim.notify(
     "Spell check " .. (vim.opt_local.spell:get() and "enabled" or "disabled"),
@@ -132,7 +141,7 @@ map("n", "<leader>ts", function()
 end, { desc = "󰨚 Toggle spell check" })
 
 -- Toggle wrap
-map("n", "<leader>tw", function()
+map("n", "<leader>uw", function()
   vim.opt_local.wrap = not vim.opt_local.wrap:get()
   vim.notify(
     "Line wrap " .. (vim.opt_local.wrap:get() and "enabled" or "disabled"),
@@ -161,4 +170,4 @@ map("n", "<leader>qf", function()
   if not success and err then
     vim.notify(err, vim.log.levels.ERROR)
   end
-end, { desc = "󰁨 Quickfix List" })
+end, { desc = " Quickfix List" })
