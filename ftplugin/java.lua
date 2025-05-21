@@ -1,61 +1,165 @@
--- # Create a directory for extensions
--- mkdir -p ~/.local/share/nvim/java-debug-extensions
---
--- # Clone and build java-debug
--- cd ~/.local/share/nvim/java-debug-extensions
--- git clone https://github.com/microsoft/java-debug
--- cd java-debug
--- ./mvnw clean install
---
--- # Clone and build vscode-java-test (optional, for test debugging)
--- cd ~/.local/share/nvim/java-debug-extensions
--- git clone https://github.com/microsoft/vscode-java-test
--- cd vscode-java-test
--- npm install
--- npm run build-plugin
+local home = vim.env.HOME -- Get the home directory
 
 local jdtls = require("jdtls")
-local home = os.getenv("HOME")
-local workspace_path = home .. "/.local/share/eclipse/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+local workspace_dir = home .. "/jdtls-workspace/" .. project_name
 
--- Add bundles from java-debug and vscode-java-test
-local bundles = {}
-local extensions_dir = home .. "/.local/share/nvim/java-debug-extensions"
+local system_os = ""
 
--- java-debug bundles
-vim.list_extend(
-  bundles,
-  vim.split(
-    vim.fn.glob(
-      extensions_dir .. "/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"
-    ),
-    "\n"
-  )
-)
+-- Determine OS
+if vim.fn.has("mac") == 1 then
+  system_os = "mac"
+elseif vim.fn.has("unix") == 1 then
+  system_os = "linux"
+else
+  print("OS not found, defaulting to 'linux'")
+  system_os = "linux"
+end
 
-vim.list_extend(bundles, vim.split(vim.fn.glob(extensions_dir .. "/vscode-java-test/server/*.jar"), "\n"))
+local map = vim.keymap.set
 
+-- Needed for debugging
+local bundles = {
+  vim.fn.glob(home .. "/.local/share/nvim/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar"),
+}
+
+-- Needed for running/debugging unit tests
+vim.list_extend(bundles, vim.split(vim.fn.glob(home .. "/.local/share/nvim/mason/share/java-test/*.jar", 1), "\n"))
+
+-- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local config = {
-
+  -- The command that starts the language server
+  -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
   cmd = {
-    "jdtls",
+    "java",
+    "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+    "-Dosgi.bundles.defaultStartLevel=4",
+    "-Declipse.product=org.eclipse.jdt.ls.core.product",
+    "-Dlog.protocol=true",
+    "-Dlog.level=ALL",
+    "-javaagent:" .. home .. "/.local/share/nvim/mason/share/jdtls/lombok.jar",
+    "-Xmx4g",
+    "--add-modules=ALL-SYSTEM",
+    "--add-opens",
+    "java.base/java.util=ALL-UNNAMED",
+    "--add-opens",
+    "java.base/java.lang=ALL-UNNAMED",
+
+    -- Eclipse jdtls location
+    "-jar",
+    home .. "/.local/share/nvim/mason/share/jdtls/plugins/org.eclipse.equinox.launcher.jar",
+    "-configuration",
+    home .. "/.local/share/nvim/mason/packages/jdtls/config_" .. system_os,
     "-data",
-    workspace_path,
+    workspace_dir,
   },
 
-  root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }),
+  -- This is the default if not provided, you can remove it. Or adjust as needed.
+  -- One dedicated LSP server & client will be started per unique root_dir
+  root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "pom.xml", "build.gradle" }),
+
+  -- Here you can configure eclipse.jdt.ls specific settings
+  -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
   settings = {
-    java = {},
+    java = {
+      -- TODO: Replace this with the absolute path to your main java version (JDTLS requires JDK 21 or higher)
+      home = "/opt/homebrew/Cellar/openjdk@21",
+      eclipse = {
+        downloadSources = true,
+      },
+      configuration = {
+        updateBuildConfiguration = "interactive",
+        -- TODO: Update this by adding any runtimes that you need to support your Java projects and removing any that you don't have installed
+        -- The runtimes' name parameter needs to match a specific Java execution environments.  See https://github.com/eclipse-jdtls/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request and search "ExecutionEnvironment".
+        runtimes = {
+          {
+            name = "JavaSE-11",
+            path = "/opt/homebrew/Cellar/openjdk@11",
+          },
+          {
+            name = "JavaSE-17",
+            path = "/opt/homebrew/Cellar/openjdk@17",
+          },
+          {
+            name = "JavaSE-21",
+            path = "/opt/homebrew/Cellar/openjdk@21",
+          },
+        },
+      },
+      maven = {
+        downloadSources = true,
+      },
+      implementationsCodeLens = {
+        enabled = true,
+      },
+      referencesCodeLens = {
+        enabled = true,
+      },
+      references = {
+        includeDecompiledSources = true,
+      },
+      signatureHelp = { enabled = true },
+      format = { enabled = true },
+      completion = {
+        favoriteStaticMembers = {
+          "org.hamcrest.MatcherAssert.assertThat",
+          "org.hamcrest.Matchers.*",
+          "org.hamcrest.CoreMatchers.*",
+          "org.junit.jupiter.api.Assertions.*",
+          "java.util.Objects.requireNonNull",
+          "java.util.Objects.requireNonNullElse",
+          "org.mockito.Mockito.*",
+        },
+        importOrder = {
+          "java",
+          "javax",
+          "com",
+          "org",
+        },
+      },
+      sources = {
+        organizeImports = {
+          starThreshold = 9999,
+          staticStarThreshold = 9999,
+        },
+      },
+      codeGeneration = {
+        toString = {
+          template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
+        },
+        useBlocks = true,
+      },
+    },
+  },
+
+  flags = {
+    allow_incremental_sync = true,
   },
 
   init_options = {
-    bundles = {},
+    bundles = bundles,
+    extendedClientCapabilities = jdtls.extendedClientCapabilities,
   },
-
-  on_attach = function(client, bufnr)
-    jdtls.setup_dap()
-  end,
 }
 
--- Start the server
+-- Needed for debugging
+config["on_attach"] = function(client, bufnr)
+  jdtls.setup_dap({ hotcodereplace = "auto" })
+  require("jdtls.dap").setup_dap_main_class_configs()
+end
+
+-- This starts a new client & server, or attaches to an existing client & server based on the `root_dir`.
 jdtls.start_or_attach(config)
+
+-- Mappings for tests
+map("n", "<leader>tc", function()
+  if vim.bo.filetype == "java" then
+    require("jdtls").test_class()
+  end
+end, { desc = " Java Test Class (JDTLS)" })
+
+map("n", "<leader>tm", function()
+  if vim.bo.filetype == "java" then
+    require("jdtls").test_nearest_method()
+  end
+end, { desc = " Java Test Nearest Method (JDTLS)" })

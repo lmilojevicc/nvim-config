@@ -26,7 +26,7 @@ return {
           "html",
           "cssls",
           "clangd",
-          "basedpyright",
+          "ruff",
           "rust_analyzer",
           "cmake",
           "tailwindcss",
@@ -57,6 +57,8 @@ return {
           "clang-format",
           "google-java-format",
           "shfmt",
+          "java-debug-adapter",
+          "java-test",
         },
       })
     end,
@@ -158,29 +160,27 @@ return {
       local installed_servers = require("mason-lspconfig").get_installed_servers()
 
       for _, server_name in ipairs(installed_servers) do
-        if server_name == "jdtls" then
-          goto continue
-        end
-
-        local has_cmp, cmp = pcall(require, "cmp_nvim_lsp")
-        local capabilities
-        local config = {}
-        if has_cmp then
-          capabilities = cmp.default_capabilities()
-          config = {
-            capabilities = capabilities,
-          }
-        end
-
-        if server_configs[server_name] then
-          for k, v in pairs(server_configs[server_name]) do
-            config[k] = v
+        if server_name ~= "jdtls" then
+          local has_cmp, cmp = pcall(require, "cmp_nvim_lsp")
+          local capabilities
+          local config = {}
+          if has_cmp then
+            capabilities = cmp.default_capabilities()
+            config = {
+              capabilities = capabilities,
+            }
           end
+
+          if server_configs[server_name] then
+            for k, v in pairs(server_configs[server_name]) do
+              config[k] = v
+            end
+          end
+
+          lspconfig[server_name].setup(config)
+
+          ::continue::
         end
-
-        lspconfig[server_name].setup(config)
-
-        ::continue::
       end
     end,
   },
