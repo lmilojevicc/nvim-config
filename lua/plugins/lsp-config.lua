@@ -115,7 +115,7 @@ return {
           map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 
           opts.desc = "󰑕 LSP rename"
-          map("n", "<leader>cr", vim.lsp.buf.rename, opts)
+          map("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
           opts.desc = "󰈙 LSP Show documentation under cursor"
           map("n", "gh", vim.lsp.buf.hover, opts)

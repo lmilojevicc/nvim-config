@@ -12,22 +12,7 @@ map("n", "<C-c>", function()
   vim.notify("Entire file yanked to clipboard!", vim.log.levels.INFO)
 end, { desc = " Yank entire file" })
 
-map("n", "<leader>rl", function()
-  vim.wo.relativenumber = not vim.wo.relativenumber
-  vim.wo.number = true
-end, { desc = "󰨚 Toggle relative line numbers" })
-
-local has_tmux_navigator = (function()
-  local success = pcall(vim.cmd, "silent! command TmuxNavigateLeft")
-
-  if not success and package.loaded["vim-tmux-navigator"] then
-    success = true
-  end
-
-  return success
-end)()
-
-if not has_tmux_navigator then
+if not os.getenv("TMUX") then
   map("n", "<C-h>", "<C-w>h", { desc = " Go to Left Window", remap = true })
   map("n", "<C-j>", "<C-w>j", { desc = " Go to Lower Window", remap = true })
   map("n", "<C-k>", "<C-w>k", { desc = " Go to Upper Window", remap = true })
@@ -129,45 +114,3 @@ end, { desc = " Exit Terminal Mode" })
 -- Lazy
 map("n", "<leader>lz", "<cmd>Lazy<CR>", { noremap = true, silent = true, desc = "󰽤 Open Lazy" })
 map("n", "<leader>lu", "<cmd>Lazy update<CR>", { noremap = true, silent = true, desc = "󰚰 Update Lazy" })
-
--- Toggle spell checking
-map("n", "<leader>us", function()
-  vim.opt_local.spell = not vim.opt_local.spell:get()
-  vim.notify(
-    "Spell check " .. (vim.opt_local.spell:get() and "enabled" or "disabled"),
-    vim.log.levels.INFO,
-    { title = " Toggle Spell Check" }
-  )
-end, { desc = "󰨚 Toggle spell check" })
-
--- Toggle wrap
-map("n", "<leader>uw", function()
-  vim.opt_local.wrap = not vim.opt_local.wrap:get()
-  vim.notify(
-    "Line wrap " .. (vim.opt_local.wrap:get() and "enabled" or "disabled"),
-    vim.log.levels.INFO,
-    { title = "󰖶 Toggle Wrap" }
-  )
-end, { desc = "󰨚 Toggle line wrap" })
-
--- Copy file path to clipboard
-map("n", "<leader>cp", function()
-  local filepath = vim.fn.expand("%:p")
-  vim.fn.setreg("+", filepath)
-  vim.notify("Copied file path to clipboard: " .. filepath, vim.log.levels.INFO, { title = " Copy File Path" })
-end, { desc = " Copy filepath to clipboard" })
-
--- Copy filename to clipboard
-map("n", "<leader>cf", function()
-  local filename = vim.fn.expand("%:t")
-  vim.fn.setreg("+", filename)
-  vim.notify("Copied file name to clipboard: " .. filename, vim.log.levels.INFO, { title = " Copy File Name" })
-end, { desc = " Copy filename to clipboard" })
-
--- quickfix list
-map("n", "<leader>qf", function()
-  local success, err = pcall(vim.fn.getqflist({ winid = 0 }).winid ~= 0 and vim.cmd.cclose or vim.cmd.copen)
-  if not success and err then
-    vim.notify(err, vim.log.levels.ERROR)
-  end
-end, { desc = " Quickfix List" })

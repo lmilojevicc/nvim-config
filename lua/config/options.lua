@@ -22,13 +22,39 @@ opt.pumheight = 10
 opt.cmdheight = 0
 
 vim.diagnostic.config({
+  virtual_text = {
+    spacing = 4,
+    format = function(diagnostic)
+      local icons = {
+        [vim.diagnostic.severity.ERROR] = " ",
+        [vim.diagnostic.severity.WARN] = " ",
+        [vim.diagnostic.severity.HINT] = " ",
+        [vim.diagnostic.severity.INFO] = " ",
+      }
+
+      return string.format("%s %s", icons[diagnostic.severity] or "", diagnostic.message)
+    end,
+  },
+
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = "",
-      [vim.diagnostic.severity.WARN] = "",
-      [vim.diagnostic.severity.HINT] = "",
-      [vim.diagnostic.severity.INFO] = "",
+      [vim.diagnostic.severity.ERROR] = " ",
+      [vim.diagnostic.severity.WARN] = " ",
+      [vim.diagnostic.severity.HINT] = " ",
+      [vim.diagnostic.severity.INFO] = " ",
     },
+  },
+
+  underline = true,
+  severity_sort = true,
+  update_in_insert = false,
+
+  float = {
+    focusable = true,
+    style = "minimal",
+    border = "rounded",
+    header = "",
+    prefix = "",
   },
 })
 
@@ -40,6 +66,9 @@ opt.confirm = true
 if vim.fn.has("nvim-0.10") == 1 then
   opt.smoothscroll = true
 end
+
+-- Formatting
+vim.g.editorconfig = true
 
 -- Text Editing and Indentation
 opt.expandtab = true

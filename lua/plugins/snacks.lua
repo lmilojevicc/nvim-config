@@ -89,7 +89,6 @@ return {
 
     -- Explorer
     { "<leader>ee", function() Snacks.explorer.open() end, desc = " Open Snacks Explorer", },
-    { "<leader>ef", function() Snacks.explorer.reveal() end, desc = " Find current file in Snacks", },
 
     -- Buffer
     { "<leader>bd", function() Snacks.bufdelete() end, desc = " Delete current buffer (file or terminal)", },
@@ -159,6 +158,7 @@ return {
     { "<leader>fT", function() Snacks.picker.todo_comments() end, desc = " Todo Comments", },
 
     -- Pickers
+    { "<leader>fl", function() Snacks.picker.lsp_config() end, desc = " Lsp Config", },
     { "<leader>fh", function() Snacks.picker.help() end, desc = "󰘥 Help Pages", },
     { "<leader>fM", function() Snacks.picker.man() end, desc = "󰘥 Man Pages", },
     { "<leader>fc", function() Snacks.picker.colorschemes() end, desc = " Colorscheme picker", },
@@ -195,5 +195,26 @@ return {
 
     Snacks.toggle.zoom():map("<leader>sz", { desc = " Toggle Zoom Split" })
     Snacks.toggle.words():map("<leader>uW", { desc = "󰺯 Toggle Word Highlighting" })
+
+    Snacks.toggle({
+      name = "Auto Format (Global)",
+      get = function()
+        return not vim.g.disable_autoformat
+      end,
+      set = function(state)
+        vim.g.disable_autoformat = not state
+        vim.b.disable_autoformat = false
+      end,
+    }):map("<leader>uf")
+
+    Snacks.toggle({
+      name = "Auto Format (Buffer)",
+      get = function()
+        return not vim.b.disable_autoformat
+      end,
+      set = function(state)
+        vim.b.disable_autoformat = not state
+      end,
+    }):map("<leader>uF")
   end,
 }
