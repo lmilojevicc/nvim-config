@@ -129,6 +129,13 @@ local config = {
         },
         useBlocks = true,
       },
+
+      inlayHints = {
+        parameterNames = {
+          enabled = "all",
+          exclusions = { "this" },
+        },
+      },
     },
   },
 

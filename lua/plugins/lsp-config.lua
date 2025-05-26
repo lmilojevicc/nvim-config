@@ -55,7 +55,10 @@ return {
           "pylint",
           "eslint_d",
           "clang-format",
-          "google-java-format",
+          "gofumpt",
+          "goimports-reviser",
+          "delve",
+          "golines",
           "shfmt",
           "java-debug-adapter",
           "java-test",
@@ -151,6 +154,61 @@ return {
               showSuggestionsAsSnippets = false,
               preferences = {
                 ["bem.enabled"] = true,
+              },
+            },
+          },
+        },
+
+        lua_ls = {
+          settings = {
+            Lua = {
+              hint = {
+                enable = true,
+              },
+            },
+          },
+        },
+
+        clangd = {
+          settings = {
+            clangd = {
+              InlayHints = {
+                Designators = true,
+                Enabled = true,
+                ParameterNames = true,
+                DeducedTypes = true,
+              },
+              fallbackFlags = { "-std=c++20" },
+            },
+          },
+        },
+
+        gopls = {
+          settings = {
+            gopls = {
+              hints = {
+                rangeVariableTypes = true,
+                parameterNames = true,
+                constantValues = true,
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                compositeLiteralTypes = true,
+                functionTypeParameters = true,
+              },
+            },
+          },
+        },
+
+        vtsls = {
+          settings = {
+            typescript = {
+              inlayHints = {
+                parameterNames = { enabled = "all" },
+                parameterTypes = { enabled = true },
+                variableTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                enumMemberValues = { enabled = true },
               },
             },
           },
