@@ -13,7 +13,31 @@ return {
     picker = {
       layout = "default",
       files = { hidden = true },
-      sources = { explorer = { auto_close = true, hidden = true, ignored = true } },
+      sources = {
+
+        explorer = {
+          auto_close = true,
+          hidden = true,
+          ignored = true,
+        },
+
+        treesitter = {
+          finder = "treesitter_symbols",
+          format = "lsp_symbol",
+          tree = true,
+          filter = {
+            default = true,
+          },
+        },
+      },
+
+      win = {
+        input = {
+          keys = {
+            ["<c-h>"] = { "edit_split", mode = { "i", "n" } },
+          },
+        },
+      },
     },
     dashboard = {
       preset = {
@@ -29,17 +53,17 @@ return {
           { icon = " ", key = "m", desc = "Mason", action = ":Mason" },
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
         },
+
+        header = [[
+███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
+████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
+██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
+██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
+██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
+╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ 
+]],
       },
-      header = {
-        text = {
-          "███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗",
-          "████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║",
-          "██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║",
-          "██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║",
-          "██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║",
-          "╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝",
-        },
-      },
+
       sections = {
         { section = "header" },
         { text = { " " .. os.date("%A, %d %B %Y"), hl = "SnacksDashboardHeader" }, padding = 1, align = "center" },
@@ -133,6 +157,7 @@ return {
     { "gi", function() Snacks.picker.lsp_implementations() end, desc = " Show LSP implementations", },
     { "gt", function() Snacks.picker.lsp_type_definitions() end, desc = " Show LSP type definitions", },
     { "<leader>fs", function() Snacks.picker.lsp_symbols() end, desc = " Show document symbols", },
+    { "<leader>ft", function() Snacks.picker.treesitter() end, desc = " Show document symbols", },
     { "<leader>fS", function() Snacks.picker.lsp_workspace_symbols() end, desc = " Show document symbols", },
 
     -- Search
@@ -160,6 +185,7 @@ return {
     -- Pickers
     { "<leader>fl", function() Snacks.picker.lsp_config() end, desc = " Lsp Config", },
     { "<leader>fh", function() Snacks.picker.help() end, desc = "󰘥 Help Pages", },
+    { "<leader>fH", function() Snacks.picker.highlights() end, desc = " Highlights", },
     { "<leader>fM", function() Snacks.picker.man() end, desc = "󰘥 Man Pages", },
     { "<leader>fc", function() Snacks.picker.colorschemes() end, desc = " Colorscheme picker", },
     { "<leader>fi", function() Snacks.picker.icons({ icon_sources = { "nerd_fonts" } }) end, desc = "  Nerd Font Icons picker", },
