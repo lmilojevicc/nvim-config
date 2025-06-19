@@ -79,7 +79,6 @@ return {
     dependencies = {
       "folke/lazydev.nvim",
       "mason-org/mason.nvim",
-      { "hrsh7th/cmp-nvim-lsp", enabled = false },
     },
 
     config = function()
