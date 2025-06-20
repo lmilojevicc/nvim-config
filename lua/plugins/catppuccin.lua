@@ -1,7 +1,6 @@
 return {
   "catppuccin/nvim",
   name = "catppuccin",
-  enabled = true,
   priority = 1000,
   config = function()
     require("catppuccin").setup({
@@ -73,6 +72,19 @@ return {
         treesitter_context = true,
         which_key = true,
       },
+
+      custom_highlights = function(colors)
+        return {
+          NormalFloat = { bg = colors.crust },
+          NoiceCmdlinePopupBorder = { fg = colors.peach },
+          NoiceCmdlinePopupTitle = { fg = colors.peach },
+          NoiceCmdlinePopup = { fg = colors.peach },
+          NoiceCmdlineIcon = { fg = colors.peach },
+          SnacksInputTitle = { fg = colors.blue },
+          SnacksInputBorder = { fg = colors.blue },
+          SnacksInputIcon = { fg = colors.blue },
+        }
+      end,
     })
 
     vim.cmd.colorscheme("catppuccin")
