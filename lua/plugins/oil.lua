@@ -10,6 +10,6 @@ return {
 
   --stylua: ignore
   keys = {
-    { "<leader>oi", function() require("oil").toggle_float() end, desc = "Open Floating Oil Nvim", },
+    { "<leader>oi", function() require("oil").toggle_float() end, desc = "󰿸 Open Floating Oil Nvim", },
   },
 }

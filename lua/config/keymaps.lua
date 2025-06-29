@@ -58,12 +58,12 @@ map("v", "<", "<gv", { desc = " Indent left and keep selection" })
 map("v", ">", ">gv", { desc = " Indent right and keep selection" })
 
 -- Window splitting
-map("n", "<leader>sv", "<C-w>v", { desc = " Split window vertically" })
-map("n", "<leader>sh", "<C-w>s", { desc = " Split window horizontally" })
-map("n", "<leader>se", "<C-w>=", { desc = " Make splits equal size" })
-map("n", "<leader>sx", "<cmd>close<CR>", { desc = " Close current split" })
-map("n", "<leader>so", "<C-w>o", { desc = " Close all other splits" })
-map("n", "<leader>sf", function()
+map("n", "<leader>wv", "<C-w>v", { desc = " Split window vertically" })
+map("n", "<leader>wh", "<C-w>s", { desc = " Split window horizontally" })
+map("n", "<leader>we", "<C-w>=", { desc = " Equalize window size" })
+map("n", "<leader>wd", "<cmd>close<CR>", { desc = " Close current window" })
+map("n", "<leader>wO", "<C-w>o", { desc = " Close all other windows" })
+map("n", "<leader>wF", function()
   for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
     local cfg = vim.api.nvim_win_get_config(win)
     if cfg.relative ~= "" then
@@ -71,6 +71,40 @@ map("n", "<leader>sf", function()
     end
   end
 end, { desc = " Close all floating windows" })
+
+local function cycle_floating_windows()
+  local wins = vim.api.nvim_list_wins()
+  local floating_wins = {}
+  local current_win = vim.api.nvim_get_current_win()
+
+  -- Collect all floating windows
+  for _, win in ipairs(wins) do
+    local config = vim.api.nvim_win_get_config(win)
+    if config.relative ~= "" then
+      table.insert(floating_wins, win)
+    end
+  end
+
+  if #floating_wins == 0 then
+    return
+  end
+
+  -- Find current floating window index
+  local current_index = 1
+  for i, win in ipairs(floating_wins) do
+    if win == current_win then
+      current_index = i
+      break
+    end
+  end
+
+  -- Move to next floating window (with wraparound)
+  local next_index = (current_index % #floating_wins) + 1
+  vim.api.nvim_set_current_win(floating_wins[next_index])
+end
+
+-- Create a keymap for this function
+map("n", "<leader>wf", cycle_floating_windows, { desc = " Focus floating window" })
 
 -- Buffers
 map("n", "]b", "<cmd>bnext<CR>", { desc = " Go to next buffer" })

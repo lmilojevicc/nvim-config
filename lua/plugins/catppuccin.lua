@@ -76,10 +76,9 @@ return {
       custom_highlights = function(colors)
         return {
           NormalFloat = { bg = colors.crust },
-          NoiceCmdlinePopupBorder = { fg = colors.peach },
-          NoiceCmdlinePopupTitle = { fg = colors.peach },
-          NoiceCmdlinePopup = { fg = colors.peach },
-          NoiceCmdlineIcon = { fg = colors.peach },
+          NoiceCmdlinePopupBorder = { fg = colors.green },
+          NoiceCmdlinePopupTitle = { fg = colors.green },
+          NoiceCmdlineIcon = { fg = colors.green },
           SnacksInputTitle = { fg = colors.blue },
           SnacksInputBorder = { fg = colors.blue },
           SnacksInputIcon = { fg = colors.blue },

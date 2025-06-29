@@ -219,7 +219,7 @@ return {
     --stylua: ignore
     Snacks.toggle.option("showtabline", { name = "󰓩 Tabline", off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2 }):map("<leader>ut")
 
-    Snacks.toggle.zoom():map("<leader>sz", { desc = " Toggle Zoom Split" })
+    Snacks.toggle.zoom():map("<leader>wz", { desc = " Toggle Zoom Window" })
     Snacks.toggle.words():map("<leader>uW", { desc = "󰺯 Toggle Word Highlighting" })
 
     Snacks.toggle({
