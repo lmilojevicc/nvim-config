@@ -8,11 +8,6 @@ return {
       transparent_background = true,
       show_end_of_buffer = false,
       term_colors = true,
-      dim_inactive = {
-        enabled = false,
-        shade = "dark",
-        percentage = 0.5,
-      },
 
       no_italic = false,
       no_bold = false,
@@ -37,7 +32,15 @@ return {
         aerial = true,
         alpha = true,
         blink_cmp = true,
+        beacon = true,
         cmp = true,
+        dropbar = {
+          enabled = true,
+          color_mode = true,
+        },
+        dap = true,
+        dap_ui = true,
+        diffview = true,
         dashboard = true,
         flash = true,
         dadbod_ui = true,
@@ -62,6 +65,7 @@ return {
           },
         },
         navic = { enabled = true, custom_bg = "lualine" },
+        nvim_surround = true,
         neotest = true,
         neotree = true,
         noice = true,
@@ -83,6 +87,11 @@ return {
           SnacksInputTitle = { fg = colors.blue },
           SnacksInputBorder = { fg = colors.blue },
           SnacksInputIcon = { fg = colors.blue },
+
+          Normal = { bg = colors.crust },
+          NormalNC = { bg = colors.crust },
+          SignColumn = { bg = colors.crust },
+          EndOfBuffer = { bg = colors.crust },
         }
       end,
     })

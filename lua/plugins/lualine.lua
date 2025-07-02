@@ -7,9 +7,12 @@ return {
   event = "VeryLazy",
   opts = function()
     local colors = require("catppuccin.palettes").get_palette()
+    local custom_catppuccin = require("lualine.themes.catppuccin")
+    custom_catppuccin.normal.c.bg = colors.crust
 
     return {
       options = {
+        theme = custom_catppuccin,
         component_separators = "",
         section_separators = { left = "", right = "" },
         globalstatus = true,

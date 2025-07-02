@@ -21,8 +21,9 @@ return {
   },
 
   keys = {
-    { "<leader>gdo", "<cmd>DiffviewOpen<cr>", desc = " Open Diffview" },
-    { "<leader>gdc", "<cmd>DiffviewClose<cr>", desc = " Close Diffview" },
-    { "<leader>gdh", "<cmd>DiffviewFileHistory<cr>", desc = " Diff File History" },
+    { "<leader>gdo", "<cmd>DiffviewOpen<cr>", desc = " Diffview Open" },
+    { "<leader>gdc", "<cmd>DiffviewClose<cr>", desc = " Diffview Close" },
+    { "<leader>gdh", "<cmd>DiffviewFileHistory %<cr>", desc = " Diffview Current File History" },
+    { "<leader>gdH", "<cmd>DiffviewFileHistory<cr>", desc = " Diffview File History" },
   },
 }

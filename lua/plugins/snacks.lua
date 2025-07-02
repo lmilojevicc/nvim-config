@@ -171,7 +171,9 @@ return {
 
     -- Git Pickers
     { "<leader>gs", function() Snacks.picker.git_status() end, desc = " Git Status" },
-    { "<leader>gL", function() Snacks.picker.git_log_file() end, desc = " Git Current File History" },
+    { "<leader>gD", function() Snacks.picker.git_diff() end, desc = " Git Search Diff files" },
+    { "<leader>gl", function() Snacks.picker.git_log_file() end, desc = " Git Current File History" },
+    { "<leader>gL", function() Snacks.picker.git_log() end, desc = " Git Log Repository" },
 
     -- Lists
     { "<leader>qf", function() Snacks.picker.qflist() end, desc = " Quickfix list" },
