@@ -1,20 +1,21 @@
 return {
   "stevearc/aerial.nvim",
-  event = { "BufRead" },
+  event = { "BufReadPre" },
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
     "nvim-tree/nvim-web-devicons",
   },
   opts = {
     backends = { "lsp", "treesitter", "markdown", "asciidoc", "man" },
+    show_guides = true,
 
     layout = {
-      default_direction = "prefer_right", -- Open as a floating window
+      default_direction = "prefer_right",
       min_width = 40,
-      max_width = { 80, 0.5 }, -- Up to 80 columns or 50% of screen
+      max_width = { 80, 0.5 },
       win_opts = {
-        winblend = 10, -- Transparency for popup feel
-        winhl = "Normal:Normal,FloatBorder:FloatBorder", -- Custom highlights
+        winblend = 10,
+        winhl = "Normal:Normal,FloatBorder:FloatBorder",
       },
     },
 
@@ -38,7 +39,7 @@ return {
     { "<leader>at", function () require("aerial").toggle() end, desc = "󰆧 Aerial Toggle" },
 
     -- Aerial nav window (picker-like interface)
-    { "<leader>af", function () require("aerial.command").nav_toggle() end, desc = "󰆧 Aerial Nav Toggle" },
+    { "<leader>af", function () require("aerial").nav_toggle() end, desc = "󰆧 Aerial Nav Toggle" },
     { "<leader>fs", function() require("aerial").snacks_picker() end, desc = "󰆧 Find Symbols (Aerial Snacks picker)", },
   },
 }

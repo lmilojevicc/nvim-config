@@ -1,12 +1,24 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  event = { "BufReadPre", "BufNewFile" },
-  dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
+  event = { "BufReadPre" },
+
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+  },
+
   opts = {
-    ensure_installed = "all",
     auto_install = true,
     highlight = { enable = true },
     indent = { enable = true },
+
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = "<CR>",
+        node_incremental = "<CR>",
+        node_decremental = "<bs>",
+      },
+    },
 
     textobjects = {
       select = {
@@ -21,50 +33,57 @@ return {
           ["is"] = "@struct.inner",
           ["aa"] = "@parameter.outer",
           ["ia"] = "@parameter.inner",
-          ["ai"] = "@conditional.outer",
-          ["ii"] = "@conditional.inner",
+          ["ao"] = "@conditional.outer",
+          ["io"] = "@conditional.inner",
           ["al"] = "@loop.outer",
           ["il"] = "@loop.inner",
-          ["ab"] = "@block.outer",
-          ["ib"] = "@block.inner",
-          ["ad"] = "@comment.outer",
-          ["am"] = "@call.outer",
-          ["im"] = "@call.inner",
+          ["ak"] = "@block.outer",
+          ["ik"] = "@block.inner",
+          ["ar"] = "@return.outer",
+          ["ir"] = "@return.inner",
+          ["ai"] = "@interface.outer",
+          ["ii"] = "@interface.inner",
         },
       },
 
       move = {
         enable = true,
-        set_jumps = true, -- whether to set jumps in the jumplist
+        set_jumps = true,
         goto_next_start = {
           ["]f"] = "@function.outer",
           ["]c"] = "@class.outer",
           ["]s"] = "@struct.outer",
+          ["]i"] = "@interface.outer",
+          ["]r"] = "@return.outer",
+          ["]o"] = "@conditional.outer",
+          ["]l"] = "@loop.outer",
         },
         goto_next_end = {
           ["]F"] = "@function.outer",
           ["]C"] = "@class.outer",
           ["]S"] = "@struct.outer",
+          ["]I"] = "@interface.outer",
+          ["]R"] = "@return.outer",
+          ["]O"] = "@conditional.outer",
+          ["]L"] = "@loop.outer",
         },
         goto_previous_start = {
           ["[f"] = "@function.outer",
           ["[c"] = "@class.outer",
           ["[s"] = "@struct.outer",
+          ["[i"] = "@interface.outer",
+          ["[r"] = "@return.outer",
+          ["[o"] = "@conditional.outer",
+          ["[l"] = "@loop.outer",
         },
         goto_previous_end = {
           ["[F"] = "@function.outer",
           ["[C"] = "@class.outer",
           ["[S"] = "@struct.outer",
-        },
-      },
-
-      lsp_interop = {
-        enable = true,
-        border = "none",
-        floating_preview_opts = {},
-        peek_definition_code = {
-          ["<leader>df"] = "@function.outer",
-          ["<leader>dF"] = "@class.outer",
+          ["[I"] = "@interface.outer",
+          ["[R"] = "@return.outer",
+          ["[O"] = "@conditional.outer",
+          ["[L"] = "@loop.outer",
         },
       },
     },

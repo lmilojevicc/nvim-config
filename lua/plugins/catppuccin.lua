@@ -40,6 +40,7 @@ return {
         cmp = true,
         dashboard = true,
         flash = true,
+        dadbod_ui = true,
         fzf = true,
         grug_far = true,
         gitsigns = true,
@@ -76,9 +77,9 @@ return {
       custom_highlights = function(colors)
         return {
           NormalFloat = { bg = colors.crust },
-          NoiceCmdlinePopupBorder = { fg = colors.green },
-          NoiceCmdlinePopupTitle = { fg = colors.green },
-          NoiceCmdlineIcon = { fg = colors.green },
+          NoiceCmdlinePopupBorder = { fg = colors.pink },
+          NoiceCmdlinePopupTitle = { fg = colors.pink },
+          NoiceCmdlineIcon = { fg = colors.pink },
           SnacksInputTitle = { fg = colors.blue },
           SnacksInputBorder = { fg = colors.blue },
           SnacksInputIcon = { fg = colors.blue },

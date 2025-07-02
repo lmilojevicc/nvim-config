@@ -1,6 +1,6 @@
 return {
   "nacro90/numb.nvim",
-  event = { "BufEnter" },
+  event = "VeryLazy",
   config = function()
     require("numb").setup()
   end,
