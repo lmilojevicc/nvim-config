@@ -1,9 +1,5 @@
 local map = vim.keymap.set
 
--- Leader keys
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
-
 map("n", "<Esc>", ":noh<CR><Esc>", { noremap = true, silent = true })
 map("n", ";", ":", { desc = "Enter command mode with ;" })
 

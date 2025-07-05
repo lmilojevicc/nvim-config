@@ -1,5 +1,9 @@
 local opt = vim.opt
 
+-- Leader keys
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
 vim.cmd("let g:netrw_liststyle = 3")
 vim.g.markdown_recommended_style = 0 -- Fix markdown indentation settings
 
