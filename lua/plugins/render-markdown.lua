@@ -31,6 +31,6 @@ return {
           m.disable()
         end
       end,
-    }):map("<leader>mr")
+    }):map("<leader>ur")
   end,
 }

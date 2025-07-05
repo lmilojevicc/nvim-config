@@ -1,35 +1,62 @@
-local home = vim.env.HOME -- Get the home directory
-
 local jdtls = require("jdtls")
-local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
-local workspace_dir = home .. "/jdtls-workspace/" .. project_name
 
-local system_os = ""
+-- Function to get the project root directory
+local function get_root_dir()
+  return require("jdtls.setup").find_root({ ".git", "mvnw", "pom.xml", "build.gradle" })
+end
+
+-- Function to get project name from root directory
+local function get_project_name()
+  local root_dir = get_root_dir()
+  return root_dir and vim.fs.basename(root_dir) or "default"
+end
+
+-- Get paths dynamically
+local home = vim.fn.expand("~")
+local project_name = get_project_name()
+local workspace_dir = home .. "/.cache/jdtls/" .. project_name
 
 -- Determine OS
+local system_os = ""
 if vim.fn.has("mac") == 1 then
   system_os = "mac"
 elseif vim.fn.has("unix") == 1 then
   system_os = "linux"
 else
-  print("OS not found, defaulting to 'linux'")
   system_os = "linux"
 end
 
-local map = vim.keymap.set
+-- Mason installation paths for JDTLS
+local mason_path = vim.fn.stdpath("data") .. "/mason"
+local jdtls_path = mason_path .. "/packages/jdtls"
+local lombok_path = jdtls_path .. "/lombok.jar"
 
--- Needed for debugging
-local bundles = {
-  vim.fn.glob(home .. "/.local/share/nvim/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar"),
-}
+-- Find the correct launcher jar (it may have version numbers)
+local launcher_jar = vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar")
+if launcher_jar == "" then
+  launcher_jar = jdtls_path .. "/plugins/org.eclipse.equinox.launcher.jar"
+end
 
--- Needed for running/debugging unit tests
-vim.list_extend(bundles, vim.split(vim.fn.glob(home .. "/.local/share/nvim/mason/share/java-test/*.jar", 1), "\n"))
+-- Debugging bundles
+local bundles = {}
 
--- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
+-- Java Debug Adapter
+local java_debug_path = mason_path
+  .. "/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar"
+local debug_jar = vim.fn.glob(java_debug_path)
+if debug_jar ~= "" then
+  table.insert(bundles, debug_jar)
+end
+
+-- Java Test Runner
+local java_test_path = mason_path .. "/packages/java-test/extension/server/*.jar"
+local test_jars = vim.fn.glob(java_test_path, 1, 1)
+if test_jars and #test_jars > 0 then
+  vim.list_extend(bundles, test_jars)
+end
+
+-- JDTLS configuration
 local config = {
-  -- The command that starts the language server
-  -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
   cmd = {
     "java",
     "-Declipse.application=org.eclipse.jdt.ls.core.id1",
@@ -37,40 +64,31 @@ local config = {
     "-Declipse.product=org.eclipse.jdt.ls.core.product",
     "-Dlog.protocol=true",
     "-Dlog.level=ALL",
-    "-javaagent:" .. home .. "/.local/share/nvim/mason/share/jdtls/lombok.jar",
+    "-javaagent:" .. lombok_path,
     "-Xmx4g",
     "--add-modules=ALL-SYSTEM",
     "--add-opens",
     "java.base/java.util=ALL-UNNAMED",
     "--add-opens",
     "java.base/java.lang=ALL-UNNAMED",
-
-    -- Eclipse jdtls location
     "-jar",
-    home .. "/.local/share/nvim/mason/share/jdtls/plugins/org.eclipse.equinox.launcher.jar",
+    launcher_jar,
     "-configuration",
-    home .. "/.local/share/nvim/mason/packages/jdtls/config_" .. system_os,
+    jdtls_path .. "/config_" .. system_os,
     "-data",
     workspace_dir,
   },
 
-  -- This is the default if not provided, you can remove it. Or adjust as needed.
-  -- One dedicated LSP server & client will be started per unique root_dir
-  root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "pom.xml", "build.gradle" }),
+  root_dir = get_root_dir(),
 
-  -- Here you can configure eclipse.jdt.ls specific settings
-  -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
   settings = {
     java = {
-      -- TODO: Replace this with the absolute path to your main java version (JDTLS requires JDK 21 or higher)
       home = "/opt/homebrew/Cellar/openjdk@21",
       eclipse = {
         downloadSources = true,
       },
       configuration = {
         updateBuildConfiguration = "interactive",
-        -- TODO: Update this by adding any runtimes that you need to support your Java projects and removing any that you don't have installed
-        -- The runtimes' name parameter needs to match a specific Java execution environments.  See https://github.com/eclipse-jdtls/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request and search "ExecutionEnvironment".
         runtimes = {
           {
             name = "JavaSE-11",
@@ -129,7 +147,6 @@ local config = {
         },
         useBlocks = true,
       },
-
       inlayHints = {
         parameterNames = {
           enabled = "all",
@@ -147,26 +164,22 @@ local config = {
     bundles = bundles,
     extendedClientCapabilities = jdtls.extendedClientCapabilities,
   },
+
+  on_attach = function(client, bufnr)
+    jdtls.setup_dap({ hotcodereplace = "auto" })
+    require("jdtls.dap").setup_dap_main_class_configs()
+
+    -- Keymaps for testing
+    local map = vim.keymap.set
+    map("n", "<leader>tc", function()
+      require("jdtls").test_class()
+    end, { buffer = bufnr, desc = "Java Test Class (JDTLS)" })
+
+    map("n", "<leader>tm", function()
+      require("jdtls").test_nearest_method()
+    end, { buffer = bufnr, desc = "Java Test Nearest Method (JDTLS)" })
+  end,
 }
 
--- Needed for debugging
-config["on_attach"] = function(client, bufnr)
-  jdtls.setup_dap({ hotcodereplace = "auto" })
-  require("jdtls.dap").setup_dap_main_class_configs()
-end
-
--- This starts a new client & server, or attaches to an existing client & server based on the `root_dir`.
+-- Start or attach to JDTLS
 jdtls.start_or_attach(config)
-
--- Mappings for tests
-map("n", "<leader>tc", function()
-  if vim.bo.filetype == "java" then
-    require("jdtls").test_class()
-  end
-end, { desc = " Java Test Class (JDTLS)" })
-
-map("n", "<leader>tm", function()
-  if vim.bo.filetype == "java" then
-    require("jdtls").test_nearest_method()
-  end
-end, { desc = " Java Test Nearest Method (JDTLS)" })

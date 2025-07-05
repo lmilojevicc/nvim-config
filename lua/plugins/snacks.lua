@@ -10,8 +10,9 @@ return {
       enabled = true,
       win = { relative = "cursor", width = 60, row = -3, col = 0, style = "input" },
     },
+
     picker = {
-      layout = "default",
+      layout = { preset = "default", cycle = true },
       files = { hidden = true },
       sources = {
 
@@ -39,6 +40,7 @@ return {
         },
       },
     },
+
     dashboard = {
       preset = {
         -- stylua: ignore
@@ -95,6 +97,12 @@ return {
     toggle = { enabled = true },
     lazygit = { enabled = true },
     statuscolumn = { enabled = true },
+
+    styles = {
+      zen = {
+        backdrop = { transparent = true, blend = 10 },
+      },
+    },
   },
 
   -- stylua: ignore

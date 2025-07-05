@@ -135,11 +135,10 @@ return {
 
         lualine_y = {
 
-          -- stylua: ignore
           {
             require("lazy.status").updates,
             cond = require("lazy.status").has_updates,
-            color = { fg = colors.sky,  },
+            color = { fg = colors.lavender },
           },
 
           -- Indentation
@@ -151,7 +150,7 @@ return {
                 return "TAB " .. vim.bo.tabstop
               end
             end,
-            color = { fg = colors.red },
+            color = { fg = colors.maroon },
           },
 
           -- Formatter status
@@ -184,7 +183,7 @@ return {
 
               return ""
             end,
-            color = { fg = colors.yellow },
+            color = { fg = colors.peach },
             padding = 1,
           },
 

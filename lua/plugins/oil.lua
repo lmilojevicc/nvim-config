@@ -3,7 +3,7 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" },
 
   opts = {
-    float = { max_width = 0.3, max_height = 0.2 },
+    float = { max_width = 0.4, max_height = 0.4 },
     default_file_explorer = true,
     view_options = { show_hidden = true },
   },
