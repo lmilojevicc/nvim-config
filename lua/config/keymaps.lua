@@ -8,6 +8,10 @@ map("n", "<C-c>", function()
   vim.notify("Entire file yanked to clipboard!", vim.log.levels.INFO)
 end, { desc = " Yank entire file" })
 
+-- Vim native file navigation
+map("n", "<leader>ee", ":Explore<CR>", { desc = " Open file explorer" })
+map("n", "<leader>ff", ":find ", { desc = " Find file" })
+
 if not os.getenv("TMUX") then
   map("n", "<C-h>", "<C-w>h", { desc = " Go to Left Window", remap = true })
   map("n", "<C-j>", "<C-w>j", { desc = " Go to Lower Window", remap = true })
@@ -67,6 +71,8 @@ map("n", "<leader>wF", function()
     end
   end
 end, { desc = " Close all floating windows" })
+
+map("n", "<leader>rm", "<cmd>vsplit README.md<CR>", { desc = " Open README in a new vertical split" })
 
 local function cycle_floating_windows()
   local wins = vim.api.nvim_list_wins()
@@ -140,7 +146,3 @@ map("t", "<C-x>", function()
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, true, true), "n", true)
   end
 end, { desc = " Exit Terminal Mode" })
-
--- Lazy
-map("n", "<leader>lz", "<cmd>Lazy<CR>", { noremap = true, silent = true, desc = "󰽤 Open Lazy" })
-map("n", "<leader>lu", "<cmd>Lazy update<CR>", { noremap = true, silent = true, desc = "󰚰 Update Lazy" })

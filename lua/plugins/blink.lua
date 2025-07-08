@@ -75,7 +75,7 @@ return {
 
         auto_show = true,
         border = "none",
-        scrollbar = true,
+        scrollbar = false,
         scrolloff = 5,
       },
 

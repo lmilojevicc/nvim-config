@@ -23,3 +23,5 @@ require("lazy").setup({
     notify = false,
   },
 })
+
+vim.keymap.set("n", "<leader>lz", "<cmd>Lazy<CR>", { noremap = true, silent = true, desc = "󰽤 Open Lazy" })

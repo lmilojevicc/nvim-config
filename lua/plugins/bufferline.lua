@@ -1,7 +1,7 @@
 return {
   "akinsho/bufferline.nvim",
   version = "*",
-  event = "BufReadPre",
+  event = "VeryLazy",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   opts = function(_, opts)
     if (vim.g.colors_name or ""):find("catppuccin") then
@@ -14,7 +14,7 @@ return {
       -- stylua: ignore
       middle_mouse_command = function(n) Snacks.bufdelete(n) end,
 
-      always_show_bufferline = false,
+      always_show_bufferline = true,
 
       diagnostics = "nvim_lsp",
       diagnostics_indicator = function(count, level, diagnostics_dict, context)
@@ -31,4 +31,15 @@ return {
       },
     }
   end,
+
+  keys = {
+    { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Bufferline Toggle Pin" },
+    { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Buffferline Delete Non-Pinned Buffers" },
+    { "<leader>br", "<Cmd>BufferLineCloseRight<CR>", desc = "Bufferline Delete Buffers to the Right" },
+    { "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", desc = "Bufferline Delete Buffers to the Left" },
+    { "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+    { "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+    { "[B", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer prev" },
+    { "]B", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer next" },
+  },
 }

@@ -84,6 +84,7 @@ return {
           NoiceCmdlinePopupBorder = { fg = colors.pink },
           NoiceCmdlinePopupTitle = { fg = colors.pink },
           NoiceCmdlineIcon = { fg = colors.pink },
+          NoiceVirtualText = { fg = colors.rosewater },
           SnacksInputTitle = { fg = colors.blue },
           SnacksInputBorder = { fg = colors.blue },
           SnacksInputIcon = { fg = colors.blue },
@@ -92,6 +93,9 @@ return {
           NormalNC = { bg = colors.crust },
           SignColumn = { bg = colors.crust },
           EndOfBuffer = { bg = colors.crust },
+          CurSearch = { bg = colors.rosewater },
+          Search = { fg = "", bg = colors.surface0 },
+          IncSearch = { fg = colors.crust, bg = colors.blue },
         }
       end,
     })

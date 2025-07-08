@@ -138,7 +138,7 @@ return {
           {
             require("lazy.status").updates,
             cond = require("lazy.status").has_updates,
-            color = { fg = colors.lavender },
+            color = { fg = colors.maroon },
           },
 
           -- Indentation
@@ -150,7 +150,7 @@ return {
                 return "TAB " .. vim.bo.tabstop
               end
             end,
-            color = { fg = colors.maroon },
+            color = { fg = colors.mauve },
           },
 
           -- Formatter status
@@ -183,7 +183,7 @@ return {
 
               return ""
             end,
-            color = { fg = colors.peach },
+            color = { fg = colors.lavender },
             padding = 1,
           },
 

@@ -148,9 +148,9 @@ return {
             local padded_desc = desc .. string.rep(" ", desc_width - #desc)
 
             return {
-              { padded_mode, "String" },
-              { padded_key, "ErrorMsg" },
-              { padded_desc, "Function" },
+              { padded_mode, "csvCol6" },
+              { padded_key, "csvCol7" },
+              { padded_desc, "csvCol8" },
             }
           end,
         })
@@ -171,11 +171,12 @@ return {
     -- Search
     { "<leader>ff", function() Snacks.picker.files({ hidden = true }) end, desc = " Find files", },
     { "<leader>fg", function() Snacks.picker.grep() end, desc = " Grep in workspace", },
+    { "<leader>fG", function() Snacks.picker.grep_buffers() end, desc = " Grep buffers" },
     { mode = {"n", "v"}, "<leader>fw", function() Snacks.picker.grep_word() end, desc = " Grep in workspace", },
     { "<leader>fb", function() Snacks.picker.buffers() end, desc = " List open buffers", },
 
     -- Terminal
-    { mode = { "n", "t" }, "<A-t>", function() Snacks.terminal.toggle() end, desc = "󰨚 Toggle floating terminal", },
+    -- { mode = { "n", "t" }, "<A-t>", function() Snacks.terminal.toggle() end, desc = "󰨚 Toggle floating terminal", },
 
     -- Git Pickers
     { "<leader>gs", function() Snacks.picker.git_status() end, desc = " Git Status" },
@@ -194,15 +195,19 @@ return {
 
     -- Pickers
     { "<leader>fl", function() Snacks.picker.lsp_config() end, desc = " Lsp Config", },
+    { "<leader>fu", function() Snacks.picker.undo() end, desc = " Undo", },
+    { "<leader>fz", function() Snacks.picker.zoxide() end, desc = " Zoxide", },
     { "<leader>fh", function() Snacks.picker.help() end, desc = "󰘥 Help Pages", },
     { "<leader>fH", function() Snacks.picker.highlights() end, desc = " Highlights", },
     { "<leader>fM", function() Snacks.picker.man() end, desc = "󰘥 Man Pages", },
-    { "<leader>fc", function() Snacks.picker.colorschemes() end, desc = " Colorscheme picker", },
+    { "<leader>fM", function() Snacks.picker.colorschemes() end, desc = " Colorscheme picker", },
     { "<leader>fi", function() Snacks.picker.icons({ icon_sources = { "nerd_fonts" } }) end, desc = "  Nerd Font Icons picker", },
     { "<leader>fm", function() Snacks.picker.marks() end, desc = " Marks" },
     { "<leader>fj", function() Snacks.picker.jumps() end, desc = "󰹹 Jumps" },
     { "<leader>fr", function() Snacks.picker.registers() end, desc = " Registers" },
     { "<leader>fP", function() Snacks.picker.projects() end, desc = " Projects" },
+    { "<leader>fc", function() Snacks.picker.command_history() end, desc = " Comandline History" },
+    { "<leader>fC", function() Snacks.picker.commands() end, desc = " Commandline commands" },
   },
 
   -- Setup toggle mappings
