@@ -7,28 +7,48 @@ return {
   event = "VeryLazy",
   opts = function()
     local colors = require("catppuccin.palettes").get_palette()
+    colors["lighter_base"] = "#232634"
     local custom_catppuccin = require("lualine.themes.catppuccin")
-    custom_catppuccin.normal.c.bg = colors.crust
+
+    custom_catppuccin.normal.c.bg = "none"
+    custom_catppuccin.command.a = { fg = colors.green, bg = colors.lighter_base }
+    custom_catppuccin.normal.a = { fg = colors.blue, bg = colors.lighter_base }
+    custom_catppuccin.inactive.a = { fg = colors.lavender, bg = colors.lighter_base }
+    custom_catppuccin.insert.a = { fg = colors.peach, bg = colors.lighter_base }
+    custom_catppuccin.replace.a = { fg = colors.red, bg = colors.lighter_base }
+    custom_catppuccin.terminal.a = { fg = colors.teal, bg = colors.lighter_base }
+    custom_catppuccin.visual.a = { fg = colors.mauve, bg = colors.lighter_base }
 
     return {
       options = {
         theme = custom_catppuccin,
         component_separators = "",
-        section_separators = { left = "", right = "" },
+        section_separators = { left = "", right = "" },
         globalstatus = true,
       },
 
       sections = {
-        lualine_a = { "mode" },
-        lualine_b = {
+        lualine_a = {
+          {
+            "mode",
+            icon = "",
+          },
+        },
+        lualine_b = {},
+        lualine_c = {
           {
             "filetype",
             icon_only = true,
             colored = false,
-            padding = { right = 0, left = 1 },
             color = { fg = colors.blue },
+            padding = { left = 1, right = 0 },
+            fmt = function(str)
+              if str == "" then
+                return " "
+              end
+              return str
+            end,
           },
-
           {
             "filename",
             icon_only = false,
@@ -41,7 +61,6 @@ return {
             padding = { right = 1, left = 0 },
             color = { fg = colors.blue },
           },
-
           {
             "branch",
             icon = "󰘬",
@@ -100,20 +119,19 @@ return {
               return str .. (indicators ~= "" and " " .. indicators or "")
             end,
           },
-
           {
             "diff",
-            symbols = { added = " ", modified = " ", removed = " " },
+            colored = true,
+            symbols = { added = " ", modified = " ", removed = " " },
           },
-
           {
             "diagnostics",
+            sources = { "nvim_diagnostic" },
             symbols = { error = "󰅚 ", warn = " ", info = " ", hint = "󰛩 " },
-            padding = 1,
+            colored = true,
+            -- always_visible = true,
           },
-        },
 
-        lualine_c = {
           "%=",
 
           -- stylua: ignore
@@ -130,17 +148,12 @@ return {
             color = { fg = colors.red },
           },
         },
-
-        lualine_x = {},
-
-        lualine_y = {
-
+        lualine_x = {
           {
             require("lazy.status").updates,
             cond = require("lazy.status").has_updates,
-            color = { fg = colors.maroon },
+            color = { fg = colors.lavender },
           },
-
           -- Indentation
           {
             function()
@@ -150,9 +163,8 @@ return {
                 return "TAB " .. vim.bo.tabstop
               end
             end,
-            color = { fg = colors.mauve },
+            color = { fg = colors.rosewater },
           },
-
           -- Formatter status
           {
             function()
@@ -171,22 +183,21 @@ return {
                   table.insert(formatterNames, formatter)
                 end
 
-                return "{} " .. table.concat(formatterNames, " ")
+                return "󰷈 " .. table.concat(formatterNames, " ")
               end
 
               local bufnr = vim.api.nvim_get_current_buf()
               local lsp_clients = lsp_format.get_format_clients({ bufnr = bufnr })
 
               if not vim.tbl_isempty(lsp_clients) then
-                return "{} LSP Formatter"
+                return "󰷈 LSP Formatter"
               end
 
               return ""
             end,
-            color = { fg = colors.lavender },
+            color = { fg = colors.flamingo },
             padding = 1,
           },
-
           {
             "lsp_status",
             icon = "",
@@ -196,10 +207,10 @@ return {
               separator = " ",
             },
             padding = 1,
-            color = { fg = colors.blue },
+            color = { fg = colors.pink },
           },
         },
-
+        lualine_y = {},
         lualine_z = { "progress" },
       },
       inactive_sections = {
@@ -209,14 +220,6 @@ return {
         lualine_z = {},
         lualine_c = {},
         lualine_x = {},
-      },
-      extensions = {
-        "trouble",
-        "fzf",
-        "nvim-dap-ui",
-        "mason",
-        "lazy",
-        "oil",
       },
     }
   end,
