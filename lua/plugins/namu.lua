@@ -1,0 +1,60 @@
+return {
+  "bassamsdata/namu.nvim",
+  event = "BufReadPre",
+  opts = {
+    namu_symbols = {
+      row_position = "top10_right", -- options: "center"|"top10"|"top10_right"|"center_right"|"bottom",
+      options = {
+        AllowKinds = {
+          default = {
+            "Array",
+            "Class",
+            "Constant",
+            "Constructor",
+            "Enum",
+            "EnumMember",
+            "Event",
+            "Field",
+            "File",
+            "Function",
+            "Interface",
+            "Key",
+            "Method",
+            "Module",
+            "Namespace",
+            "Object",
+            "Package",
+            "Property",
+            "Struct",
+            "Variable",
+          },
+          lua = {
+            "Function",
+            "Method",
+            "Table",
+            "Module",
+            "Variable",
+            "Constant",
+            "Property",
+            "Field",
+            "Key",
+            "Object",
+            "Array",
+          },
+        },
+        BlockList = {
+          lua = {
+            "^vim%.api%.",
+            "^callback$",
+          },
+        },
+      },
+    },
+  },
+  keys = {
+    { "<leader>ns", ":Namu symbols<cr>", desc = "Namu Jump to LSP symbol" },
+    { "<leader>nt", ":Namu treesitter<cr>", desc = "Namu Jump to Treesitter symbol" },
+    { "<leader>nw", ":Namu watchtower<cr>", desc = "Namu LSP Symbols - Workspace" },
+    { "<leader>nW", ":Namu workspace<cr>", desc = "Namu LSP Symbols - Workspace" },
+  },
+}
