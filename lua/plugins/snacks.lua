@@ -10,32 +10,55 @@ return {
       enabled = true,
       win = { relative = "cursor", width = 60, row = -3, col = 0, style = "input" },
     },
-
     picker = {
       layout = { preset = "default", cycle = true },
       files = { hidden = true },
       sources = {
-
         explorer = {
           auto_close = true,
           hidden = true,
           ignored = true,
         },
-
-        treesitter = {
-          finder = "treesitter_symbols",
-          format = "lsp_symbol",
+        lsp_symbols = {
           tree = true,
           filter = {
-            default = true,
-          },
-        },
-      },
-
-      win = {
-        input = {
-          keys = {
-            ["<c-h>"] = { "edit_split", mode = { "i", "n" } },
+            default = {
+              "Array",
+              "Class",
+              "Constant",
+              "Constructor",
+              "Enum",
+              "EnumMember",
+              "Event",
+              "Field",
+              "File",
+              "Function",
+              "Interface",
+              "Key",
+              "Method",
+              "Module",
+              "Namespace",
+              "Object",
+              "Package",
+              "Property",
+              "Struct",
+              "Variable",
+            },
+            markdown = true,
+            help = true,
+            lua = {
+              "Function",
+              "Method",
+              "Table",
+              "Module",
+              "Variable",
+              "Constant",
+              "Property",
+              "Field",
+              "Key",
+              "Object",
+              "Array",
+            },
           },
         },
       },
@@ -68,7 +91,7 @@ return {
 
       sections = {
         { section = "header" },
-        { text = { " " .. os.date("%A, %d %B %Y"), hl = "SnacksDashboardHeader" }, padding = 1, align = "center" },
+        { text = { " " .. os.date("%A, %d %B %Y"), hl = "SnacksDashboardHeader" }, padding = 1, align = "center" },
         { icon = " ", title = "Keymaps", section = "keys", padding = 1 },
         { icon = " ", title = "Projects", section = "projects", padding = 1 },
         {
@@ -77,8 +100,7 @@ return {
           title = "Git Status",
           enabled = vim.fn.isdirectory(".git") == 1,
           cmd = 'git rev-parse --is-inside-work-tree >/dev/null 2>&1 && PAGER="" GIT_PAGER="" git -P diff --stat -B -M -C || echo "Not a git repository" ',
-          height = 8,
-          padding = 2,
+          padding = 1,
           indent = 0,
         },
         { section = "startup" },
@@ -108,7 +130,32 @@ return {
   -- stylua: ignore
   keys = {
     -- Zen
-    { "<leader>zm", function() Snacks.zen() end, desc = "󰾞 Toggle Zen Mode", },
+    { "<leader>zm", function() Snacks.zen() end, desc = "󰾞 Toggle Zen Mode" },
+    { "<leader>zr", function() Snacks.zen({ win = { width = 0.4 } }) end, desc = "󰾞 Toggle Reader Zen Mode" },
+    { "<leader>zc", function() Snacks.zen({ win = { width = 0.75 } }) end, desc = "󰾞 Toggle Code Zen Mode" },
+    {
+      "<leader>zw",
+      function()
+        local input = vim.fn.input("Enter custom percentage width: ")
+        if input == "" then
+          return
+        end
+        local width
+          local percentage = tonumber(input)
+          if percentage and percentage > 0 and percentage <= 100 then
+            width = percentage / 100
+          else
+            vim.notify("Please enter a number between 1 and 100.", vim.log.levels.WARN)
+            return
+          end
+        if width then
+          Snacks.zen({ win = { width = width } })
+        else
+          vim.notify("Invalid width provided.", vim.log.levels.WARN)
+        end
+      end,
+      desc = "󰾞 Toggle Custom Size Zen Mode",
+    },
 
     -- Lazygit
     { "<leader>lg", function() Snacks.lazygit.open() end, desc = " Open Lazygit", },
@@ -164,15 +211,16 @@ return {
     { "gd", function() Snacks.picker.lsp_definitions() end, desc = " Show LSP definitions", },
     { "gi", function() Snacks.picker.lsp_implementations() end, desc = " Show LSP implementations", },
     { "gt", function() Snacks.picker.lsp_type_definitions() end, desc = " Show LSP type definitions", },
-    { "<leader>fs", function() Snacks.picker.lsp_symbols() end, desc = " Show document symbols", },
-    { "<leader>ft", function() Snacks.picker.treesitter() end, desc = " Show document symbols", },
-    { "<leader>fS", function() Snacks.picker.lsp_workspace_symbols() end, desc = " Show document symbols", },
+    { "<leader>fst", function() Snacks.picker.treesitter() end, desc = " Show treesitter symbols", },
+    { "<leader>fsr", function() Snacks.picker.lsp_symbols({ layout = "right" }) end, desc = " Show document symbols in sidebar" },
+    { "<leader>fss", function() Snacks.picker.lsp_symbols() end, desc = " Show document symbols in floating picker", },
+    { "<leader>fsw", function() Snacks.picker.lsp_workspace_symbols() end, desc = " Show workspace symbols", },
 
     -- Search
     { "<leader>ff", function() Snacks.picker.files({ hidden = true }) end, desc = " Find files", },
     { "<leader>fg", function() Snacks.picker.grep() end, desc = " Grep in workspace", },
     { "<leader>fG", function() Snacks.picker.grep_buffers() end, desc = " Grep buffers" },
-    { mode = {"n", "v"}, "<leader>fw", function() Snacks.picker.grep_word() end, desc = " Grep in workspace", },
+    { mode = { "n", "v"}, "<leader>fw", function() Snacks.picker.grep_word() end, desc = " Grep in workspace", },
     { "<leader>fb", function() Snacks.picker.buffers() end, desc = " List open buffers", },
 
     -- Terminal

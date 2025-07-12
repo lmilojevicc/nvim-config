@@ -32,6 +32,7 @@ return {
         "jdtls",
         "jsonls",
         "lua_ls",
+        "marksman",
         "neocmake",
         "ruff",
         "rust_analyzer",

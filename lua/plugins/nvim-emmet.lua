@@ -4,6 +4,6 @@ return {
 
   --stylua: ignore
   keys = {
-    { mode = { "n", "v" }, "<leader>we", function() require("nvim-emmet").wrap_with_abbreviation() end, desc = " Emmet wrap with abbreviation", },
+    { mode = { "n", "v" }, "<leader>em", function() require("nvim-emmet").wrap_with_abbreviation() end, desc = " Emmet wrap with abbreviation", },
   },
 }

@@ -75,6 +75,7 @@ vim.opt.path:append("**") -- Search in subdirectories
 vim.opt.mouse = "a" -- Enable mouse in all modes
 vim.opt.clipboard = "unnamedplus" -- Use system clipboard
 vim.opt.modifiable = true -- Enable buffer modifications
+vim.opt.confirm = true
 
 -- Cursor
 vim.opt.guicursor =

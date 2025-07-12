@@ -30,16 +30,33 @@ return {
     },
 
     close_automatic_events = { "unfocus", "switch_buffer", "unsupported" },
-    filter_kind = false,
+    filter_kind = {
+      "Array",
+      "Class",
+      "Constant",
+      "Constructor",
+      "Enum",
+      "EnumMember",
+      "Event",
+      "Field",
+      "File",
+      "Function",
+      "Interface",
+      "Key",
+      "Method",
+      "Module",
+      "Namespace",
+      "Object",
+      "Package",
+      "Property",
+      "Struct",
+      "Variable",
+    },
   },
 
   --stylua: ignore
   keys = {
-    -- Toggle aerial window
-    { "<leader>at", function () require("aerial").toggle() end, desc = "󰆧 Aerial Toggle" },
-
-    -- Aerial nav window (picker-like interface)
-    { "<leader>af", function () require("aerial").nav_toggle() end, desc = "󰆧 Aerial Nav Toggle" },
-    { "<leader>fs", function() require("aerial").snacks_picker() end, desc = "󰆧 Find Symbols (Aerial Snacks picker)", },
+    { "<leader>fss", function() require("aerial").snacks_picker() end, desc = "󰆧 Find Symbols (Aerial Floating Snacks picker)", },
+    { "<leader>fsr", function() require("aerial").snacks_picker({ layout = "right" }) end, desc = "󰆧 Find Symbols (Aerial Sidebar Snacks picker)", },
   },
 }

@@ -64,6 +64,7 @@
   "smart-splits.nvim": { "branch": "master", "commit": "30d645ed1eab77df9a5d9e98515316165b7d9ab9" },
   "snacks.nvim": { "branch": "main", "commit": "bc0630e43be5699bb94dadc302c0d21615421d93" },
   "springboot-nvim": { "branch": "main", "commit": "dab73716e941778bb88fe425000fe091283e26ae" },
+  "submode.nvim": { "branch": "main", "commit": "cafc73f8626fd9e06dc91fd079817a0f1d7287bc" },
   "tiny-glimmer.nvim": { "branch": "main", "commit": "60a632536e0741c9cecb892f89fbe65a270dc7c7" },
   "todo-comments.nvim": { "branch": "main", "commit": "304a8d204ee787d2544d8bc23cd38d2f929e7cc5" },
   "trouble.nvim": { "branch": "main", "commit": "85bedb7eb7fa331a2ccbecb9202d8abba64d37b3" },
