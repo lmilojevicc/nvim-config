@@ -3,7 +3,7 @@ return {
   dependencies = {
     { "nvim-tree/nvim-web-devicons", lazy = true },
   },
-  event = "CmdlineEnter",
+  event = "VeryLazy",
 
   opts = {
     merge_tool = {
