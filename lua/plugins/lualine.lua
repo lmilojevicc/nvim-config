@@ -7,21 +7,11 @@ return {
   event = "VeryLazy",
   opts = function()
     local colors = require("catppuccin.palettes").get_palette()
-    colors["lighter_base"] = "#232634"
-    local custom_catppuccin = require("lualine.themes.catppuccin")
-
-    custom_catppuccin.normal.c.bg = "none"
-    custom_catppuccin.command.a = { fg = colors.green, bg = colors.lighter_base }
-    custom_catppuccin.normal.a = { fg = colors.blue, bg = colors.lighter_base }
-    custom_catppuccin.inactive.a = { fg = colors.lavender, bg = colors.lighter_base }
-    custom_catppuccin.insert.a = { fg = colors.peach, bg = colors.lighter_base }
-    custom_catppuccin.replace.a = { fg = colors.red, bg = colors.lighter_base }
-    custom_catppuccin.terminal.a = { fg = colors.teal, bg = colors.lighter_base }
-    custom_catppuccin.visual.a = { fg = colors.mauve, bg = colors.lighter_base }
+    local lualine_theme = require("lualine.themes.catppuccin")
 
     return {
       options = {
-        theme = custom_catppuccin,
+        theme = lualine_theme,
         component_separators = "",
         section_separators = { left = "", right = "" },
         globalstatus = true,
@@ -152,7 +142,7 @@ return {
           {
             require("lazy.status").updates,
             cond = require("lazy.status").has_updates,
-            color = { fg = colors.lavender },
+            color = { fg = colors.blue },
           },
           -- Indentation
           {
@@ -163,7 +153,7 @@ return {
                 return "TAB " .. vim.bo.tabstop
               end
             end,
-            color = { fg = colors.rosewater },
+            color = { fg = colors.lavender },
           },
           -- Formatter status
           {
@@ -194,6 +184,25 @@ return {
               end
 
               return ""
+            end,
+            color = { fg = colors.rosewater },
+            padding = 1,
+          },
+          {
+            function()
+              local filetype = vim.bo.filetype
+              local lint_success, lint = pcall(require, "lint")
+
+              if not lint_success then
+                return ""
+              end
+
+              local linters = lint.linters_by_ft[filetype]
+              if not linters or #linters == 0 then
+                return ""
+              end
+
+              return " " .. table.concat(linters, ", ")
             end,
             color = { fg = colors.flamingo },
             padding = 1,
