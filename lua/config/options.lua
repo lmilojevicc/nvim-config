@@ -108,8 +108,9 @@ vim.g.netrw_liststyle = 3 -- Tree-style file browser
 -- Diagnostics
 vim.diagnostic.config({
   virtual_text = {
+    current_line = true,
     spacing = 4,
-    -- prefix = "●",
+    prefix = "●",
     format = function(diagnostic)
       local icons = {
         [vim.diagnostic.severity.ERROR] = "󰅚 ",

@@ -4,6 +4,7 @@ return {
   dependencies = {
     "mason-org/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
+    "jay-babu/mason-nvim-dap.nvim",
   },
 
   config = function()
@@ -31,6 +32,7 @@ return {
         "html",
         "jdtls",
         "jsonls",
+        "lemminx",
         "lua_ls",
         "marksman",
         "neocmake",
@@ -39,6 +41,7 @@ return {
         "tailwindcss",
         "taplo",
         "vtsls",
+        "yamlls",
         "zls",
       },
 
@@ -68,10 +71,18 @@ return {
         "java-test",
         "js-debug-adapter",
         "prettierd",
-        "pylint",
+        "shellcheck",
         "shfmt",
         "sqlfluff",
         "stylua",
+      },
+    })
+
+    require("mason-nvim-dap").setup({
+      automatic_installation = true,
+      ensure_installed = {
+        "javadbg",
+        "javatest",
       },
     })
   end,

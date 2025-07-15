@@ -89,5 +89,9 @@ return {
         },
       },
     },
+
+    keys = {
+      { "<leader>aC", "<cmd>AvanteClear<CR>", desc = "Avante clear" },
+    },
   },
 }

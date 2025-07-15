@@ -12,6 +12,8 @@ return {
         java = { "google-java-format" },
         go = { "gofumpt", "goimports-reviser" },
         bash = { "shfmt" },
+        zsh = { "shfmt" },
+        sh = { "shfmt" },
         javascript = { "prettierd", "prettier", stop_after_first = true },
         typescript = { "prettierd", "prettier", stop_after_first = true },
         javascriptreact = { "prettierd", "prettier", stop_after_first = true },
