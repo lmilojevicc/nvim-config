@@ -11,6 +11,7 @@ return {
   dependencies = {
     "kristijanhusak/vim-dadbod-completion",
     "giuxtaposition/blink-cmp-copilot",
+    "ribru17/blink-cmp-spell",
     {
       "saghen/blink.compat",
       optional = true,
@@ -93,7 +94,7 @@ return {
     },
 
     sources = {
-      default = { "lsp", "lazydev", "dadbod", "snippets", "path", "buffer", "copilot" },
+      default = { "lsp", "lazydev", "dadbod", "snippets", "path", "buffer", "spell", "copilot" },
 
       providers = {
         lsp = {
@@ -140,6 +141,11 @@ return {
           should_show_items = function(ctx)
             return ctx.trigger.kind ~= "trigger_character"
           end,
+        },
+
+        spell = {
+          name = "Spell",
+          module = "blink-cmp-spell",
         },
       },
     },

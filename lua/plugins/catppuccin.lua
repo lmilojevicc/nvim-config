@@ -8,6 +8,10 @@ return {
       transparent_background = true,
       show_end_of_buffer = false,
       term_colors = true,
+      float = {
+        transparent = true,
+        solid = false,
+      },
 
       no_italic = false,
       no_bold = false,
@@ -28,6 +32,8 @@ return {
         operators = {},
       },
 
+      default_integrations = true,
+      auto_integrations = true,
       integrations = {
         aerial = true,
         alpha = true,
@@ -90,14 +96,19 @@ return {
         lualine_theme.visual.a = { fg = colors.mauve, bg = colors.base }
 
         return {
-          NoiceCmdlinePopupBorder = { fg = colors.rosewater },
-          NoiceCmdlinePopupTitle = { fg = colors.rosewater },
-          NoiceCmdlineIcon = { fg = colors.rosewater },
+          NoiceCmdlinePopupBorder = { fg = colors.blue },
+          NoiceCmdlinePopupTitle = { fg = colors.blue },
+          NoiceCmdlineIcon = { fg = colors.blue },
           NoiceVirtualText = { fg = colors.rosewater },
           SnacksInputTitle = { fg = colors.blue },
           SnacksInputBorder = { fg = colors.blue },
           SnacksInputIcon = { fg = colors.blue },
           AvanteSidebarWinSeparator = { bg = colors.crust, fg = colors.crust },
+          AvanteTitle = { fg = colors.base, bg = colors.lavender },
+          AvanteSubtitle = { fg = colors.base, bg = colors.peach },
+          AvanteThirdTitle = { fg = colors.base, bg = colors.blue },
+          BufferlineIndicatorSelected = { fg = colors.peach },
+          BufferlineSeparator = { fg = colors.surface2 },
 
           CurSearch = { bg = colors.rosewater },
           Search = { fg = "", bg = colors.surface0 },

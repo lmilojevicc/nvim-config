@@ -4,15 +4,13 @@ return {
   event = "VeryLazy",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   opts = function(_, opts)
-    if (vim.g.colors_name or ""):find("catppuccin") then
-      opts.highlights = require("catppuccin.groups.integrations.bufferline").get()
-    end
-
     opts.options = {
       -- stylua: ignore
       close_command = function(n) Snacks.bufdelete(n) end,
       -- stylua: ignore
       middle_mouse_command = function(n) Snacks.bufdelete(n) end,
+
+      highlights = require("catppuccin.groups.integrations.bufferline").get_theme(),
 
       always_show_bufferline = true,
 
