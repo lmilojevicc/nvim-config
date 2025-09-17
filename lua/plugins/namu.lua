@@ -52,9 +52,9 @@ return {
     },
   },
   keys = {
-    { "<leader>ns", ":Namu symbols<cr>", desc = "Namu Jump to LSP symbol" },
-    { "<leader>nt", ":Namu treesitter<cr>", desc = "Namu Jump to Treesitter symbol" },
-    { "<leader>nw", ":Namu watchtower<cr>", desc = "Namu LSP Symbols - Workspace" },
-    { "<leader>nW", ":Namu workspace<cr>", desc = "Namu LSP Symbols - Workspace" },
+    { "<leader>fss", ":Namu symbols<cr>", desc = "Namu Jump to LSP symbol" },
+    { "<leader>fst", ":Namu treesitter<cr>", desc = "Namu Jump to Treesitter symbol" },
+    { "<leader>fsw", ":Namu watchtower<cr>", desc = "Namu LSP Symbols - Workspace" },
+    { "<leader>fsW", ":Namu workspace<cr>", desc = "Namu LSP Symbols - Workspace" },
   },
 }

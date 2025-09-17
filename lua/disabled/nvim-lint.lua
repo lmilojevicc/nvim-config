@@ -1,26 +1,26 @@
 return {
   "mfussenegger/nvim-lint",
-  event = { "BufReadPre", "BufNewFile" },
+  event = { "BufWritePost", "InsertLeave" },
   config = function()
     local lint = require("lint")
 
     lint.linters_by_ft = {
+      sh = { "shellcheck" },
+      bash = { "shellcheck" },
+      zsh = { "shellcheck" },
+      cmake = { "cmakelang", "cmakelint" },
       javascript = { "eslint_d" },
       typescript = { "eslint_d" },
       javascriptreact = { "eslint_d" },
       typescriptreact = { "eslint_d" },
-      sh = { "shellcheck" },
-      bash = { "shellcheck" },
-      go = { "golangcilint" },
-      python = { "pylint" },
+      go = { "golangci-lint" },
+      dockerfile = { "hadolint" },
+      python = { "ruff" },
+      sql = { "sqlfluff" },
     }
 
-    require("lint.linters.pylint").args = {
-      "--rcfile=" .. vim.fn.getcwd() .. "/.pylintrc",
-    }
-
-    -- Create an autocommand group for linting
-    vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, {
+    vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
+      group = vim.api.nvim_create_augroup("lint", { clear = true }),
       callback = function()
         lint.try_lint()
       end,

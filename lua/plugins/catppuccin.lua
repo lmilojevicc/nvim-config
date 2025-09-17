@@ -103,7 +103,7 @@ return {
           SnacksInputTitle = { fg = colors.blue },
           SnacksInputBorder = { fg = colors.blue },
           SnacksInputIcon = { fg = colors.blue },
-          AvanteSidebarWinSeparator = { bg = colors.crust, fg = colors.crust },
+          AvanteSidebarWinSeparator = { bg = "", fg = colors.crust },
           AvanteTitle = { fg = colors.base, bg = colors.lavender },
           AvanteSubtitle = { fg = colors.base, bg = colors.peach },
           AvanteThirdTitle = { fg = colors.base, bg = colors.blue },
