@@ -34,7 +34,10 @@ return {
           map("n", "gt", vim.lsp.buf.type_definition, opts)
 
           opts.desc = " LSP Document symbols"
-          map("n", "<leader>ds", vim.lsp.buf.document_symbol, opts)
+          map("n", "gs", vim.lsp.buf.document_symbol, opts)
+
+          opts.desc = " LSP Workspace symbols"
+          map("n", "gS", vim.lsp.buf.workspace_symbol, opts)
         end
 
         opts.desc = "󰌶 LSP See available code actions"
@@ -46,12 +49,17 @@ return {
         opts.desc = "󰈙 LSP Show documentation under cursor"
         map("n", "gh", vim.lsp.buf.hover, opts)
 
-        opts.desc = "󰜉 Restart LSP"
-        map("n", "<leader>rs", ":LspRestart<CR>", opts)
-
         opts.desc = "󰊕 LSP Signature help"
         map("n", "K", vim.lsp.buf.signature_help, opts)
         map("i", "<C-k>", vim.lsp.buf.signature_help, opts)
+
+        opts.desc = " LSP format"
+        map("n", "<leader>fo", vim.lsp.buf.format, opts)
+        --stylua: ignore
+        map("v", "<leader>fm", function() vim.lsp.buf.format({ range = true }) end, opts)
+
+        opts.desc = "󰜉 Restart LSP"
+        map("n", "<leader>rs", ":LspRestart<CR>", opts)
       end,
     })
 

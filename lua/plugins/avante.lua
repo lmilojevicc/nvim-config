@@ -4,7 +4,7 @@ return {
     dependencies = "folke/snacks.nvim",
     cmd = "Copilot",
     build = ":Copilot auth",
-    event = "BufReadPost",
+    event = "VeryLazy",
     config = function()
       require("copilot").setup({
         should_attach = function(_, bufname)

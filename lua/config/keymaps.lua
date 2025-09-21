@@ -138,3 +138,9 @@ map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = " Next Search Re
 map("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = " Prev Search Result" })
 map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = " Prev Search Result" })
 map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = " Prev Search Result" })
+
+map("n", "<leader>jp", "<C-o>", { noremap = true, silent = true, desc = " Jump backward in jumplist" })
+map("n", "<leader>jn", "<C-i>", { noremap = true, silent = true, desc = " Jump forward in jumplist" })
+map("n", "<leader>ep", "g;", { noremap = true, silent = true, desc = " Jump to previous change (last edit)" })
+-- stylua: ignore
+map("n", "<leader>en", "g,", { noremap = true, silent = true, desc = " Jump to next change (forward in change list)" })

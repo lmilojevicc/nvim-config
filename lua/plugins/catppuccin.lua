@@ -4,6 +4,7 @@ return {
   priority = 1000,
   config = function()
     require("catppuccin").setup({
+      compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
       flavour = "mocha",
       transparent_background = true,
       show_end_of_buffer = false,
@@ -19,16 +20,16 @@ return {
 
       styles = {
         comments = { "italic" },
-        conditionals = { "italic" },
-        loops = { "italic" },
+        conditionals = {},
+        loops = {},
         functions = { "italic" },
         keywords = { "italic" },
         strings = {},
         variables = {},
         numbers = {},
-        booleans = { "italic" },
+        booleans = {},
         properties = {},
-        types = { "italic" },
+        types = {},
         operators = {},
       },
 
@@ -101,6 +102,7 @@ return {
           NoiceCmdlineIcon = { fg = colors.blue },
           NoiceVirtualText = { fg = colors.rosewater },
           SnacksInputTitle = { fg = colors.blue },
+          SnacksIndentScope = { fg = colors.flamingo },
           SnacksInputBorder = { fg = colors.blue },
           SnacksInputIcon = { fg = colors.blue },
           AvanteSidebarWinSeparator = { bg = "", fg = colors.crust },
@@ -109,6 +111,9 @@ return {
           AvanteThirdTitle = { fg = colors.base, bg = colors.blue },
           BufferlineIndicatorSelected = { fg = colors.peach },
           BufferlineSeparator = { fg = colors.surface2 },
+
+          RainbowDelimiterCyan = { fg = colors.lavender },
+          RainbowDelimiterGreen = { fg = colors.pink },
 
           CurSearch = { bg = colors.rosewater },
           Search = { fg = "", bg = colors.surface0 },

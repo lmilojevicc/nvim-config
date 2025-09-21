@@ -195,8 +195,8 @@ return {
             local padded_desc = desc .. string.rep(" ", desc_width - #desc)
 
             return {
-              { padded_mode, "csvCol6" },
-              { padded_key, "csvCol7" },
+              { padded_mode, "csvCol2" },
+              { padded_key, "csvCol5" },
               { padded_desc, "csvCol8" },
             }
           end,
