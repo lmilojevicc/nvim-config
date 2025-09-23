@@ -16,12 +16,23 @@ return {
 
       diagnostics = "nvim_lsp",
       diagnostics_indicator = function(count, level, diagnostics_dict, context)
-        local s = " "
-        for e, n in pairs(diagnostics_dict) do
-          local sym = e == "error" and " " or (e == "warning" and " " or "󰠠 ")
-          s = n .. s .. sym
+        local icons = {
+          error = "",
+          warning = "",
+          info = "",
+          hint = "󰫢",
+        }
+
+        local parts = {}
+        for diag_type, num in pairs(diagnostics_dict) do
+          local icon = icons[diag_type] or "󰠠"
+          table.insert(parts, string.format("%s %d", icon, num))
         end
-        return s
+
+        if #parts == 0 then
+          return ""
+        end
+        return " " .. table.concat(parts, " ")
       end,
 
       offsets = {

@@ -47,7 +47,7 @@ return {
             require("copilot.command").disable()
           end
         end,
-      }):map("<leader>cs", { desc = " Toggle Suggestions" })
+      }):map("<leader>ct", { desc = " Toggle Copilot" })
     end,
   },
   {

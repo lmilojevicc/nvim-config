@@ -23,7 +23,7 @@ return {
         conditionals = {},
         loops = {},
         functions = { "italic" },
-        keywords = { "italic" },
+        keywords = {},
         strings = {},
         variables = {},
         numbers = {},
@@ -102,7 +102,7 @@ return {
           NoiceCmdlineIcon = { fg = colors.blue },
           NoiceVirtualText = { fg = colors.rosewater },
           SnacksInputTitle = { fg = colors.blue },
-          SnacksIndentScope = { fg = colors.flamingo },
+          SnacksIndentScope = { fg = colors.pink },
           SnacksInputBorder = { fg = colors.blue },
           SnacksInputIcon = { fg = colors.blue },
           AvanteSidebarWinSeparator = { bg = "", fg = colors.crust },
@@ -119,7 +119,7 @@ return {
           Search = { fg = "", bg = colors.surface0 },
           IncSearch = { fg = colors.crust, bg = colors.blue },
           CursorLine = { bg = "" },
-          CursorLineNr = { fg = colors.mauve },
+          CursorLineNr = { fg = colors.pink },
         }
       end,
     })
