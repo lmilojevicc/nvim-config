@@ -1,120 +1,38 @@
 return {
-  "neovim/nvim-lspconfig",
-  event = "BufRead",
-  dependencies = {
-    "folke/lazydev.nvim",
-    "mason-org/mason.nvim",
-  },
-
-  config = function()
-    local lspconfig = require("lspconfig")
-
-    vim.api.nvim_create_autocmd("LspAttach", {
-      group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-      callback = function(ev)
-        local opts = { buffer = ev.buf, silent = true }
-        local map = vim.keymap.set
-        local has_snacks = pcall(require, "snacks")
-        local has_fzf = pcall(require, "fzf-lua")
-
-        if not has_snacks and not has_fzf then
-          opts.desc = " LSP Go to definition"
-          map("n", "gd", vim.lsp.buf.definition, opts)
-
-          opts.desc = " LSP Go to declaration"
-          map("n", "gD", vim.lsp.buf.declaration, opts)
-
-          opts.desc = " Show LSP references"
-          map("n", "gr", vim.lsp.buf.references, opts)
-
-          opts.desc = " LSP Go to implementation"
-          map("n", "gi", vim.lsp.buf.implementation, opts)
-
-          opts.desc = " LSP Go to type definition"
-          map("n", "gt", vim.lsp.buf.type_definition, opts)
-
-          opts.desc = " LSP Document symbols"
-          map("n", "gs", vim.lsp.buf.document_symbol, opts)
-
-          opts.desc = " LSP Workspace symbols"
-          map("n", "gS", vim.lsp.buf.workspace_symbol, opts)
-        end
-
-        opts.desc = "󰌶 LSP See available code actions"
-        map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
-
-        opts.desc = "󰑕 LSP rename"
-        map("n", "<leader>rn", vim.lsp.buf.rename, opts)
-
-        opts.desc = "󰈙 LSP Show documentation under cursor"
-        map("n", "gh", vim.lsp.buf.hover, opts)
-
-        opts.desc = "󰊕 LSP Signature help"
-        map("n", "K", vim.lsp.buf.signature_help, opts)
-        map("i", "<C-k>", vim.lsp.buf.signature_help, opts)
-
-        opts.desc = " LSP format"
-        map("n", "<leader>fo", vim.lsp.buf.format, opts)
-        --stylua: ignore
-        map("v", "<leader>fm", function() vim.lsp.buf.format({ range = true }) end, opts)
-
-        opts.desc = "󰜉 Restart LSP"
-        map("n", "<leader>rs", ":LspRestart<CR>", opts)
-      end,
-    })
-
-    -- Server-specific configurations
-    local server_configs = {
-      emmet_language_server = {
-        filetypes = {
-          "css",
-          "html",
-          "javascript",
-          "javascriptreact",
-          "less",
-          "sass",
-          "scss",
-          "svelte",
-          "typescriptreact",
-          "vue",
-        },
-        settings = {
-          emmet = {
-            showExpandedAbbreviation = "always",
-            showAbbreviationSuggestions = true,
-            showSuggestionsAsSnippets = false,
-            preferences = {
-              ["bem.enabled"] = true,
-            },
-          },
-        },
-      },
-
-      lua_ls = {
+  {
+    "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
+      "folke/lazydev.nvim",
+    },
+    config = function()
+      local lsp = vim.lsp.config
+      lsp["lua_ls"] = {
         settings = {
           Lua = {
+            telemetry = {
+              enable = false,
+            },
             hint = {
               enable = true,
             },
           },
         },
-      },
-
-      clangd = {
+      }
+      lsp["bashls"] = {
+        filetypes = { "sh", "bash", "zsh" },
+      }
+      lsp["jsonls"] = {
         settings = {
-          clangd = {
-            InlayHints = {
-              Designators = true,
-              Enabled = true,
-              ParameterNames = true,
-              DeducedTypes = true,
-            },
-            fallbackFlags = { "-std=c++20" },
+          json = {
+            format = { enable = true },
+            validate = { enable = true },
           },
         },
-      },
-
-      gopls = {
+      }
+      lsp["gopls"] = {
         settings = {
           gopls = {
             gofumpt = true,
@@ -150,53 +68,129 @@ return {
             semanticTokens = true,
           },
         },
-      },
-
-      vtsls = {
+      }
+      lsp["vtsls"] = {
         settings = {
+          complete_function_calls = true,
+          vtsls = {
+            enableMoveToFileCodeAction = true,
+            autoUseWorkspaceTsdk = true,
+            experimental = {
+              maxInlayHintLength = 30,
+              completion = {
+                enableServerSideFuzzyMatch = true,
+                entriesLimit = 50,
+              },
+            },
+          },
+
           typescript = {
+            updateImportsOnFileMove = { enabled = "always" },
+            preferences = {
+              includePackageJsonAutoImports = "auto",
+              importModuleSpecifier = "shortest",
+              quoteStyle = "auto",
+            },
+
+            suggest = {
+              completeFunctionCalls = true,
+              autoImports = true,
+              objectLiteralMethodSnippets = { enabled = true },
+            },
+
             inlayHints = {
-              parameterNames = { enabled = "all" },
-              parameterTypes = { enabled = true },
-              variableTypes = { enabled = true },
-              propertyDeclarationTypes = { enabled = true },
-              functionLikeReturnTypes = { enabled = true },
               enumMemberValues = { enabled = true },
+              functionLikeReturnTypes = { enabled = true },
+              parameterNames = { enabled = "literals" },
+              parameterTypes = {
+                enabled = true,
+                suppressWhenArgumentMatchesName = true,
+              },
+              propertyDeclarationTypes = { enabled = true },
+              variableTypes = { enabled = false },
+            },
+
+            validate = {
+              enable = true,
+            },
+
+            format = {
+              enable = true,
+              semicolons = "insert",
+              insertSpaceAfterCommaDelimiter = true,
+              insertSpaceAfterSemicolonInForStatements = true,
+            },
+
+            referencesCodeLens = {
+              enabled = true,
+              showOnAllFunctions = false,
+            },
+            implementationsCodeLens = {
+              enabled = true,
+            },
+          },
+
+          javascript = {
+            updateImportsOnFileMove = { enabled = "always" },
+            preferences = {
+              includePackageJsonAutoImports = "auto",
+              importModuleSpecifier = "shortest",
+              quoteStyle = "auto",
+            },
+
+            suggest = {
+              completeFunctionCalls = true,
+              autoImports = true,
+              objectLiteralMethodSnippets = { enabled = true },
+            },
+
+            inlayHints = {
+              enumMemberValues = { enabled = true },
+              functionLikeReturnTypes = { enabled = true },
+              parameterNames = { enabled = "literals" },
+              parameterTypes = {
+                enabled = true,
+                suppressWhenArgumentMatchesName = true,
+              },
+              propertyDeclarationTypes = { enabled = true },
+              variableTypes = { enabled = false },
+            },
+
+            validate = {
+              enable = true,
+            },
+
+            format = {
+              enable = true,
+              semicolons = "insert",
+              insertSpaceAfterCommaDelimiter = true,
+              insertSpaceAfterSemicolonInForStatements = true,
             },
           },
         },
-      },
-
-      bashls = {
-        filetypes = { "sh", "zsh" },
-      },
-    }
-
-    local installed_servers = require("mason-lspconfig").get_installed_servers()
-
-    for _, server_name in ipairs(installed_servers) do
-      if server_name == "jdtls" then
-        goto continue
-      end
-
-      local config = {}
-
-      local has_cmp, cmp = pcall(require, "cmp_nvim_lsp")
-      if has_cmp then
-        config = {
-          capabilities = cmp.default_capabilities(),
-        }
-      end
-
-      if server_configs[server_name] then
-        for k, v in pairs(server_configs[server_name]) do
-          config[k] = v
-        end
-      end
-
-      lspconfig[server_name].setup(config)
-
-      ::continue::
-    end
-  end,
+      }
+      lsp["emmet_language_server"] = {
+        filetypes = {
+          "css",
+          "html",
+          "javascript",
+          "javascriptreact",
+          "less",
+          "sass",
+          "scss",
+          "svelte",
+          "typescriptreact",
+          "vue",
+        },
+        settings = {
+          emmet = {
+            showExpandedAbbreviation = "always",
+            showAbbreviationSuggestions = true,
+            showSuggestionsAsSnippets = false,
+            preferences = { ["bem.enabled"] = true },
+          },
+        },
+      }
+    end,
+  },
 }

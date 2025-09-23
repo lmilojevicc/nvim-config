@@ -1,14 +1,9 @@
 return {
-  "mason-org/mason.nvim",
-  cmd = { "Mason" },
-  dependencies = {
-    "mason-org/mason-lspconfig.nvim",
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
-    "jay-babu/mason-nvim-dap.nvim",
-  },
-
-  config = function()
-    require("mason").setup({
+  {
+    "mason-org/mason.nvim",
+    event = "VeryLazy",
+    cmd = { "Mason" },
+    opts = {
       ui = {
         icons = {
           package_installed = "✓",
@@ -16,10 +11,16 @@ return {
           package_uninstalled = "✗",
         },
       },
-    })
-
-    -- LSP setup
-    require("mason-lspconfig").setup({
+    },
+    keys = {
+      { "<leader>ms", "<cmd>Mason<CR>", desc = "󰽤 Open Mason" },
+    },
+  },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    event = "VeryLazy",
+    dependencies = { "mason-org/mason.nvim" },
+    opts = {
       ensure_installed = {
         "bashls",
         "clangd",
@@ -45,12 +46,15 @@ return {
         "zls",
       },
 
-      automatic_enable = false,
       automatic_installation = true,
-    })
-
-    -- Tool installer setup
-    require("mason-tool-installer").setup({
+      automatic_enable = { exclude = { "jdtls" } },
+    },
+  },
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = { "mason-org/mason.nvim" },
+    event = "VeryLazy",
+    opts = {
       ensure_installed = {
         "autopep8",
         "black",
@@ -76,20 +80,18 @@ return {
         "sqlfluff",
         "stylua",
       },
-    })
-
-    require("mason-nvim-dap").setup({
+    },
+  },
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    event = "VeryLazy",
+    dependencies = { "mason-org/mason.nvim" },
+    opts = {
       automatic_installation = true,
       ensure_installed = {
         "javadbg",
         "javatest",
       },
-    })
-  end,
-
-  build = ":MasonUpdate",
-
-  keys = {
-    { "<leader>ms", "<cmd>Mason<CR>", desc = "󰽤 Open Mason" },
+    },
   },
 }
