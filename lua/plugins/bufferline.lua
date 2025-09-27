@@ -10,7 +10,7 @@ return {
       -- stylua: ignore
       middle_mouse_command = function(n) Snacks.bufdelete(n) end,
 
-      highlights = require("catppuccin.groups.integrations.bufferline").get_theme(),
+      highlights = require("catppuccin.special.bufferline").get_theme(),
 
       always_show_bufferline = true,
 
