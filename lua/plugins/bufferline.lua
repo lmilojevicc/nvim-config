@@ -10,7 +10,7 @@ return {
       -- stylua: ignore
       middle_mouse_command = function(n) Snacks.bufdelete(n) end,
 
-      highlights = require("catppuccin.groups.integrations.bufferline").get_theme(),
+      highlights = require("catppuccin.special.bufferline").get_theme(),
 
       always_show_bufferline = true,
 
@@ -20,12 +20,12 @@ return {
           error = "",
           warning = "",
           info = "",
-          hint = "󰛨",
+          hint = "󱩖",
         }
 
         local parts = {}
         for diag_type, num in pairs(diagnostics_dict) do
-          local icon = icons[diag_type] or "󰛨"
+          local icon = icons[diag_type] or "󰠠"
           table.insert(parts, string.format("%s %d", icon, num))
         end
 

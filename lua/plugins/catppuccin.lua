@@ -22,7 +22,7 @@ return {
         comments = { "italic" },
         conditionals = {},
         loops = {},
-        functions = { "italic" },
+        functions = {},
         keywords = {},
         strings = {},
         variables = {},

@@ -62,8 +62,11 @@ return {
       accept = {
         auto_brackets = { enabled = true },
       },
-
       menu = {
+        auto_show = true,
+        scrollbar = false,
+        border = "none",
+        scrolloff = 5,
         draw = {
           treesitter = { "lsp" },
           gap = 2,
@@ -73,11 +76,6 @@ return {
             { "kind" },
           },
         },
-
-        auto_show = true,
-        border = "none",
-        scrollbar = false,
-        scrolloff = 5,
       },
 
       ghost_text = { enabled = true },
