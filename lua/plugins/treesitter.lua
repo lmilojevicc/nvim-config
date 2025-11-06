@@ -4,6 +4,10 @@ return {
 
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
+    {
+      "bezhermoso/tree-sitter-ghostty",
+      build = "make nvim_install",
+    },
   },
 
   opts = {

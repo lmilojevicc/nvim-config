@@ -24,6 +24,9 @@ return {
         markdown = { "prettierd", "prettier", stop_after_first = true },
         jsx = { "prettierd", "prettier", stop_after_first = true },
         tsx = { "prettierd", "prettier", stop_after_first = true },
+        sql = { "sqruff", stop_after_first = true },
+        yaml = { "prettierd", "prettier", stop_after_first = true },
+        toml = { "taplo" },
         python = { "isort", "black" },
       },
 

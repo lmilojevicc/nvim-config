@@ -1,196 +1,194 @@
 return {
-  {
-    "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      "mason-org/mason.nvim",
-      "mason-org/mason-lspconfig.nvim",
-      "folke/lazydev.nvim",
-    },
-    config = function()
-      local lsp = vim.lsp.config
-      lsp["lua_ls"] = {
-        settings = {
-          Lua = {
-            telemetry = {
-              enable = false,
-            },
-            hint = {
-              enable = true,
-            },
-          },
-        },
-      }
-      lsp["bashls"] = {
-        filetypes = { "sh", "bash", "zsh" },
-      }
-      lsp["jsonls"] = {
-        settings = {
-          json = {
-            format = { enable = true },
-            validate = { enable = true },
-          },
-        },
-      }
-      lsp["gopls"] = {
-        settings = {
-          gopls = {
-            gofumpt = true,
-            codelenses = {
-              gc_details = false,
-              generate = true,
-              regenerate_cgo = true,
-              run_govulncheck = true,
-              test = true,
-              tidy = true,
-              upgrade_dependency = true,
-              vendor = true,
-            },
-            hints = {
-              assignVariableTypes = true,
-              compositeLiteralFields = true,
-              compositeLiteralTypes = true,
-              constantValues = true,
-              functionTypeParameters = true,
-              parameterNames = true,
-              rangeVariableTypes = true,
-            },
-            analyses = {
-              nilness = true,
-              unusedparams = true,
-              unusedwrite = true,
-              useany = true,
-            },
-            usePlaceholders = true,
-            completeUnimported = true,
-            staticcheck = true,
-            directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
-            semanticTokens = true,
-          },
-        },
-      }
-      lsp["vtsls"] = {
-        settings = {
-          complete_function_calls = true,
-          vtsls = {
-            enableMoveToFileCodeAction = true,
-            autoUseWorkspaceTsdk = true,
-            experimental = {
-              maxInlayHintLength = 30,
-              completion = {
-                enableServerSideFuzzyMatch = true,
-                entriesLimit = 50,
-              },
-            },
-          },
-
-          typescript = {
-            updateImportsOnFileMove = { enabled = "always" },
-            preferences = {
-              includePackageJsonAutoImports = "auto",
-              importModuleSpecifier = "shortest",
-              quoteStyle = "auto",
-            },
-
-            suggest = {
-              completeFunctionCalls = true,
-              autoImports = true,
-              objectLiteralMethodSnippets = { enabled = true },
-            },
-
-            inlayHints = {
-              enumMemberValues = { enabled = true },
-              functionLikeReturnTypes = { enabled = true },
-              parameterNames = { enabled = "literals" },
-              parameterTypes = {
-                enabled = true,
-                suppressWhenArgumentMatchesName = true,
-              },
-              propertyDeclarationTypes = { enabled = true },
-              variableTypes = { enabled = false },
-            },
-
-            validate = {
-              enable = true,
-            },
-
-            format = {
-              enable = true,
-              semicolons = "insert",
-              insertSpaceAfterCommaDelimiter = true,
-              insertSpaceAfterSemicolonInForStatements = true,
-            },
-
-            referencesCodeLens = {
-              enabled = true,
-              showOnAllFunctions = false,
-            },
-            implementationsCodeLens = {
-              enabled = true,
-            },
-          },
-
-          javascript = {
-            updateImportsOnFileMove = { enabled = "always" },
-            preferences = {
-              includePackageJsonAutoImports = "auto",
-              importModuleSpecifier = "shortest",
-              quoteStyle = "auto",
-            },
-
-            suggest = {
-              completeFunctionCalls = true,
-              autoImports = true,
-              objectLiteralMethodSnippets = { enabled = true },
-            },
-
-            inlayHints = {
-              enumMemberValues = { enabled = true },
-              functionLikeReturnTypes = { enabled = true },
-              parameterNames = { enabled = "literals" },
-              parameterTypes = {
-                enabled = true,
-                suppressWhenArgumentMatchesName = true,
-              },
-              propertyDeclarationTypes = { enabled = true },
-              variableTypes = { enabled = false },
-            },
-
-            validate = {
-              enable = true,
-            },
-
-            format = {
-              enable = true,
-              semicolons = "insert",
-              insertSpaceAfterCommaDelimiter = true,
-              insertSpaceAfterSemicolonInForStatements = true,
-            },
-          },
-        },
-      }
-      lsp["emmet_language_server"] = {
-        filetypes = {
-          "css",
-          "html",
-          "javascript",
-          "javascriptreact",
-          "less",
-          "sass",
-          "scss",
-          "svelte",
-          "typescriptreact",
-          "vue",
-        },
-        settings = {
-          emmet = {
-            showExpandedAbbreviation = "always",
-            showAbbreviationSuggestions = true,
-            showSuggestionsAsSnippets = false,
-            preferences = { ["bem.enabled"] = true },
-          },
-        },
-      }
-    end,
+  "neovim/nvim-lspconfig",
+  event = { "BufReadPre", "BufNewFile" },
+  dependencies = {
+    "mason-org/mason.nvim",
+    "mason-org/mason-lspconfig.nvim",
+    "folke/lazydev.nvim",
   },
+  config = function()
+    local lsp = vim.lsp.config
+    lsp["lua_ls"] = {
+      settings = {
+        Lua = {
+          telemetry = {
+            enable = false,
+          },
+          hint = {
+            enable = true,
+          },
+        },
+      },
+    }
+    lsp["bashls"] = {
+      filetypes = { "sh", "bash", "zsh" },
+    }
+    lsp["jsonls"] = {
+      settings = {
+        json = {
+          format = { enable = true },
+          validate = { enable = true },
+        },
+      },
+    }
+    lsp["gopls"] = {
+      settings = {
+        gopls = {
+          gofumpt = true,
+          codelenses = {
+            gc_details = false,
+            generate = true,
+            regenerate_cgo = true,
+            run_govulncheck = true,
+            test = true,
+            tidy = true,
+            upgrade_dependency = true,
+            vendor = true,
+          },
+          hints = {
+            assignVariableTypes = true,
+            compositeLiteralFields = true,
+            compositeLiteralTypes = true,
+            constantValues = true,
+            functionTypeParameters = true,
+            parameterNames = true,
+            rangeVariableTypes = true,
+          },
+          analyses = {
+            nilness = true,
+            unusedparams = true,
+            unusedwrite = true,
+            useany = true,
+          },
+          usePlaceholders = true,
+          completeUnimported = true,
+          staticcheck = true,
+          directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+          semanticTokens = true,
+        },
+      },
+    }
+    lsp["vtsls"] = {
+      settings = {
+        complete_function_calls = true,
+        vtsls = {
+          enableMoveToFileCodeAction = true,
+          autoUseWorkspaceTsdk = true,
+          experimental = {
+            maxInlayHintLength = 30,
+            completion = {
+              enableServerSideFuzzyMatch = true,
+              entriesLimit = 50,
+            },
+          },
+        },
+
+        typescript = {
+          updateImportsOnFileMove = { enabled = "always" },
+          preferences = {
+            includePackageJsonAutoImports = "auto",
+            importModuleSpecifier = "shortest",
+            quoteStyle = "auto",
+          },
+
+          suggest = {
+            completeFunctionCalls = true,
+            autoImports = true,
+            objectLiteralMethodSnippets = { enabled = true },
+          },
+
+          inlayHints = {
+            enumMemberValues = { enabled = true },
+            functionLikeReturnTypes = { enabled = true },
+            parameterNames = { enabled = "literals" },
+            parameterTypes = {
+              enabled = true,
+              suppressWhenArgumentMatchesName = true,
+            },
+            propertyDeclarationTypes = { enabled = true },
+            variableTypes = { enabled = false },
+          },
+
+          validate = {
+            enable = true,
+          },
+
+          format = {
+            enable = true,
+            semicolons = "insert",
+            insertSpaceAfterCommaDelimiter = true,
+            insertSpaceAfterSemicolonInForStatements = true,
+          },
+
+          referencesCodeLens = {
+            enabled = true,
+            showOnAllFunctions = false,
+          },
+          implementationsCodeLens = {
+            enabled = true,
+          },
+        },
+
+        javascript = {
+          updateImportsOnFileMove = { enabled = "always" },
+          preferences = {
+            includePackageJsonAutoImports = "auto",
+            importModuleSpecifier = "shortest",
+            quoteStyle = "auto",
+          },
+
+          suggest = {
+            completeFunctionCalls = true,
+            autoImports = true,
+            objectLiteralMethodSnippets = { enabled = true },
+          },
+
+          inlayHints = {
+            enumMemberValues = { enabled = true },
+            functionLikeReturnTypes = { enabled = true },
+            parameterNames = { enabled = "literals" },
+            parameterTypes = {
+              enabled = true,
+              suppressWhenArgumentMatchesName = true,
+            },
+            propertyDeclarationTypes = { enabled = true },
+            variableTypes = { enabled = false },
+          },
+
+          validate = {
+            enable = true,
+          },
+
+          format = {
+            enable = true,
+            semicolons = "insert",
+            insertSpaceAfterCommaDelimiter = true,
+            insertSpaceAfterSemicolonInForStatements = true,
+          },
+        },
+      },
+    }
+    lsp["emmet_language_server"] = {
+      filetypes = {
+        "css",
+        "html",
+        "javascript",
+        "javascriptreact",
+        "less",
+        "sass",
+        "scss",
+        "svelte",
+        "typescriptreact",
+        "vue",
+      },
+      settings = {
+        emmet = {
+          showExpandedAbbreviation = "always",
+          showAbbreviationSuggestions = true,
+          showSuggestionsAsSnippets = false,
+          preferences = { ["bem.enabled"] = true },
+        },
+      },
+    }
+  end,
 }

@@ -38,7 +38,7 @@ vim.lsp.config("*", {
       })
     end, { desc = "󰷉 LSP Range Formatting" })
 
-    map("n", "<leader>rs", ":LspRestartCR", { desc = "󰜉 Restart LSP" })
+    map("n", "<leader>rs", ":LspRestart<CR>", { desc = "󰜉 Restart LSP" })
   end,
 })
 
@@ -47,13 +47,13 @@ vim.diagnostic.config({
   virtual_text = {
     current_line = true,
     spacing = 4,
-    prefix = "●",
+    prefix = "",
     format = function(diagnostic)
       local icons = {
-        [vim.diagnostic.severity.ERROR] = " ",
-        [vim.diagnostic.severity.WARN] = " ",
-        [vim.diagnostic.severity.HINT] = "󱩖 ",
-        [vim.diagnostic.severity.INFO] = " ",
+        [vim.diagnostic.severity.ERROR] = "",
+        [vim.diagnostic.severity.WARN] = "",
+        [vim.diagnostic.severity.HINT] = " ",
+        [vim.diagnostic.severity.INFO] = " ",
       }
 
       return string.format("%s %s", icons[diagnostic.severity] or "", diagnostic.message)
@@ -62,10 +62,10 @@ vim.diagnostic.config({
 
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = " ",
-      [vim.diagnostic.severity.WARN] = " ",
-      [vim.diagnostic.severity.HINT] = "󱩖 ",
-      [vim.diagnostic.severity.INFO] = " ",
+      [vim.diagnostic.severity.ERROR] = "",
+      [vim.diagnostic.severity.WARN] = "",
+      [vim.diagnostic.severity.HINT] = " ",
+      [vim.diagnostic.severity.INFO] = " ",
     },
   },
 

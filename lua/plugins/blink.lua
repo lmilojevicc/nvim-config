@@ -69,7 +69,7 @@ return {
         scrolloff = 5,
         draw = {
           treesitter = { "lsp" },
-          gap = 2,
+          gap = 3,
           columns = {
             { "kind_icon" },
             { "label", "label_description", gap = 1 },

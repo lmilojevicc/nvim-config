@@ -361,4 +361,21 @@ return {
       end,
     }):map("<leader>uF")
   end,
+
+  init = function()
+    local function disable_animate_for(key)
+      vim.keymap.set("n", key, function()
+        local prev_animate = vim.g.snacks_animate
+        vim.g.snacks_animate = false
+        vim.cmd("normal! " .. key)
+        vim.schedule(function()
+          vim.g.snacks_animate = prev_animate
+        end)
+      end, { noremap = true })
+    end
+
+    for _, key in ipairs({ "G", "gg", "n", "N" }) do
+      disable_animate_for(key)
+    end
+  end,
 }
