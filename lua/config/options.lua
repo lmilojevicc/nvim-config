@@ -82,12 +82,8 @@ vim.opt.guicursor =
   "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
 
 -- Folding
-if vim.fn.has("nvim-0.10") == 1 then
-  vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-  vim.opt.foldmethod = "expr"
-else
-  vim.opt.foldmethod = "indent"
-end
+vim.opt.foldmethod = "expr"
+vim.opt.foldtext = ""
 vim.opt.foldlevel = 99 -- Don’t fold by default
 vim.opt.fillchars = {
   foldopen = "",

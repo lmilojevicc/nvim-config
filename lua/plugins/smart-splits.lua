@@ -10,17 +10,10 @@ return {
     })
 
     local map = vim.keymap.set
-    map("n", "<C-h>", require("smart-splits").move_cursor_left, { desc = " Move to Left Window" })
-    map("n", "<C-j>", require("smart-splits").move_cursor_down, { desc = " Move to Lower Window" })
-    map("n", "<C-k>", require("smart-splits").move_cursor_up, { desc = " Move to Upper Window" })
-    map("n", "<C-l>", require("smart-splits").move_cursor_right, { desc = " Move to Right Window" })
-
-    -- stylua: ignore start
-    map("t", "<C-h>", require("smart-splits").move_cursor_left, { desc = " Move to Left Window from terminal mode" })
-    map("t", "<C-j>", require("smart-splits").move_cursor_down, { desc = " Move to Lower Window from terminal mode" })
-    map("t", "<C-k>", require("smart-splits").move_cursor_up, { desc = " Move to Upper Window from terminal mode" })
-    map("t", "<C-l>", require("smart-splits").move_cursor_right, { desc = " Move to Right Window from terminal mode" })
-    -- stylua: ignore end
+    map({ "n", "t" }, "<C-h>", require("smart-splits").move_cursor_left, { desc = " Move to Left Window" })
+    map({ "n", "t" }, "<C-j>", require("smart-splits").move_cursor_down, { desc = " Move to Lower Window" })
+    map({ "n", "t" }, "<C-k>", require("smart-splits").move_cursor_up, { desc = " Move to Upper Window" })
+    map({ "n", "t" }, "<C-l>", require("smart-splits").move_cursor_right, { desc = " Move to Right Window" })
 
     -- Resize mode
     local submode = require("submode")
