@@ -10,7 +10,6 @@ return {
 
   dependencies = {
     "kristijanhusak/vim-dadbod-completion",
-    "giuxtaposition/blink-cmp-copilot",
     "ribru17/blink-cmp-spell",
     {
       "saghen/blink.compat",
@@ -45,6 +44,9 @@ return {
   opts = {
     keymap = {
       preset = "super-tab",
+      keymap = {
+        ["K"] = { "show_signature", "hide_signature", "fallback" },
+      },
     },
 
     cmdline = {
@@ -92,7 +94,7 @@ return {
     },
 
     sources = {
-      default = { "lsp", "lazydev", "dadbod", "snippets", "path", "buffer", "spell", "copilot" },
+      default = { "lsp", "lazydev", "dadbod", "snippets", "path", "buffer", "spell" },
 
       providers = {
         lsp = {
@@ -129,16 +131,6 @@ return {
           name = "Dadbod",
           module = "vim_dadbod_completion.blink",
           score_offset = 950,
-        },
-
-        copilot = {
-          name = "copilot",
-          module = "blink-cmp-copilot",
-          score_offset = -100,
-          async = true,
-          should_show_items = function(ctx)
-            return ctx.trigger.kind ~= "trigger_character"
-          end,
         },
 
         spell = {

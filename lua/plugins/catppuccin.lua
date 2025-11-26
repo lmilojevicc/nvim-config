@@ -115,7 +115,7 @@ return {
           RainbowDelimiterCyan = { fg = colors.lavender },
           RainbowDelimiterGreen = { fg = colors.pink },
 
-          CurSearch = { bg = colors.rosewater },
+          CurSearch = { bg = colors.lavender },
           Search = { fg = "", bg = colors.surface0 },
           IncSearch = { fg = colors.crust, bg = colors.blue },
           CursorLine = { bg = "" },
