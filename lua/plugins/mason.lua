@@ -45,6 +45,7 @@ return {
         "vtsls",
         "yamlls",
         "zls",
+        "zuban",
       },
 
       automatic_installation = true,

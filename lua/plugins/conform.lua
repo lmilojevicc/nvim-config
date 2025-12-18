@@ -27,7 +27,13 @@ return {
         sql = { "sqruff", stop_after_first = true },
         yaml = { "prettierd", "prettier", stop_after_first = true },
         toml = { "taplo" },
-        python = { "isort", "black" },
+        python = function(bufnr)
+          if require("conform").get_formatter_info("ruff_format", bufnr).available then
+            return { "ruff_fix", "ruff_organize_imports", "ruff_format" }
+          else
+            return { "isort", "black" }
+          end
+        end,
       },
 
       format_after_save = function(bufnr)
