@@ -20,8 +20,8 @@ vim.lsp.config("*", {
     map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = " LSP Code actions" })
     map("n", "<leader>rn", vim.lsp.buf.rename, { desc = " LSP Rename" })
     map("n", "gh", vim.lsp.buf.hover, { desc = " LSP Hover" })
-    map("n", "K", vim.lsp.buf.signature_help, { desc = " LSP Signature help" })
-    map("i", "<C-k>", vim.lsp.buf.signature_help, { desc = " LSP Signature help" })
+    map("n", "K", vim.lsp.buf.signature_help, { desc = "󰊕 LSP Signature help" })
+    map("i", "<C-k>", vim.lsp.buf.signature_help, { desc = "󰊕 LSP Signature help" })
 
     map("n", "<leader>fo", function()
       vim.lsp.buf.format({ async = true })
@@ -50,8 +50,8 @@ vim.diagnostic.config({
     prefix = "",
     format = function(diagnostic)
       local icons = {
-        [vim.diagnostic.severity.ERROR] = "",
-        [vim.diagnostic.severity.WARN] = "",
+        [vim.diagnostic.severity.ERROR] = " ",
+        [vim.diagnostic.severity.WARN] = " ",
         [vim.diagnostic.severity.HINT] = " ",
         [vim.diagnostic.severity.INFO] = " ",
       }
@@ -62,8 +62,8 @@ vim.diagnostic.config({
 
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = "",
-      [vim.diagnostic.severity.WARN] = "",
+      [vim.diagnostic.severity.ERROR] = " ",
+      [vim.diagnostic.severity.WARN] = " ",
       [vim.diagnostic.severity.HINT] = " ",
       [vim.diagnostic.severity.INFO] = " ",
     },
@@ -74,6 +74,7 @@ vim.diagnostic.config({
   update_in_insert = false,
 
   float = {
+    source = true,
     focusable = true,
     style = "minimal",
     border = "rounded",

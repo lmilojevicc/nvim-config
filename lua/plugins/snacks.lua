@@ -118,7 +118,6 @@ return {
         },
       },
     },
-
     dashboard = {
       preset = {
         -- stylua: ignore

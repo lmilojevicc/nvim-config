@@ -2,15 +2,7 @@ return {
   "folke/todo-comments.nvim",
   event = "BufReadPost",
   dependencies = { "nvim-lua/plenary.nvim" },
-  opts = {
-    highlight = {
-      pattern = [[(KEYWORDS)]],
-    },
-    search = {
-      pattern = [[\s(KEYWORDS)]],
-    },
-  },
-
+  opts = {},
   --stylua: ignore
   keys = {
     { "]t", function() require("todo-comments").jump_next() end, desc = " Next Todo Comment" },
