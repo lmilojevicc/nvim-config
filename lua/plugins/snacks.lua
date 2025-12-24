@@ -144,23 +144,32 @@ return {
       },
 
       sections = {
-        { section = "header" },
+        { section = "header", padding = 1 },
         { text = { " " .. os.date("%A, %d %B %Y"), hl = "SnacksDashboardHeader" }, padding = 1, align = "center" },
-        { icon = " ", title = "Keymaps", section = "keys", padding = 1 },
         { icon = " ", title = "Projects", section = "projects", padding = 1 },
+        {
+          section = "terminal",
+          icon = " ",
+          title = "Recent Activity",
+          height = 5,
+          padding = 1,
+          indent = 0,
+          enabled = vim.fn.isdirectory(".git") == 1,
+          cmd = "git -P log -5 --oneline",
+        },
         {
           section = "terminal",
           icon = " ",
           title = "Git Status",
-          enabled = vim.fn.isdirectory(".git") == 1,
-          cmd = 'git rev-parse --is-inside-work-tree >/dev/null 2>&1 && PAGER="" GIT_PAGER="" git -P diff --stat -B -M -C || echo "Not a git repository" ',
           padding = 1,
           indent = 0,
+          enabled = vim.fn.isdirectory(".git") == 1,
+          cmd = "git -P diff --stat -B -M -C",
         },
         { section = "startup" },
       },
     },
-    explorer = { enabled = true, replace_netrw = true, auto_close = true },
+    explorer = { enabled = false, replace_netrw = true, auto_close = true },
     notifier = { enabled = true },
     bigfile = { enabled = true },
     quickfile = { enabled = true },
@@ -172,7 +181,19 @@ return {
     zen = { enabled = true, toggles = { dim = false } },
     toggle = { enabled = true },
     lazygit = { enabled = true },
-    statuscolumn = { enabled = true },
+    statuscolumn = {
+      enabled = true,
+      left = { "sign", "fold" },
+      right = { "git", "mark" },
+      folds = {
+        open = true,
+        git_hl = false,
+      },
+      git = {
+        patterns = { "GitSign", "MiniDiffSign" },
+      },
+      refresh = 50,
+    },
 
     styles = {
       zen = {
