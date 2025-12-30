@@ -97,6 +97,7 @@ return {
         lualine_theme.visual.a = { fg = colors.mauve, bg = colors.base }
 
         return {
+          BlinkCmpMenuSelection = { bg = colors.surface0 },
           NoiceCmdlinePopupBorder = { fg = colors.blue },
           NoiceCmdlinePopupTitle = { fg = colors.blue },
           NoiceCmdlineIcon = { fg = colors.blue },

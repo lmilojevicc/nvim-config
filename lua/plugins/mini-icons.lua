@@ -3,7 +3,7 @@ return {
   lazy = true,
   opts = {
     file = {
-      [".DS_Store"] = { glyph = "", hl = "MiniIconsGrey" },
+      [".DS_Store"] = { glyph = "󰀶", hl = "MiniIconsGrey" },
       [".bashrc"] = { glyph = "", hl = "MiniIconsGreen" },
       [".classpath"] = { glyph = "", hl = "MiniIconsBlue" },
       [".dockerignore"] = { glyph = "󰡨", hl = "MiniIconsBlue" },
@@ -50,6 +50,7 @@ return {
     extension = {
       bash = { glyph = "", hl = "MiniIconsGreen" },
       cjs = { glyph = "", hl = "MiniIconsYellow" },
+      conf = { glyph = "", hl = "MiniIconsBlue" },
       db = { glyph = "󰆼", hl = "MiniIconsYellow" },
       gradle = { glyph = "", hl = "MiniIconsBlue" },
       html = { glyph = "󰗀", hl = "MiniIconsOrange" },
@@ -59,6 +60,7 @@ return {
       js = { glyph = "", hl = "MiniIconsYellow" },
       json = { glyph = "", hl = "MiniIconsYellow" },
       jsx = { glyph = "", hl = "MiniIconsAzure" },
+      keymap = { glyph = "󰘳", hl = "MiniIconsBlue" },
       log = { glyph = "", hl = "MiniIconsGrey" },
       mjs = { glyph = "", hl = "MiniIconsYellow" },
       sass = { glyph = "", hl = "MiniIconsRed" },
