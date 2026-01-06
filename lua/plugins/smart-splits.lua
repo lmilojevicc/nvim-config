@@ -15,6 +15,11 @@ return {
     map({ "n", "t" }, "<C-k>", require("smart-splits").move_cursor_up, { desc = " Move to Upper Window" })
     map({ "n", "t" }, "<C-l>", require("smart-splits").move_cursor_right, { desc = " Move to Right Window" })
 
+    map({ "n", "t" }, "<A-h>", require("smart-splits").resize_left, { desc = " Resize to Left Window" })
+    map({ "n", "t" }, "<A-j>", require("smart-splits").resize_down, { desc = " Resize to Lower Window" })
+    map({ "n", "t" }, "<A-k>", require("smart-splits").resize_up, { desc = " Resize to Upper Window" })
+    map({ "n", "t" }, "<A-l>", require("smart-splits").resize_right, { desc = " Resize to Right Window" })
+
     -- Resize mode
     local submode = require("submode")
     submode.create("WinResize", {
@@ -33,6 +38,7 @@ return {
         on_leave = function()
           vim.notify("You left resize mode", vim.log.levels.INFO, { title = "Resize Mode" })
         end,
+        desc = "󰩨 Enter window resize mode",
       },
       default = function(register)
         register("h", require("smart-splits").resize_left, { desc = "❮ Resize left" })
@@ -76,6 +82,7 @@ return {
         register("<Right>", function() require("smart-splits").swap_buf_right() end, { desc = "❯ Swap buffer right and follow" })
         -- stylua: ignore end
       end,
+      desc = "󰓡 Enter window swap mode",
     })
   end,
 }

@@ -235,6 +235,7 @@ return {
     -- Lazygit
     { "<leader>lg", function() Snacks.lazygit.open() end, desc = " Open Lazygit", },
     { "<leader>ll", function() Snacks.lazygit.log() end, desc = " Lazygit log", },
+    { "<leader>lf", function() Snacks.lazygit.log_file() end, desc = " Lazygit log of current file", },
 
     -- Notificiations
     { "<leader>nd", function() Snacks.notifier.hide() end, desc = "󰎟 Clear notifications", },
@@ -286,30 +287,18 @@ return {
     { "gd", function() Snacks.picker.lsp_definitions() end, desc = " Show LSP definitions", },
     { "gi", function() Snacks.picker.lsp_implementations() end, desc = " Show LSP implementations", },
     { "gt", function() Snacks.picker.lsp_type_definitions() end, desc = " Show LSP type definitions", },
-    { "<leader>fst", function() Snacks.picker.treesitter() end, desc = " Show treesitter symbols", },
-    { "<leader>fsr", function() Snacks.picker.lsp_symbols({ layout = "right" }) end, desc = " Show document symbols in sidebar" },
-    { "<leader>fss", function() Snacks.picker.lsp_symbols() end, desc = " Show document symbols in floating picker", },
-    { "<leader>fsw", function() Snacks.picker.lsp_workspace_symbols() end, desc = " Show workspace symbols", },
+    { "gs", function() Snacks.picker.lsp_symbols({ layout = "right" }) end, desc = " Show document symbols in floating picker", },
+    { "gS", function() Snacks.picker.lsp_workspace_symbols() end, desc = " Show workspace symbols", },
 
     -- Search
     { "<leader>ff", function() Snacks.picker.files({ hidden = true }) end, desc = " Find files", },
     { "<leader>fg", function() Snacks.picker.grep() end, desc = " Grep in workspace", },
     { "<leader>fG", function() Snacks.picker.grep_buffers() end, desc = " Grep buffers" },
-    { mode = { "n", "v"}, "<leader>fw", function() Snacks.picker.grep_word() end, desc = " Grep in workspace", },
-    { "<leader>fb", function() Snacks.picker.buffers() end, desc = " List open buffers", },
-
-    -- Terminal
-    -- { mode = { "n", "t" }, "<A-t>", function() Snacks.terminal.toggle() end, desc = "󰨚 Toggle floating terminal", },
+    { mode = { "n", "v"}, "<leader>fw", function() Snacks.picker.grep_word() end, desc = " Grep Word Under Cursor" },
+    { "<leader>fb", function() Snacks.picker.buffers() end, desc = " List open buffers" },
 
     -- Git Pickers
-    { "<leader>gs", function() Snacks.picker.git_status() end, desc = " Git Status" },
-    { "<leader>gD", function() Snacks.picker.git_diff() end, desc = " Git Search Diff files" },
     { "<leader>gl", function() Snacks.picker.git_log_file() end, desc = " Git Current File History" },
-    { "<leader>gL", function() Snacks.picker.git_log() end, desc = " Git Log Repository" },
-
-    -- Lists
-    { "<leader>qf", function() Snacks.picker.qflist() end, desc = " Quickfix list" },
-    { "<leader>ql", function() Snacks.picker.loclist() end, desc = " Loclist" },
 
     -- Diagnostics
     { "<leader>fd", function() Snacks.picker.diagnostics_buffer() end, desc = " Buffer diagnostics", },
@@ -319,16 +308,14 @@ return {
     -- Pickers
     { "<leader>fl", function() Snacks.picker.lsp_config() end, desc = " Lsp Config", },
     { "<leader>fu", function() Snacks.picker.undo() end, desc = " Undo", },
-    { "<leader>fz", function() Snacks.picker.zoxide() end, desc = " Zoxide", },
     { "<leader>fh", function() Snacks.picker.help() end, desc = "󰘥 Help Pages", },
     { "<leader>fH", function() Snacks.picker.highlights() end, desc = " Highlights", },
-    { "<leader>fM", function() Snacks.picker.man() end, desc = "󰘥 Man Pages", },
-    { "<leader>fM", function() Snacks.picker.colorschemes() end, desc = " Colorscheme picker", },
+    { "<leader>fS", function() Snacks.picker.colorschemes() end, desc = " Colorscheme picker", },
     { "<leader>fi", function() Snacks.picker.icons({ icon_sources = { "nerd_fonts" } }) end, desc = "  Nerd Font Icons picker", },
     { "<leader>fm", function() Snacks.picker.marks() end, desc = " Marks" },
     { "<leader>fj", function() Snacks.picker.jumps() end, desc = "󰹹 Jumps" },
     { "<leader>fr", function() Snacks.picker.registers() end, desc = " Registers" },
-    { "<leader>fP", function() Snacks.picker.projects() end, desc = " Projects" },
+    { "<leader>fp", function() Snacks.picker.projects() end, desc = " Projects" },
     { "<leader>fc", function() Snacks.picker.command_history() end, desc = " Comandline History" },
     { "<leader>fC", function() Snacks.picker.commands() end, desc = " Commandline commands" },
   },
@@ -341,13 +328,6 @@ return {
 
     Snacks.toggle.inlay_hints():map("<leader>uh", { desc = "󰅩 Toggle Inlay Hints" })
     Snacks.toggle.diagnostics():map("<leader>ud", { desc = " Toggle Diagnostics" })
-    Snacks.toggle.line_number():map("<leader>uL", { desc = "󰨚 Toggle Line Numbers" })
-    Snacks.toggle.treesitter():map("<leader>uT", { desc = "󱘎 Toggle Treesitter" })
-    Snacks.toggle.dim():map("<leader>uD", { desc = " Toggle Dim Mode" })
-    Snacks.toggle.animate():map("<leader>ua", { desc = "󰪐 Toggle Animations" })
-    Snacks.toggle.indent():map("<leader>ui", { desc = "󰉶 Toggle Indent Guides" })
-    Snacks.toggle.scroll():map("<leader>uS", { desc = "󰹹 Toggle Smooth Scroll" })
-
     Snacks.toggle.option("spell"):map("<leader>us", { desc = "󰓆 Spell Checking" })
     Snacks.toggle.option("wrap"):map("<leader>uw", { desc = "󰖶 Word Wrap" })
     Snacks.toggle.option("relativenumber"):map("<leader>ul", { desc = "󰉻 Relative Line Numbers" })
@@ -357,7 +337,7 @@ return {
     --stylua: ignore
     Snacks.toggle.option("showtabline", { name = "󰓩 Tabline", off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2 }):map("<leader>ut")
 
-    Snacks.toggle.zoom():map("<leader>wz", { desc = " Toggle Zoom Window" })
+    Snacks.toggle.zoom():map("<C-w>z", { desc = " Toggle Zoom Window" })
     Snacks.toggle.words():map("<leader>uW", { desc = "󰺯 Toggle Word Highlighting" })
 
     Snacks.toggle({
