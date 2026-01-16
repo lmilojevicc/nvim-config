@@ -5,7 +5,6 @@ return {
   config = function()
     require("catppuccin").setup({
       compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
-      flavour = "mocha",
       transparent_background = true,
       show_end_of_buffer = false,
       term_colors = true,
@@ -96,22 +95,51 @@ return {
         lualine_theme.terminal.a = { fg = colors.teal, bg = colors.base }
         lualine_theme.visual.a = { fg = colors.mauve, bg = colors.base }
 
+        -- Noice cmdline title and icon colors
+        for name, color in pairs({
+          Lua = colors.blue,
+          Help = colors.peach,
+          Input = colors.blue,
+          Filter = colors.yellow,
+          Cmdline = colors.green,
+          Calculator = colors.red,
+        }) do
+          vim.api.nvim_set_hl(0, "NoiceCmdlineIcon" .. name, { fg = color })
+          vim.api.nvim_set_hl(0, "NoiceCmdlinePopupTitle" .. name, { fg = color })
+        end
+
         return {
           BlinkCmpMenuSelection = { bg = colors.surface0 },
-          NoiceCmdlinePopupBorder = { fg = colors.blue },
-          NoiceCmdlinePopupTitle = { fg = colors.blue },
-          NoiceCmdlineIcon = { fg = colors.blue },
+
+          NoiceCmdlinePopupBorder = { fg = colors.surface0 },
           NoiceVirtualText = { fg = colors.rosewater },
+
           SnacksInputTitle = { fg = colors.blue },
           SnacksIndentScope = { fg = colors.pink },
-          SnacksInputBorder = { fg = colors.blue },
+
+          SnacksPickerMatch = { bg = "", fg = colors.peach },
+          SnacksPickerTitle = { fg = colors.green },
+          SnacksPickerListTitle = { fg = colors.red },
+          SnacksPickerInputTitle = { fg = colors.blue },
+          SnacksPickerInputSearch = { fg = colors.blue },
+          SnacksPickerToggle = { fg = colors.blue },
+          SnacksPickerPrompt = { fg = colors.blue },
+          SnacksPickerListCursorLine = { bg = "" },
+
+          SnacksPickerBorder = { fg = colors.surface0 },
+          SnacksInputBorder = { fg = colors.surface0 },
           SnacksInputIcon = { fg = colors.blue },
+
           AvanteSidebarWinSeparator = { bg = "", fg = colors.crust },
           AvanteTitle = { fg = colors.base, bg = colors.lavender },
           AvanteSubtitle = { fg = colors.base, bg = colors.peach },
           AvanteThirdTitle = { fg = colors.base, bg = colors.blue },
+
           BufferlineIndicatorSelected = { fg = colors.peach },
           BufferlineSeparator = { fg = colors.surface2 },
+
+          OilBorderNormal = { fg = colors.blue, bg = colors.mantle },
+          OilBorderModified = { fg = colors.yellow, bg = colors.mantle },
 
           RainbowDelimiterCyan = { fg = colors.lavender },
           RainbowDelimiterGreen = { fg = colors.pink },

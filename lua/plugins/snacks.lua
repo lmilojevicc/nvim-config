@@ -8,17 +8,102 @@ return {
   opts = {
     input = {
       enabled = true,
-      win = { relative = "cursor", width = 60, row = -3, col = 0, style = "input" },
+      win = {
+        relative = "cursor",
+        width = 60,
+        row = -3,
+        col = 0,
+        style = "input",
+      },
     },
     picker = {
-      layout = { preset = "default", cycle = true },
-      files = { hidden = true },
+      layout = {
+        preset = "telescope",
+      },
+      layouts = {
+        telescope = {
+          reverse = false,
+          layout = {
+            box = "horizontal",
+            backdrop = false,
+            height = 0.8,
+            width = 0.9,
+            border = "none",
+            {
+              box = "vertical",
+              {
+                win = "input",
+                height = 1,
+                border = "rounded",
+                title = "{title} {live} {flags}",
+                title_pos = "center",
+              },
+              { win = "list", title = " Results ", title_pos = "center", border = "rounded" },
+            },
+            {
+              win = "preview",
+              title = "{preview:Preview}",
+              width = 0.51,
+              border = "rounded",
+              title_pos = "center",
+            },
+          },
+        },
+      },
+      files = {
+        hidden = true,
+      },
       sources = {
         explorer = {
           auto_close = true,
           hidden = true,
           ignored = true,
+          layout = {
+            cycle = true,
+            preview = true, ---@diagnostic disable-line: assign-type-mismatch
+            layout = {
+              box = "horizontal",
+              position = "float",
+              height = 0.95,
+              width = 0,
+              border = "rounded",
+              {
+                box = "vertical",
+                width = 45,
+                min_width = 45,
+                { win = "input", height = 1, title = "{title} {live} {flags}", border = "single" },
+                { win = "list" },
+              },
+              { win = "preview", width = 0, border = "left" },
+            },
+          },
+          win = {
+            list = {
+              keys = {
+                ["<CR>"] = "recursive_toggle",
+                ["l"] = "confirm_nofocus",
+                ["L"] = "confirm",
+              },
+            },
+          },
           actions = {
+            -- Add preview for floating explorer
+            bufadd = function(_, item)
+              if vim.fn.bufexists(item.file) == 0 then
+                local buf = vim.api.nvim_create_buf(true, false)
+                vim.api.nvim_buf_set_name(buf, item.file)
+                vim.api.nvim_buf_call(buf, vim.cmd.edit)
+              end
+            end,
+            confirm_nofocus = function(picker, item)
+              if item.dir then
+                picker:action("confirm")
+              else
+                picker:action("bufadd")
+              end
+            end,
+
+            -- Expand empty nested dirs
             recursive_toggle = function(picker, item)
               local Actions = require("snacks.explorer.actions")
               local Tree = require("snacks.explorer.tree")
@@ -66,13 +151,6 @@ return {
               end
             end,
           },
-          win = {
-            list = {
-              keys = {
-                ["<CR>"] = "recursive_toggle",
-              },
-            },
-          },
         },
         lsp_symbols = {
           tree = true,
@@ -119,6 +197,7 @@ return {
       },
     },
     dashboard = {
+      -- enabled = false,
       preset = {
         -- stylua: ignore
         keys = {
@@ -145,8 +224,6 @@ return {
 
       sections = {
         { section = "header", padding = 1 },
-        { text = { " " .. os.date("%A, %d %B %Y"), hl = "SnacksDashboardHeader" }, padding = 1, align = "center" },
-        { icon = " ", title = "Projects", section = "projects", padding = 1 },
         {
           section = "terminal",
           icon = " ",
@@ -173,7 +250,7 @@ return {
     notifier = { enabled = true },
     bigfile = { enabled = true },
     quickfile = { enabled = true },
-    terminal = { enabled = true },
+    terminal = { enabled = false },
     image = { enabled = true },
     words = { enabled = false },
     indent = { enabled = true },
@@ -193,12 +270,6 @@ return {
         patterns = { "GitSign", "MiniDiffSign" },
       },
       refresh = 50,
-    },
-
-    styles = {
-      zen = {
-        backdrop = { transparent = true, blend = 10 },
-      },
     },
   },
 
@@ -299,11 +370,12 @@ return {
 
     -- Git Pickers
     { "<leader>gl", function() Snacks.picker.git_log_file() end, desc = " Git Current File History" },
+    { "<leader>gm", function() Snacks.picker.git_status() end, desc = " Git Find Status Files" },
 
     -- Diagnostics
     { "<leader>fd", function() Snacks.picker.diagnostics_buffer() end, desc = " Buffer diagnostics", },
     { "<leader>fD", function() Snacks.picker.diagnostics() end, desc = " Workspace diagnostics", },
-    { "<leader>fT", function() Snacks.picker.todo_comments() end, desc = " Todo Comments", },
+    { "<leader>ft", function() Snacks.picker.todo_comments() end, desc = " Todo Comments", },
 
     -- Pickers
     { "<leader>fl", function() Snacks.picker.lsp_config() end, desc = " Lsp Config", },
