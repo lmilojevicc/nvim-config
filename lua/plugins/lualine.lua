@@ -4,7 +4,7 @@ return {
     "nvim-tree/nvim-web-devicons",
     "catppuccin/nvim",
   },
-  event = "VeryLazy",
+  event = "UIEnter",
   opts = function()
     local colors = require("catppuccin.palettes").get_palette()
     local lualine_theme = require("lualine.themes.catppuccin")

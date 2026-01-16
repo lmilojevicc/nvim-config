@@ -3,6 +3,7 @@ return {
   dependencies = {
     { "folke/snacks.nvim" },
   },
+  event = "VeryLazy",
   config = function()
     ---@type opencode.Opts
     vim.g.opencode_opts = {
