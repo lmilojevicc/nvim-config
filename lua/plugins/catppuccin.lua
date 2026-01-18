@@ -138,8 +138,8 @@ return {
           BufferlineIndicatorSelected = { fg = colors.peach },
           BufferlineSeparator = { fg = colors.surface2 },
 
-          OilBorderNormal = { fg = colors.blue, bg = colors.mantle },
-          OilBorderModified = { fg = colors.yellow, bg = colors.mantle },
+          OilBorderNormal = { fg = colors.blue, bg = "NONE" },
+          OilBorderModified = { fg = colors.yellow, bg = "NONE" },
 
           RainbowDelimiterCyan = { fg = colors.lavender },
           RainbowDelimiterGreen = { fg = colors.pink },
