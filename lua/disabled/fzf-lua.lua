@@ -28,8 +28,8 @@ return {
     { "gd", function() require("fzf-lua").lsp_definitions({ jump_to_single_result = true }) end, desc = " Go to Definition", },
     { "gr", function() require("fzf-lua").lsp_references({ jump_to_single_result = true }) end, desc = " Show LSP References", },
     { "gi", function() require("fzf-lua").lsp_implementations({ jump_to_single_result = true }) end, desc = " Show LSP Implementations", },
-    { "gt", function() require("fzf-lua").lsp_typedefs() end, desc = " Show LSP type definitions", },
-    { "<leader>fs", function() require("fzf-lua").lsp_document_symbols() end, desc = " Document Symbols", },
+    { "gy", function() require("fzf-lua").lsp_typedefs() end, desc = " Show LSP type definitions", },
+    { "gs", function() require("fzf-lua").lsp_document_symbols() end, desc = " Document Symbols", },
 
     -- Diganostics
     { "<leader>dw", function() require("fzf-lua").lsp_workspace_diagnostics() end, desc = " Workspace diagnostics", },

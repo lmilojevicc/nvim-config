@@ -1,6 +1,7 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   event = { "BufReadPre" },
+  branch = "master",
 
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
@@ -18,6 +19,7 @@ return {
       "cpp",
       "diff",
       "dockerfile",
+      "ghostty",
       "git_config",
       "git_rebase",
       "gitattributes",
@@ -43,6 +45,8 @@ return {
       "query",
       "regex",
       "rust",
+      "sql",
+      "tmux",
       "toml",
       "tsx",
       "typescript",

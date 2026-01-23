@@ -12,7 +12,7 @@ vim.lsp.config("*", {
       map("n", "gD", vim.lsp.buf.declaration, { desc = " LSP Go to declaration" })
       map("n", "gr", vim.lsp.buf.references, { desc = " LSP Show references" })
       map("n", "gi", vim.lsp.buf.implementation, { desc = "  LSP Go to implementation" })
-      map("n", "gt", vim.lsp.buf.type_definition, { desc = " LSP Go to type definition" })
+      map("n", "gy", vim.lsp.buf.type_definition, { desc = " LSP Go to type definition" })
       map("n", "gs", vim.lsp.buf.document_symbol, { desc = " LSP Document symbols" })
       map("n", "gS", vim.lsp.buf.workspace_symbol, { desc = " LSP Workspace symbols" })
     end
@@ -21,7 +21,6 @@ vim.lsp.config("*", {
     map("n", "<leader>rn", vim.lsp.buf.rename, { desc = " LSP Rename" })
     map("n", "gh", vim.lsp.buf.hover, { desc = " LSP Hover" })
     map("n", "K", vim.lsp.buf.signature_help, { desc = "󰊕 LSP Signature help" })
-    map("i", "<C-k>", vim.lsp.buf.signature_help, { desc = "󰊕 LSP Signature help" })
 
     map("n", "<leader>fo", function()
       vim.lsp.buf.format({ async = true })
@@ -37,8 +36,6 @@ vim.lsp.config("*", {
         async = true,
       })
     end, { desc = "󰷉 LSP Range Formatting" })
-
-    map("n", "<leader>rs", ":LspRestart<CR>", { desc = "󰜉 Restart LSP" })
   end,
 })
 

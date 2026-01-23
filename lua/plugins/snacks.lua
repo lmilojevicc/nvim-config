@@ -357,7 +357,7 @@ return {
     { "gD", function() Snacks.picker.lsp_declarations() end, desc = " Go to declaration", },
     { "gd", function() Snacks.picker.lsp_definitions() end, desc = " Show LSP definitions", },
     { "gi", function() Snacks.picker.lsp_implementations() end, desc = " Show LSP implementations", },
-    { "gt", function() Snacks.picker.lsp_type_definitions() end, desc = " Show LSP type definitions", },
+    { "gy", function() Snacks.picker.lsp_type_definitions() end, desc = " Show LSP type definitions", },
     { "gs", function() Snacks.picker.lsp_symbols({ layout = "right" }) end, desc = " Show document symbols in floating picker", },
     { "gS", function() Snacks.picker.lsp_workspace_symbols() end, desc = " Show workspace symbols", },
 
