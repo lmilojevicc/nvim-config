@@ -4,7 +4,6 @@ return {
   dependencies = {
     "mason-org/mason.nvim",
     "mason-org/mason-lspconfig.nvim",
-    "folke/lazydev.nvim",
   },
   config = function()
     local lsp = vim.lsp.config
