@@ -137,6 +137,9 @@ return {
 
           BufferlineIndicatorSelected = { fg = colors.peach },
           BufferlineSeparator = { fg = colors.surface2 },
+          BufferlineTabSeparator = { fg = colors.surface2 },
+          BufferlineTabSeparatorSelected = { fg = colors.surface2 },
+          BufferlineTabSelected = { fg = colors.peach },
 
           OilBorderNormal = { fg = colors.blue, bg = "NONE" },
           OilBorderModified = { fg = colors.yellow, bg = "NONE" },
