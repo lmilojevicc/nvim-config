@@ -279,29 +279,6 @@ return {
     { "<leader>zm", function() Snacks.zen() end, desc = "󰾞 Toggle Zen Mode" },
     { "<leader>zr", function() Snacks.zen({ win = { width = 0.4 } }) end, desc = "󰾞 Toggle Reader Zen Mode" },
     { "<leader>zc", function() Snacks.zen({ win = { width = 0.75 } }) end, desc = "󰾞 Toggle Code Zen Mode" },
-    {
-      "<leader>zw",
-      function()
-        local input = vim.fn.input("Enter custom percentage width: ")
-        if input == "" then
-          return
-        end
-        local width
-          local percentage = tonumber(input)
-          if percentage and percentage > 0 and percentage <= 100 then
-            width = percentage / 100
-          else
-            vim.notify("Please enter a number between 1 and 100.", vim.log.levels.WARN)
-            return
-          end
-        if width then
-          Snacks.zen({ win = { width = width } })
-        else
-          vim.notify("Invalid width provided.", vim.log.levels.WARN)
-        end
-      end,
-      desc = "󰾞 Toggle Custom Size Zen Mode",
-    },
 
     -- Lazygit
     { "<leader>lg", function() Snacks.lazygit.open() end, desc = " Open Lazygit", },
@@ -343,7 +320,7 @@ return {
 
             return {
               { padded_mode, "csvCol2" },
-              { padded_key, "csvCol5" },
+              { padded_key,  "csvCol5" },
               { padded_desc, "csvCol8" },
             }
           end,
@@ -365,7 +342,7 @@ return {
     { "<leader>ff", function() Snacks.picker.files({ hidden = true }) end, desc = " Find files", },
     { "<leader>fg", function() Snacks.picker.grep() end, desc = " Grep in workspace", },
     { "<leader>fG", function() Snacks.picker.grep_buffers() end, desc = " Grep buffers" },
-    { mode = { "n", "v"}, "<leader>fw", function() Snacks.picker.grep_word() end, desc = " Grep Word Under Cursor" },
+    { mode = { "n", "v" }, "<leader>fw", function() Snacks.picker.grep_word() end, desc = " Grep Word Under Cursor" },
     { "<leader>fb", function() Snacks.picker.buffers() end, desc = " List open buffers" },
 
     -- Git Pickers

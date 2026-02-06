@@ -23,12 +23,12 @@ return {
     dependencies = { "mason-org/mason.nvim" },
     opts = {
       ensure_installed = {
+        "basedpyright",
         "bashls",
         "clangd",
         "cmake",
         "cssls",
-        "docker_compose_language_service",
-        "dockerls",
+        "docker_language_server",
         "emmet_language_server",
         "gopls",
         "html",
@@ -46,7 +46,6 @@ return {
         "vtsls",
         "yamlls",
         "zls",
-        "zuban",
       },
 
       automatic_installation = true,
@@ -59,8 +58,7 @@ return {
     event = "VeryLazy",
     opts = {
       ensure_installed = {
-        "autopep8",
-        "black",
+        "biome",
         "clang-format",
         "cmakelang",
         "cmakelint",
@@ -71,9 +69,10 @@ return {
         "gofumpt",
         "goimports",
         "goimports-reviser",
+        "golangci-lint",
         "golines",
+        "gomodifytags",
         "hadolint",
-        "isort",
         "java-debug-adapter",
         "java-test",
         "js-debug-adapter",
@@ -82,6 +81,7 @@ return {
         "shfmt",
         "sqruff",
         "stylua",
+        "yamlfmt",
       },
     },
   },

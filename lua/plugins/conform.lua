@@ -14,26 +14,21 @@ return {
         bash = { "shfmt" },
         zsh = { "shfmt" },
         sh = { "shfmt" },
-        javascript = { "prettierd", "prettier", stop_after_first = true },
-        typescript = { "prettierd", "prettier", stop_after_first = true },
-        javascriptreact = { "prettierd", "prettier", stop_after_first = true },
-        typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+        javascript = { "biome", "prettierd", "prettier", stop_after_first = true },
+        typescript = { "biome", "prettierd", "prettier", stop_after_first = true },
+        javascriptreact = { "biome", "prettierd", "prettier", stop_after_first = true },
+        typescriptreact = { "biome", "prettierd", "prettier", stop_after_first = true },
         html = { "prettierd", "prettier", stop_after_first = true },
-        css = { "prettierd", "prettier", stop_after_first = true },
-        json = { "prettierd", "prettier", stop_after_first = true },
+        css = { "biome", "prettierd", "prettier", stop_after_first = true },
+        json = { "biome", "prettierd", "prettier", stop_after_first = true },
+        graphql = { "biome", "prettierd", "prettier", stop_after_first = true },
         markdown = { "prettierd", "prettier", stop_after_first = true },
         jsx = { "prettierd", "prettier", stop_after_first = true },
         tsx = { "prettierd", "prettier", stop_after_first = true },
         sql = { "sqruff", stop_after_first = true },
-        yaml = { "prettierd", "prettier", stop_after_first = true },
+        yaml = { "yamlfmt" },
         toml = { "taplo" },
-        python = function(bufnr)
-          if require("conform").get_formatter_info("ruff_format", bufnr).available then
-            return { "ruff_fix", "ruff_organize_imports", "ruff_format" }
-          else
-            return { "isort", "black" }
-          end
-        end,
+        python = { "ruff_format", "ruff_organize_imports" },
       },
 
       format_after_save = function(bufnr)
