@@ -22,18 +22,13 @@ return {
     lsp["basedpyright"] = {
       settings = {
         basedpyright = {
-          disableOrganizeImports = true,
           analysis = {
             typeCheckingMode = "basic",
             diagnosticSeverityOverrides = {
               reportUnknownMemberType = false,
               reportMissingTypeStubs = false,
               reportUnknownArgumentType = false,
-
               reportUnusedImport = "none",
-              reportUnusedVariable = "none",
-              reportUndefinedVariable = "none",
-              reportDeprecated = "none",
             },
           },
         },

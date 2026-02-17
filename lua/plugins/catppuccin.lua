@@ -1,7 +1,7 @@
 return {
   "catppuccin/nvim",
-  name = "catppuccin",
-  priority = 1000,
+  build = ":CatppuccinCompile",
+  lazy = false,
   config = function()
     require("catppuccin").setup({
       compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
@@ -35,32 +35,6 @@ return {
       default_integrations = true,
       auto_integrations = true,
       integrations = {
-        aerial = true,
-        alpha = true,
-        blink_cmp = true,
-        beacon = true,
-        cmp = true,
-        dropbar = {
-          enabled = true,
-          color_mode = true,
-        },
-        dap = true,
-        dap_ui = true,
-        diffview = true,
-        dashboard = true,
-        flash = true,
-        dadbod_ui = true,
-        fzf = true,
-        grug_far = true,
-        gitsigns = true,
-        headlines = true,
-        illuminate = true,
-        indent_blankline = { enabled = true },
-        leap = true,
-        lsp_trouble = true,
-        mason = true,
-        markdown = true,
-        mini = true,
         native_lsp = {
           enabled = true,
           underlines = {
@@ -70,18 +44,6 @@ return {
             information = { "undercurl" },
           },
         },
-        navic = { enabled = true, custom_bg = "lualine" },
-        nvim_surround = true,
-        neotest = true,
-        neotree = true,
-        noice = true,
-        notify = true,
-        semantic_tokens = true,
-        snacks = true,
-        telescope = true,
-        treesitter = true,
-        treesitter_context = true,
-        which_key = true,
       },
 
       custom_highlights = function(colors)

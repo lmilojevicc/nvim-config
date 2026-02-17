@@ -19,6 +19,7 @@ return {
         local icons = {
           error = "",
           warn = "",
+          warning = "",
           info = "",
           hint = "",
         }
