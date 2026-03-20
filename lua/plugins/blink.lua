@@ -12,7 +12,6 @@ return {
     "ribru17/blink-cmp-spell",
     {
       "saghen/blink.compat",
-      optional = true,
       event = { "InsertEnter", "CmdlineEnter" },
       opts = {},
     },
@@ -33,7 +32,6 @@ return {
         end,
       },
       opts = {
-        history = true,
         region_check_events = "InsertEnter,CursorMoved",
         delete_check_events = "TextChanged,InsertLeave",
       },

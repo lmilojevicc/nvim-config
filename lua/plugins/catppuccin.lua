@@ -44,19 +44,37 @@ return {
             information = { "undercurl" },
           },
         },
+        lualine = {
+          all = function(colors)
+            return {
+              normal = {
+                a = { fg = colors.blue, bg = colors.base },
+                c = { bg = "NONE" },
+              },
+              insert = {
+                a = { fg = colors.lavender, bg = colors.base },
+              },
+              terminal = {
+                a = { fg = colors.teal, bg = colors.base },
+              },
+              command = {
+                a = { fg = colors.green, bg = colors.base },
+              },
+              visual = {
+                a = { fg = colors.mauve, bg = colors.base },
+              },
+              replace = {
+                a = { fg = colors.red, bg = colors.base },
+              },
+              inactive = {
+                a = { fg = colors.rosewater, bg = colors.base },
+              },
+            }
+          end,
+        },
       },
 
       custom_highlights = function(colors)
-        local lualine_theme = require("lualine.themes.catppuccin")
-        lualine_theme.normal.c.bg = "none"
-        lualine_theme.command.a = { fg = colors.green, bg = colors.base }
-        lualine_theme.normal.a = { fg = colors.blue, bg = colors.base }
-        lualine_theme.inactive.a = { fg = colors.rosewater, bg = colors.base }
-        lualine_theme.insert.a = { fg = colors.lavender, bg = colors.base }
-        lualine_theme.replace.a = { fg = colors.red, bg = colors.base }
-        lualine_theme.terminal.a = { fg = colors.teal, bg = colors.base }
-        lualine_theme.visual.a = { fg = colors.mauve, bg = colors.base }
-
         -- Noice cmdline title and icon colors
         for name, color in pairs({
           Lua = colors.blue,

@@ -6,12 +6,10 @@ return {
   },
   event = "UIEnter",
   opts = function()
-    local colors = require("catppuccin.palettes").get_palette()
-    local lualine_theme = require("lualine.themes.catppuccin")
-
+    local c = require("catppuccin.palettes").get_palette()
     return {
       options = {
-        theme = lualine_theme,
+        theme = "catppuccin-nvim",
         component_separators = "",
         section_separators = { left = "", right = "" },
         globalstatus = true,
@@ -30,7 +28,7 @@ return {
             "filetype",
             icon_only = true,
             colored = false,
-            color = { fg = colors.blue },
+            color = { fg = c.blue },
             padding = { left = 1, right = 0 },
             fmt = function(str)
               if str == "" then
@@ -49,12 +47,12 @@ return {
               unnamed = "",
             },
             padding = { right = 1, left = 0 },
-            color = { fg = colors.blue },
+            color = { fg = c.blue },
           },
           {
             "branch",
             icon = "󰘬",
-            color = { fg = colors.peach },
+            color = { fg = c.peach },
             fmt = function(str)
               if str == "" then
                 return str
@@ -128,21 +126,21 @@ return {
           {
             function() return " " .. require("dap").status() end,
             cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
-            color = { fg = colors.red },
+            color = { fg = c.red },
           },
 
           -- stylua: ignore
           {
             function() local reg = vim.fn.reg_recording() return reg ~= "" and "󰺕 " .. reg or "" end,
             cond = function() return vim.fn.reg_recording() ~= "" end,
-            color = { fg = colors.red },
+            color = { fg = c.red },
           },
         },
         lualine_x = {
           {
             require("lazy.status").updates,
             cond = require("lazy.status").has_updates,
-            color = { fg = colors.blue },
+            color = { fg = c.blue },
           },
           -- Indentation
           {
@@ -153,7 +151,7 @@ return {
                 return "TAB " .. vim.bo.tabstop
               end
             end,
-            color = { fg = colors.lavender },
+            color = { fg = c.lavender },
           },
           -- Formatter status
           {
@@ -185,7 +183,7 @@ return {
 
               return ""
             end,
-            color = { fg = colors.rosewater },
+            color = { fg = c.rosewater },
             padding = 1,
           },
           {
@@ -204,7 +202,7 @@ return {
 
               return " " .. table.concat(linters, ", ")
             end,
-            color = { fg = colors.flamingo },
+            color = { fg = c.flamingo },
             padding = 1,
           },
           {
@@ -216,7 +214,7 @@ return {
               separator = " ",
             },
             padding = 1,
-            color = { fg = colors.pink },
+            color = { fg = c.pink },
           },
         },
         lualine_y = {},
