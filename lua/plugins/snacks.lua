@@ -58,25 +58,6 @@ return {
           auto_close = true,
           hidden = true,
           ignored = true,
-          layout = {
-            cycle = true,
-            preview = true, ---@diagnostic disable-line: assign-type-mismatch
-            layout = {
-              box = "horizontal",
-              position = "float",
-              height = 0.95,
-              width = 0,
-              border = "rounded",
-              {
-                box = "vertical",
-                width = 45,
-                min_width = 45,
-                { win = "input", height = 1, title = "{title} {live} {flags}", border = "single" },
-                { win = "list" },
-              },
-              { win = "preview", width = 0, border = "left" },
-            },
-          },
           win = {
             list = {
               keys = {
@@ -335,7 +316,7 @@ return {
     { "gd", function() Snacks.picker.lsp_definitions() end, desc = " Show LSP definitions", },
     { "gi", function() Snacks.picker.lsp_implementations() end, desc = " Show LSP implementations", },
     { "gy", function() Snacks.picker.lsp_type_definitions() end, desc = " Show LSP type definitions", },
-    { "gs", function() Snacks.picker.lsp_symbols({ layout = "right" }) end, desc = " Show document symbols in floating picker", },
+    { "gs", function() Snacks.picker.lsp_symbols({ layout = "left" }) end, desc = " Show document symbols in floating picker", },
     { "gS", function() Snacks.picker.lsp_workspace_symbols() end, desc = " Show workspace symbols", },
 
     -- Search

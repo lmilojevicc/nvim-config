@@ -1,5 +1,9 @@
 return {
   "chrisgrieser/nvim-origami",
   event = "VeryLazy",
-  opts = {}, -- needed even when using default config
+  opts = {
+    foldKeymaps = {
+      setup = false,
+    },
+  },
 }

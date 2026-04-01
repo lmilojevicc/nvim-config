@@ -1,7 +1,6 @@
 return {
   "nvimtools/none-ls.nvim",
   event = { "BufReadPre", "BufNewFile" },
-  enabled = false,
   dependencies = {
     "nvimtools/none-ls-extras.nvim",
   },
@@ -10,8 +9,20 @@ return {
 
     null_ls.setup({
       sources = {
-        require("none-ls.diagnostics.eslint_d"),
+        -- eslint_d: JavaScript/TypeScript linting
+        require("none-ls.diagnostics.eslint_d").with({
+          filetypes = {
+            "javascript",
+            "javascriptreact",
+            "typescript",
+            "typescriptreact",
+            "vue",
+            "svelte",
+          },
+        }),
+        -- golangci-lint: Go linting
         null_ls.builtins.diagnostics.golangci_lint.with({
+          filetypes = { "go" },
           args = {
             "run",
             "--output.json.path",
@@ -22,9 +33,14 @@ return {
             "--disable=errcheck",
           },
         }),
-        null_ls.builtins.diagnostics.hadolint,
-        null_ls.builtins.diagnostics.sqruff,
-        null_ls.builtins.code_actions.gomodifytags,
+        -- hadolint: Dockerfile linting
+        null_ls.builtins.diagnostics.hadolint.with({
+          filetypes = { "dockerfile" },
+        }),
+        -- sqruff: SQL linting
+        null_ls.builtins.diagnostics.sqruff.with({
+          filetypes = { "sql" },
+        }),
       },
     })
   end,

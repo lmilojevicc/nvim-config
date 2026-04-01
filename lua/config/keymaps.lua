@@ -5,11 +5,6 @@ map("n", "<Esc>", ":noh<CR><Esc>", { noremap = true, silent = true })
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = " Quit All" })
 map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = " Exit terminal mode" })
 
-map("n", "<C-c>", function()
-  vim.fn.setreg("+", table.concat(vim.api.nvim_buf_get_lines(0, 0, -1, false), "\n"))
-  vim.notify("Entire file yanked to clipboard!", vim.log.levels.INFO)
-end, { desc = " Yank entire file" })
-
 -- Vim native file navigation
 map("n", "<leader>ee", ":Explore<CR>", { desc = " Open file explorer" })
 map("n", "<leader>ff", ":find ", { desc = " Find file" })
