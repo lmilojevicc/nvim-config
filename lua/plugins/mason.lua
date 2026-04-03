@@ -32,7 +32,6 @@ return {
         "emmet_language_server",
         "gopls",
         "html",
-        "jdtls",
         "jsonls",
         "lemminx",
         "lua_ls",
@@ -49,7 +48,7 @@ return {
       },
 
       automatic_installation = true,
-      automatic_enable = { exclude = { "jdtls" } },
+      automatic_enable = { exclude = { "stylua" } },
     },
   },
   {
@@ -73,8 +72,6 @@ return {
         "golines",
         "gomodifytags",
         "hadolint",
-        "java-debug-adapter",
-        "java-test",
         "js-debug-adapter",
         "prettierd",
         "shellcheck",
@@ -82,18 +79,6 @@ return {
         "sqruff",
         "stylua",
         "yamlfmt",
-      },
-    },
-  },
-  {
-    "jay-babu/mason-nvim-dap.nvim",
-    event = "VeryLazy",
-    dependencies = { "mason-org/mason.nvim" },
-    opts = {
-      automatic_installation = true,
-      ensure_installed = {
-        "javadbg",
-        "javatest",
       },
     },
   },
