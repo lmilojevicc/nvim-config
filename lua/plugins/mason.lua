@@ -4,6 +4,10 @@ return {
     event = "VeryLazy",
     cmd = { "Mason" },
     opts = {
+      registries = {
+        "lua:mason-registry.index",
+        "github:mason-org/mason-registry",
+      },
       ui = {
         border = "rounded",
         icons = {
@@ -71,8 +75,11 @@ return {
         "golangci-lint",
         "golines",
         "gomodifytags",
+        "gotests",
+        "impl",
         "hadolint",
         "js-debug-adapter",
+        "json2go",
         "prettierd",
         "shellcheck",
         "shfmt",

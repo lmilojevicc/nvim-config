@@ -29,9 +29,14 @@ return {
             "stdout",
             "--show-stats=false",
             "--issues-exit-code=1",
-            "--enable=bodyclose,gosec,exhaustruct,errname,errorlint,wrapcheck,noctx,nilnil,nilerr,prealloc,predeclared,modernize,mnd,gocritic",
-            "--disable=errcheck",
+            "--enable=bodyclose,gosec,exhaustruct,errname,errorlint,"
+              .. "wrapcheck,noctx,nilnil,nilerr,prealloc,predeclared,"
+              .. "modernize,mnd,gocritic",
+            "--disable=errcheck,unused",
           },
+        }),
+        null_ls.builtins.code_actions.gomodifytags.with({
+          filetypes = { "go" },
         }),
         -- hadolint: Dockerfile linting
         null_ls.builtins.diagnostics.hadolint.with({
