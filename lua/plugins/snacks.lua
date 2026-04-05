@@ -336,7 +336,6 @@ return {
     { "<leader>ft", function() Snacks.picker.todo_comments() end, desc = " Todo Comments", },
 
     -- Pickers
-    { "<leader>fl", function() Snacks.picker.lsp_config() end, desc = " Lsp Config", },
     { "<leader>fu", function() Snacks.picker.undo() end, desc = " Undo", },
     { "<leader>fh", function() Snacks.picker.help() end, desc = "󰘥 Help Pages", },
     { "<leader>fH", function() Snacks.picker.highlights() end, desc = " Highlights", },

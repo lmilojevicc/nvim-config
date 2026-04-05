@@ -1,31 +1,33 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  event = { "BufReadPre" },
-  branch = "master",
-
+  branch = "main",
+  event = "BufReadPre",
+  build = ":TSUpdate",
   dependencies = {
-    "nvim-treesitter/nvim-treesitter-textobjects",
+    {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      branch = "main",
+      event = "BufReadPre",
+    },
     {
       "bezhermoso/tree-sitter-ghostty",
       build = "make nvim_install",
+      event = "BufReadPre",
     },
   },
-
-  opts = {
-    ensure_installed = {
+  config = function()
+    local languages = {
       "bash",
       "c",
       "cmake",
       "cpp",
       "diff",
       "dockerfile",
-      "ghostty",
       "git_config",
       "git_rebase",
       "gitattributes",
       "gitcommit",
       "gitignore",
-      "go",
       "gomod",
       "gosum",
       "gowork",
@@ -34,7 +36,6 @@ return {
       "javascript",
       "jsdoc",
       "json",
-      "jsonc",
       "lua",
       "luadoc",
       "luap",
@@ -55,98 +56,88 @@ return {
       "xml",
       "yaml",
       "zig",
-    },
+      "zsh",
+    }
+    local ts = require("nvim-treesitter")
+    local ts_textobjects = require("nvim-treesitter-textobjects")
+    local ts_select = require("nvim-treesitter-textobjects.select")
+    local pending_installs = {}
 
-    auto_install = true,
-    highlight = {
-      enable = true,
-      additional_vim_regex_highlighting = false,
-    },
-    indent = { enable = true },
+    ts.install(languages)
 
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "<A-a>",
-        node_incremental = "<A-a>",
-        node_decremental = "<A-i>",
-      },
-    },
-
-    textobjects = {
+    ts_textobjects.setup({
       select = {
-        enable = true,
         lookahead = true,
-        keymaps = {
-          ["af"] = "@function.outer",
-          ["if"] = "@function.inner",
-          ["ac"] = "@class.outer",
-          ["ic"] = "@class.inner",
-          ["as"] = "@struct.outer",
-          ["is"] = "@struct.inner",
-          ["aa"] = "@parameter.outer",
-          ["ia"] = "@parameter.inner",
-          ["ao"] = "@conditional.outer",
-          ["io"] = "@conditional.inner",
-          ["al"] = "@loop.outer",
-          ["il"] = "@loop.inner",
-          ["ak"] = "@block.outer",
-          ["ik"] = "@block.inner",
-          ["ar"] = "@return.outer",
-          ["ir"] = "@return.inner",
-          ["ai"] = "@interface.outer",
-          ["ii"] = "@interface.inner",
+        selection_modes = {
+          ["@function.outer"] = "V",
         },
       },
+    })
 
-      move = {
-        enable = true,
-        set_jumps = true,
-        goto_next_start = {
-          ["]f"] = "@function.outer",
-          ["]c"] = "@class.outer",
-          ["]s"] = "@struct.outer",
-          ["]i"] = "@interface.outer",
-          ["]r"] = "@return.outer",
-          ["]o"] = "@conditional.outer",
-          ["]l"] = "@loop.outer",
-        },
-        goto_next_end = {
-          ["]F"] = "@function.outer",
-          ["]C"] = "@class.outer",
-          ["]S"] = "@struct.outer",
-          ["]I"] = "@interface.outer",
-          ["]R"] = "@return.outer",
-          ["]O"] = "@conditional.outer",
-          ["]L"] = "@loop.outer",
-        },
-        goto_previous_start = {
-          ["[f"] = "@function.outer",
-          ["[c"] = "@class.outer",
-          ["[s"] = "@struct.outer",
-          ["[i"] = "@interface.outer",
-          ["[r"] = "@return.outer",
-          ["[o"] = "@conditional.outer",
-          ["[l"] = "@loop.outer",
-        },
-        goto_previous_end = {
-          ["[F"] = "@function.outer",
-          ["[C"] = "@class.outer",
-          ["[S"] = "@struct.outer",
-          ["[I"] = "@interface.outer",
-          ["[R"] = "@return.outer",
-          ["[O"] = "@conditional.outer",
-          ["[L"] = "@loop.outer",
-        },
-      },
-    },
-  },
-  config = function(_, opts)
-    require("nvim-treesitter.configs").setup(opts)
+    vim.keymap.set({ "x", "o" }, "af", function()
+      ts_select.select_textobject("@function.outer", "textobjects")
+    end, { desc = "TreeSitter around function" })
 
-    vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-      callback = function()
-        vim.cmd("TSBufEnable highlight")
+    vim.keymap.set({ "x", "o" }, "if", function()
+      ts_select.select_textobject("@function.inner", "textobjects")
+    end, { desc = "TreeSitter inside function" })
+
+    local group = vim.api.nvim_create_augroup("treesitter_filetype", { clear = true })
+
+    vim.api.nvim_create_autocmd("FileType", {
+      group = group,
+      callback = function(args)
+        local buf = args.buf
+        local filetype = vim.bo[buf].filetype
+        local lang = vim.treesitter.language.get_lang(filetype) or filetype
+
+        if lang == "" then
+          return
+        end
+
+        local loaded = vim.treesitter.language.add(lang)
+        if loaded then
+          vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          pcall(vim.treesitter.start, buf, lang)
+          return
+        end
+
+        -- Parser not available, try to install if possible
+        if pending_installs[lang] then
+          return
+        end
+
+        if not vim.tbl_contains(ts.get_available(), lang) then
+          return
+        end
+
+        pending_installs[lang] = true
+        local task = ts.install(lang)
+
+        if task and task.await then
+          task:await(function(err, success)
+            pending_installs[lang] = nil
+
+            if err or not success then
+              return
+            end
+
+            vim.schedule(function()
+              if not vim.api.nvim_buf_is_valid(buf) then
+                return
+              end
+
+              local add_ok = vim.treesitter.language.add(lang)
+              if add_ok then
+                vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                vim.treesitter.stop(buf)
+                pcall(vim.treesitter.start, buf, lang)
+              end
+            end)
+          end)
+        else
+          pending_installs[lang] = nil
+        end
       end,
     })
   end,
