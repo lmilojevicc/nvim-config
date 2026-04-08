@@ -4,7 +4,7 @@ return {
     "nvim-tree/nvim-web-devicons",
     "catppuccin/nvim",
   },
-  event = "UIEnter",
+  event = "BufReadPre",
   opts = function()
     local c = require("catppuccin.palettes").get_palette()
     return {

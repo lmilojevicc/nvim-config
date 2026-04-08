@@ -24,8 +24,8 @@ return {
   {
     "mfussenegger/nvim-dap",
     dependencies = {
-      "leolUz/nvim-dap-go",
-      "mfussenegger/nvim-dap-python",
+      { "leolUz/nvim-dap-go", ft = "go" },
+      { "mfussenegger/nvim-dap-python", ft = "python" },
       { "theHamsta/nvim-dap-virtual-text", opts = {} },
     },
 

@@ -1,7 +1,7 @@
 return {
   "catppuccin/nvim",
   build = ":CatppuccinCompile",
-  lazy = false,
+  event = "UIEnter",
   config = function()
     require("catppuccin").setup({
       compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
