@@ -9,17 +9,6 @@ return {
 
     null_ls.setup({
       sources = {
-        -- eslint_d: JavaScript/TypeScript linting
-        require("none-ls.diagnostics.eslint_d").with({
-          filetypes = {
-            "javascript",
-            "javascriptreact",
-            "typescript",
-            "typescriptreact",
-            "vue",
-            "svelte",
-          },
-        }),
         -- golangci-lint: Go linting
         null_ls.builtins.diagnostics.golangci_lint.with({
           filetypes = { "go" },
@@ -29,7 +18,7 @@ return {
             "stdout",
             "--show-stats=false",
             "--issues-exit-code=1",
-            "--enable=bodyclose,gosec,exhaustruct,errname,errorlint,"
+            "--enable=bodyclose,gosec,errname,errorlint,"
               .. "wrapcheck,noctx,nilnil,nilerr,prealloc,predeclared,"
               .. "modernize,mnd,gocritic",
             "--disable=errcheck,unused",

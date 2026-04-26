@@ -234,5 +234,6 @@ return {
         },
       },
     }
+    lsp["biome"] = {}
   end,
 }

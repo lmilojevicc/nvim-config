@@ -16,6 +16,17 @@ return {
     },
   },
   config = function(_, opts)
+    local go = vim.fn.exepath("go")
+    if go ~= "" then
+      opts.commands.go = go
+
+      local result = vim.system({ go, "env", "GOROOT" }, { text = true }):wait()
+      local goroot = vim.trim(result.stdout or "")
+      if result.code == 0 and goroot ~= "" then
+        vim.env.GOROOT = goroot
+      end
+    end
+
     require("gopher").setup(opts)
 
     for _, cmd in ipairs({ "GoIfErr", "GoTagAdd", "GoTagRm", "GoTagClear" }) do
