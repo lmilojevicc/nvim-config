@@ -1,7 +1,9 @@
 return {
   "saghen/blink.cmp",
   event = { "InsertEnter", "CmdlineEnter" },
-  build = "cargo build --release",
+  build = function()
+    require("blink.cmp").build():wait(60000)
+  end,
   opts_extend = {
     "sources.completion.enabled_providers",
     "sources.compat",

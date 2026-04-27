@@ -369,6 +369,64 @@ return {
     Snacks.toggle.zoom():map("<C-w>z", { desc = " Toggle Zoom Window" })
     Snacks.toggle.words():map("<leader>uW", { desc = "󰺯 Toggle Word Highlighting" })
 
+    local function image_previews_enabled(buf)
+      return vim.b[buf].snacks_image_previews ~= false
+    end
+
+    if not Snacks.image.inline._preview_toggle_patched then
+      local inline_update = Snacks.image.inline.update
+      Snacks.image.inline.update = function(self, ...)
+        if not image_previews_enabled(self.buf) then
+          Snacks.image.placement.clean(self.buf)
+          return
+        end
+        return inline_update(self, ...)
+      end
+
+      local doc_hover = Snacks.image.doc.hover
+      Snacks.image.doc.hover = function(...)
+        if not image_previews_enabled(vim.api.nvim_get_current_buf()) then
+          Snacks.image.doc.hover_close()
+          return
+        end
+        return doc_hover(...)
+      end
+
+      Snacks.image.inline._preview_toggle_patched = true
+    end
+
+    local function refresh_image_previews(state)
+      local buf = vim.api.nvim_get_current_buf()
+      if not state then
+        Snacks.image.doc.hover_close()
+        Snacks.image.placement.clean(buf)
+        return
+      end
+
+      local langs = Snacks.image.langs()
+      local lang = vim.treesitter.language.get_lang(vim.bo[buf].filetype)
+      if lang and vim.tbl_contains(langs, lang) then
+        if vim.b[buf].snacks_image_attached then
+          vim.api.nvim_exec_autocmds("BufWinEnter", { buffer = buf })
+        else
+          Snacks.image.doc.attach(buf)
+        end
+      end
+
+      Snacks.image.doc.hover()
+    end
+
+    Snacks.toggle({
+      name = "Image Previews",
+      get = function()
+        return image_previews_enabled(vim.api.nvim_get_current_buf())
+      end,
+      set = function(state)
+        vim.b.snacks_image_previews = state
+        refresh_image_previews(state)
+      end,
+    }):map("<leader>ui", { desc = " Toggle Image Previews" })
+
     Snacks.toggle({
       name = "Auto Format (Global)",
       get = function()
