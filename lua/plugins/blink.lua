@@ -44,9 +44,6 @@ return {
   opts = {
     keymap = {
       preset = "super-tab",
-      keymap = {
-        ["K"] = { "show_signature", "hide_signature", "fallback" },
-      },
     },
     cmdline = {
       keymap = { preset = "inherit" },

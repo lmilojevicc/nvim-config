@@ -62,6 +62,7 @@ return {
     event = "VeryLazy",
     opts = {
       ensure_installed = {
+        "actionlint",
         "biome",
         "clang-format",
         "cmakelang",
@@ -72,7 +73,6 @@ return {
         "go-debug-adapter",
         "gofumpt",
         "goimports",
-        "goimports-reviser",
         "golangci-lint",
         "golines",
         "gomodifytags",

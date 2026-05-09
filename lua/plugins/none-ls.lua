@@ -35,6 +35,16 @@ return {
         null_ls.builtins.diagnostics.sqruff.with({
           filetypes = { "sql" },
         }),
+        -- actionlint: GitHub Actions linting
+        null_ls.builtins.diagnostics.actionlint.with({
+          filetypes = { "yaml", "yml" },
+          runtime_condition = function(params)
+            local path = params.bufname
+            return path:match("%.github/workflows/")
+              or path:match("%.gitea/workflows/")
+              or path:match("%.forgejo/workflows/")
+          end,
+        }),
       },
     })
   end,

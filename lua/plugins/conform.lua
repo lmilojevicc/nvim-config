@@ -10,7 +10,7 @@ return {
         c = { "clang-format" },
         cpp = { "clang-format" },
         java = { "google-java-format" },
-        go = { "gofumpt", "goimports-reviser", "golines" },
+        go = { "gofumpt", "goimports", "golines" },
         bash = { "shfmt" },
         zsh = { "shfmt" },
         sh = { "shfmt" },
